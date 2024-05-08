@@ -30,5 +30,8 @@
     "Allauth",
     "herokuapp",
     "taskflow"
-]
+],
+"[javascript]": {
+    "editor.defaultFormatter": "mblode.pretty-formatter"
+}
 }

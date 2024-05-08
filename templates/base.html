@@ -1,5 +1,9 @@
 {% load static %}
 
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,15 +57,21 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    <a class="nav-link" href="#">Page 1</a>
+                    <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'account_signup' %}">Signup</a>
+                    <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    {% block content %}
+    <main>
 
-    {% endblock %}
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
 
     <footer class="d-flex justify-content-center align-items-center">
         <span>© 2024 TaskFlow | <a href="">Privacy Policy</span></p>
