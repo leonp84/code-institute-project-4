@@ -39,6 +39,10 @@ nav {
     padding: 5px;
 }
 
+#div_id_colour label:hover {
+    box-shadow: 1px 1px 10px black;
+}
+
 .signup-container { 
     display: flex;
     justify-content: center;
@@ -70,6 +74,10 @@ label[for="id_login"] {
 #id_password_helptext {
     margin-top: 30px;
     display: block;
+}
+
+.form-select[value="0"] {
+    background-color: aquamarine;
 }
 
 footer {
