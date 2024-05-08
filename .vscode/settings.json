@@ -27,6 +27,7 @@
     "editor.defaultFormatter": "mblode.pretty-formatter"
 },
 "cSpell.words": [
+    "Allauth",
     "herokuapp",
     "taskflow"
 ]
