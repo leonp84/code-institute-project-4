@@ -24,7 +24,7 @@
    "terminal.integrated.gpuAcceleration": "canvas",
 "editor.defaultFormatter": "HookyQR.beautify",
 "[html]": {
-    "editor.defaultFormatter": "mblode.pretty-formatter"
+    "editor.defaultFormatter": "HookyQR.beautify"
 },
 "cSpell.words": [
     "Allauth",
