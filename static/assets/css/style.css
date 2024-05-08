@@ -4,6 +4,74 @@
     box-sizing: border-box;
 }
 
+body {
+    min-height: 100vh;
+    position: relative;
+}
+
+main {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+nav {
+    z-index: 10;
+}
+
+/* Customize appearance of Django Allauth account forms */
+
+.account-form {
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.account-form input {
+    padding: 5px;
+}
+
+.signup-container { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.signup {
+    width: 360px;
+}
+
+.signup label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.signup li {
+    font-size: 12px;
+    text-align: left;
+    padding: 5px 0;
+}
+
+label[for="id_password"],
+label[for="id_login"] {
+    display: none;
+}
+
+#id_password_helptext {
+    margin-top: 30px;
+    display: block;
+}
+
 footer {
     position: absolute;
     bottom: 0;
