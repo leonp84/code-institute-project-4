@@ -2,15 +2,33 @@
 
 {% block content %}
 
-<div class="p-4">
-<p>This is from index.html</p>
-<a href="{% url 'create_new_board' %}" class="btn btn-outline-primary me-2" role="button">Create a New Board</a>
-<br><br>
-{% for board in boards %}
-{{ board.title}}<br>
-{{ board.description}}<br>
-{{ board.colour}}<br>
-<br>
-{% endfor %}
+<div><h4>{{ board.title }}</h4><span><em>{{ board.description }}</em></span></div>
+<div class="board">
+    {% for item in board.board_to_column.all %}
+    <div class="column">
+        <div class="card">
+            <div class="card-header">
+                <span>Column {{ item.title }} in colour {{ item.colour }}<br>
+            </div>
+            <div class="card-body">
+                <div class="task">
+                    <h6>Task1</h6>
+                </div>    
+                <div class="task">
+                    <h6>Task2</h6>
+                </div> 
+            </div>
+          </div>
+    </div>
+    {% endfor %}
+
 </div>
+
+<span>Available Labels: </span>
+{% for item in board.board_to_label.all %}
+<span>Label {{ item.title }} in colour {{ item.colour }}<br>
+{% endfor %}
+<br><br><br><br>
+
+
 {% endblock %}

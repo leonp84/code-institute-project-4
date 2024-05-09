@@ -7,12 +7,13 @@ from .models import Board, Column, Label
 # Create your views here.
 @login_required
 def index(request):
-    boards = Board.objects.all()
-
+    board = Board.objects.all().first()
+    for item in board.board_to_column.all():
+        print(item.title)
     return render(
         request,
         'main/index.html',
-        {'boards': boards}
+        {'board': board}
         )
 
 
@@ -47,12 +48,13 @@ def create_new_board(request):
             new_label.save()
 
         # Return to index.html with new Board instance
-        boards = Board.objects.all()
-        return render(
-            request,
-            'main/index.html',
-            {'boards': boards}
-            )
+    board = Board.objects.all().first()
+
+    return render(
+        request,
+        'main/index.html',
+        {'board': board}
+        )
 
     return render(
         request,

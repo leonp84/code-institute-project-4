@@ -13,6 +13,7 @@ main {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
+    margin: 10px 40px;
 }
 
 .center {
@@ -25,6 +26,41 @@ main {
 nav {
     z-index: 10;
 }
+
+.nav-link {
+    color: white;
+}
+
+.board {
+    display: flex;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid grey;
+    border-radius: 20px;
+    height: 500px;
+}
+
+.card {
+    width: 320px;
+    margin-right: 20px;
+}
+.card-body {
+    padding: 0;
+}
+
+.task {
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid grey;
+    color: white;
+    background-color: black;
+    border-radius: 20px;
+    width: 94%;
+    height: 100px;
+}
+
+
+
 
 /* Customize appearance of Django Allauth account forms */
 
