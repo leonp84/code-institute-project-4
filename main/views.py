@@ -1,15 +1,13 @@
 from django.shortcuts import render, HttpResponse  # noqa
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm
-from .models import Board, Column
+from .models import Board, Column, Label
 
 
 # Create your views here.
 @login_required
 def index(request):
     boards = Board.objects.all()
-    print('##########')
-    # Xx.board_to_column.all().count())
 
     return render(
         request,
@@ -18,7 +16,7 @@ def index(request):
         )
 
 
-def create_edit_board(request):
+def create_new_board(request):
 
     if request.method == 'POST':
 
@@ -38,8 +36,18 @@ def create_edit_board(request):
             )
             new_column.save()
 
-        boards = Board.objects.all()
+        # Add new Labels Instance(s)
+        add_labels = request.POST.getlist('label_title')
+        for i in range(1, len(add_labels)+1):
+            new_label = Label(
+                title=add_labels[i-1],
+                colour=request.POST.get(f'label_colour-{i}'),
+                board=new_board
+            )
+            new_label.save()
 
+        # Return to index.html with new Board instance
+        boards = Board.objects.all()
         return render(
             request,
             'main/index.html',

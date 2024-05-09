@@ -4,7 +4,7 @@
 
 <div class="p-4">
 <p>This is from index.html</p>
-<a href="{% url 'create_edit_board' %}" class="btn btn-outline-primary me-2" role="button">Create a New Board</a>
+<a href="{% url 'create_new_board' %}" class="btn btn-outline-primary me-2" role="button">Create a New Board</a>
 <br><br>
 {% for board in boards %}
 {{ board.title}}<br>
