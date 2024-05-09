@@ -87,14 +87,14 @@ function extraLabel(num) {
         </div>
         <span class="mb-2">Choose a colour for Label ${num}:</span>
         <div class="mb-3">
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="0" id="black-${num}" checked>
-            <label class="btn btn-outline-secondary" for="black-${num}">Black</label>
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="0" id="label-black-${num}" checked>
+            <label class="btn btn-outline-secondary" for="label-black-${num}">Black</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="1" id="blue-${num}">
-            <label class="btn btn-outline-primary" for="blue-${num}">Blue</label>
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="1" id="label-blue-${num}">
+            <label class="btn btn-outline-primary" for="label-blue-${num}">Blue</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="2" id="green-${num}">
-            <label class="btn btn-outline-success" for="green-${num}">Green</label>
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="2" id="label-green-${num}">
+            <label class="btn btn-outline-success" for="label-green-${num}">Green</label>
 
         </div>
     </div>`

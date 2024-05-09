@@ -33,5 +33,5 @@ class Column(models.Model):
 class Label(models.Model):
     title = models.CharField(max_length=200, blank=False)
     colour = models.IntegerField(choices=COLOURS, default=0)
-    task = models.ForeignKey(Board, on_delete=models.CASCADE,
-                             related_name="board_to_label")
+    board = models.ForeignKey(Board, on_delete=models.CASCADE,
+                              related_name="board_to_label")

@@ -36,7 +36,7 @@ def create_new_board(request):
             )
             new_column.save()
 
-        # Add new Labels Instance(s)
+        # Add new Label Instance(s)
         add_labels = request.POST.getlist('label_title')
         for i in range(1, len(add_labels)+1):
             new_label = Label(
