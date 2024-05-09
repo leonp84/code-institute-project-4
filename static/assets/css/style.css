@@ -80,6 +80,24 @@ label[for="id_login"] {
     background-color: aquamarine;
 }
 
+
+.border-container {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 20px;
+    position: relative;
+}
+
+.remove-button,
+.remove-button-label {
+    position: absolute;
+    right: 11px;
+}
+
+hr {
+    border: 2px solid blue;
+}
+
 footer {
     position: absolute;
     bottom: 0;

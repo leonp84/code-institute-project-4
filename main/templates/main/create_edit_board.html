@@ -4,8 +4,8 @@
 {% block content %}
 
 <div class="p-3">
-    <h1 class="mt-3">Create a Bpard</h1>
-    <form id="student_form" method="post" enctype="multipart/form-data" style="margin-top: 2em; margin-bottom: 2em;">
+    <h1 class="mt-3">Create a Board</h1>
+    <form id="add-border-form" method="post" style="margin-top: 2em; margin-bottom: 2em;">
         <div id="div_id_title" class="mb-3">
             <label for="id_title" class="form-label requiredField">
                 Title
@@ -20,17 +20,59 @@
             <textarea name="description" cols="40" rows="5" class="textarea form-control"
                 id="id_description"></textarea>
         </div>
-        <span class="mb-2">Choose a colour:</span>
-        <div id="div_id_colour" class="mb-3">
-            <input type="radio" class="btn-check" name="colour" id="black" value="0">
-            <label class="btn btn-outline-secondary" for="black">Black</label>
 
-            <input type="radio" class="btn-check" name="colour" id="blue" value="1">
-            <label class="btn btn-outline-primary" for="blue">Blue</label>
+        <!-- Columns -->
 
-            <input type="radio" class="btn-check" name="colour" id="green" value="2">
-            <label class="btn btn-outline-success" for="green">Green</label>
+        <div class="border-container">
+            <div class="mb-3">
+                <label for="column_title" class="form-label requiredField">
+                    Column 1 Title
+                    <span class="asteriskField">*</span>
+                </label>
+                <input type="text" name="column_title" maxlength="200" class="textinput form-control" required
+                    id="column_title_1">
+            </div>
+            <span class="mb-2">Choose a colour for Column 1:</span>
+            <div class="mb-3">
+                <input type="radio" class="btn-check" name="column_colour-1" value="0" id="black-1" checked>
+                <label class="btn btn-outline-secondary" for="black-1">Black</label>
+
+                <input type="radio" class="btn-check" name="column_colour-1" value="1" id="blue-1">
+                <label class="btn btn-outline-primary" for="blue-1">Blue</label>
+
+                <input type="radio" class="btn-check" name="column_colour-1" value="2" id="green-1">
+                <label class="btn btn-outline-success" for="green-1">Green</label>
+            </div>
         </div>
+        <button type="button" id="create-new-column" class="btn btn-lg btn-primary mt-3 mb-5">Add Another
+            Column</button><br>
+
+        <!-- Labels -->
+
+        <div class="border-container">
+            <div class="mb-3">
+                <label for="label_title" class="form-label requiredField">
+                    Label 1 Title
+                    <span class="asteriskField">*</span>
+                </label>
+                <input type="text" name="label_title" maxlength="200" class="textinput form-control" required
+                    id="label_title_1">
+            </div>
+            <span class="mb-2">Choose a colour for Label 1:</span>
+            <div class="mb-3">
+                <input type="radio" class="btn-check" name="label_colour-1" value="0" id="black-1" checked>
+                <label class="btn btn-outline-secondary" for="black-1">Black</label>
+
+                <input type="radio" class="btn-check" name="label_colour-1" value="1" id="blue-1">
+                <label class="btn btn-outline-primary" for="blue-1">Blue</label>
+
+                <input type="radio" class="btn-check" name="label_colour-1" value="2" id="green-1">
+                <label class="btn btn-outline-success" for="green-1">Green</label>
+            </div>
+        </div>
+        <button type="button" id="create-new-label" class="btn btn-lg btn-primary mt-3 me-2">Add Another
+            label</button><br>
+
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-success mt-3 me-2">Add New
             Form</button>

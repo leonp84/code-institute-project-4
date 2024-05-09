@@ -13,7 +13,6 @@ class Board(models.Model):
                                related_name="boards")
     title = models.CharField(max_length=200, blank=False)
     description = models.TextField(blank=True)
-    colour = models.IntegerField(choices=COLOURS, default=0)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -22,3 +21,17 @@ class Board(models.Model):
 
     def __str__(self):
         return f"{self.title} | Owner: {self.author}"
+
+
+class Column(models.Model):
+    title = models.CharField(max_length=200, blank=False)
+    colour = models.IntegerField(choices=COLOURS, default=0)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE,
+                              related_name="board_to_column")
+
+
+class Label(models.Model):
+    title = models.CharField(max_length=200, blank=False)
+    colour = models.IntegerField(choices=COLOURS, default=0)
+    task = models.ForeignKey(Board, on_delete=models.CASCADE,
+                             related_name="board_to_label")
