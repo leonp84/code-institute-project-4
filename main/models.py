@@ -21,7 +21,7 @@ class Column(models.Model):
     title = models.CharField(max_length=200, blank=False)
     colour = models.CharField(default='white')
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
-                              related_name="board_to_column")
+                              related_name="column_to_board")
 
     def __str__(self):
         return f"{self.title} on board: {self.board}"
@@ -29,7 +29,7 @@ class Column(models.Model):
 
 class Label(models.Model):
     title = models.CharField(max_length=200, blank=False)
-    colour = models.CharField(default='white')
+    colour = models.CharField(default='light')
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
                               related_name="label_to_board")
 

@@ -93,19 +93,19 @@ function extraLabel(num) {
         </div>
         <span class="mb-2">Choose a colour for Label ${num}:</span>
         <div class="mb-3">
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="white" id="label-white-${num}" checked>
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="light" id="label-white-${num}" checked>
             <label class="btn btn-outline-light colour-selector" for="label-white-${num}">White</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="red" id="label-red-${num}">
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="danger" id="label-red-${num}">
             <label class="btn btn-outline-danger colour-selector" for="label-red-${num}">Red</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="green" id="label-green-${num}">
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="success" id="label-green-${num}">
             <label class="btn btn-outline-success colour-selector" for="label-green-${num}">Green</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="blue" id="label-blue-${num}">
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="primary" id="label-blue-${num}">
             <label class="btn btn-outline-primary colour-selector" for="label-blue-${num}">Blue</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="yellow" id="label-yellow-${num}">
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="warning" id="label-yellow-${num}">
             <label class="btn btn-outline-warning colour-selector" for="label-yellow-${num}">Yellow</label>
         </div>
     </div>`

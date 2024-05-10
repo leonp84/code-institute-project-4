@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="board">
-    {% for column in board.board_to_column.all %}
+    {% for column in board.column_to_board.all %}
     <!-- Insert Columns -->
 
     <div class="column">
@@ -15,9 +15,12 @@
         <hr class="line">
 
         <!-- Insert Tasks -->
+        {% for task in column.task_to_column.all %}
 
         <div class="task">
-            <p class="mb-2 task-title">Add clickable panels for board display in mobile view</p>
+            <div class="task-card-priority {{ task.priority }}">
+            </div>
+            <p class="mb-2 task-title">{{ task.title }}</p>
             <p class="mb-1 small">2 of 3 subtasks</p>
             <div class="progress mb-1">
                 <div class="progress-bar bg-secondary" role="progressbar" style="width: 66%" aria-valuenow="25"
@@ -26,6 +29,7 @@
             <span class="badge rounded-pill bg-success me-1">task</span>
             <span class="badge rounded-pill bg-danger">must-have</span>
         </div>
+        {% endfor %}
 
     </div>
     {% endfor %}
@@ -46,13 +50,13 @@
 
                 <div class="modal-body bg-dark bg-gradient">
                     <div class="form-floating mb-3">
-                        <input name="title" type="text" class="form-control bg-transparent text-white" id="floatingInput"
-                            placeholder="Task Title" required>
+                        <input name="title" type="text" class="form-control bg-transparent text-white"
+                            id="floatingInput" placeholder="Task Title" required>
                         <label for="floatingInput">Title</label>
                     </div>
                     <div class="form-floating">
-                        <textarea name="description" class="form-control bg-transparent text-white" placeholder="Leave a comment here"
-                            id="floatingTextarea"></textarea>
+                        <textarea name="description" class="form-control bg-transparent text-white"
+                            placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                         <label for="floatingTextarea">Description</label>
                     </div>
                     <hr>
@@ -74,6 +78,17 @@
                     <div class="d-grid gap-2 mt-2">
                         <button type="button" class="btn btn-secondary btn-sm">Add New Subtask</button>
                     </div>
+                    <hr>
+                    <!-- Labels -->
+                    <!-- <div class="btn-group bg-dark" role="group" aria-label="Basic checkbox toggle button group"> -->
+
+                    <div class="d-flex justify-content-center flex-wrap">
+                        {% for label in board.label_to_board.all %}
+                        <input name="label" type="checkbox" class="btn-check" id="{{ label.id }}">
+                        <label class="btn label-button btn-outline-{{ label.colour }}" for="{{ label.id }}">{{ label.title }}</label>
+                        {% endfor %}
+                    </div>
+                    <!-- </div> -->
                     <hr>
                     <label for="select-status" class="mb-2">Task Status</label>
                     <select name="status" id="select-status" class="form-select bg-dark text-white"
