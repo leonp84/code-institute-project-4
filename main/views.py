@@ -1,13 +1,12 @@
 from django.shortcuts import render, HttpResponse  # noqa
 from django.contrib.auth.decorators import login_required
-from .forms import CreateBoardForm
+from .forms import CreateBoardForm, CreateNewTaskForm
 from .models import Board, Column, Label
 
 
 # Create your views here.
 @login_required
 def index(request, display_board=None):
-    print('Display Board = ' + str(display_board))
     all_boards = Board.objects.all()
 
     if display_board is not None:
@@ -26,10 +25,13 @@ def index(request, display_board=None):
 
 def create_new_board(request):
 
+    current_board = Board.objects.all().first()
+    all_boards = Board.objects.all()
+
     if request.method == 'POST':
 
         user_input = CreateBoardForm(data=request.POST)
-        if user_input.is_valid:
+        if user_input.is_valid():
             new_board = user_input.save(commit=False)
             new_board.author = request.user
             new_board.save()
@@ -55,15 +57,37 @@ def create_new_board(request):
             new_label.save()
 
         # Return to index.html with new Board instance
-        board = Board.objects.all().first()
+        current_board = Board.objects.all().first()
 
         return render(
             request,
             'main/index.html',
-            {'board': board}
+            {'all_boards': all_boards,
+             'board': current_board}
             )
 
     return render(
         request,
         'main/create_new_board.html',
-    )
+        {'all_boards': all_boards,
+            'board': current_board}
+        )
+
+
+def add_new_task(request):
+    all_boards = Board.objects.all()
+    current_board = Board.objects.all().first
+
+    if request.method == 'POST':
+        queryset = CreateNewTaskForm(data=request.POST)
+        new_task = queryset.save(commit=False)
+        task_to_column = request.POST.get('status')
+        new_task.column = Column.objects.filter(id=task_to_column).first()
+        new_task.save()
+
+    return render(
+        request,
+        'main/index.html',
+        {'all_boards': all_boards,
+         'board': current_board}
+        )

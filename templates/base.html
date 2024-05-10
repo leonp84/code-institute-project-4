@@ -3,6 +3,8 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'index' as home_url %}
+{% url 'show_board' as show_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,7 +94,8 @@
                     </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link board-button-top mt-3 mt-md-0" href="#">&nbsp;&nbsp;+ Add New
+                        <a class="nav-link board-button-top mt-3 mt-md-0" data-bs-toggle="modal"
+                            data-bs-target="#add-new-task" href="#">&nbsp;&nbsp;+ Add New
                             Task&nbsp;&nbsp;</a>
                     </li>
                 </ul>
@@ -108,14 +111,18 @@
 
         <div class="side-board bg-dark d-none d-md-flex flex-column pt-5">
             {% for board in all_boards.all %}
-            <a href="{% url 'index' board.id %}" class="board-name">
+            <a href="{% url 'show_board' board.id %}" class="board-name">
                 {{ board.title }}
             </a>
             {% endfor %}
 
+            {% if not all_boards|length == 0 %}
             <div class="big-nav-bottom">
-                <a href="#" class="board-buttons mt-5 fs-6">+ New Task</a>
+                <a href="#" class="board-buttons mt-5 fs-6" data-bs-toggle="modal" data-bs-target="#add-new-task">+ New
+                    Task</a>
             </div>
+            {% endif %}
+
         </div>
 
     </main>

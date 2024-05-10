@@ -1,12 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-COLOURS = (
-    (0, 'Black'),
-    (1, 'Blue'),
-    (2, 'Green'),
-)
-
 
 class Board(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
@@ -29,9 +23,31 @@ class Column(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
                               related_name="board_to_column")
 
+    def __str__(self):
+        return f"{self.title} on board: {self.board}"
+
 
 class Label(models.Model):
     title = models.CharField(max_length=200, blank=False)
     colour = models.CharField(default='white')
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
-                              related_name="board_to_label")
+                              related_name="label_to_board")
+
+    def __str__(self):
+        return f"{self.title} on board: {self.board}"
+
+
+class Task(models.Model):
+    title = models.CharField(max_length=200, blank=False, unique=True)
+    description = models.TextField(blank=True)
+    priority = models.CharField()
+    status = models.CharField()
+    label = models.ManyToManyField('Label')
+    column = models.ForeignKey(Column, on_delete=models.CASCADE,
+                               related_name="task_to_column")
+    archived = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now_add=True)
+    completed_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title} on column: {self.column}"

@@ -10,7 +10,7 @@
         <div class="column-heading">
             <div class="circle {{ column.colour }}"></div>
             <span>{{ column.title }}</span>
-            
+
         </div>
         <hr class="line">
 
@@ -30,6 +30,67 @@
     </div>
     {% endfor %}
 
+</div>
+
+<!-- Add New Task Modal -->
+
+<div class="modal fade" id="add-new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-dark bg-gradient">
+                <h5 class="modal-title">Add New Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" action="{% url 'add_new_task' %}">
+
+                <div class="modal-body bg-dark bg-gradient">
+                    <div class="form-floating mb-3">
+                        <input name="title" type="text" class="form-control bg-transparent text-white" id="floatingInput"
+                            placeholder="Task Title" required>
+                        <label for="floatingInput">Title</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea name="description" class="form-control bg-transparent text-white" placeholder="Leave a comment here"
+                            id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea">Description</label>
+                    </div>
+                    <hr>
+                    <label for="select-status" class="mb-2">Task Priority</label>
+                    <select name="priority" id="select-status" class="form-select bg-dark text-white"
+                        aria-label="Default select example">
+                        <option value="red">High</option>
+                        <option value="yellow">Medium</option>
+                        <option value="green" selected>Low</option>
+                    </select>
+                    <hr>
+
+                    <label for="subtasks" class="mb-2">Subtasks</label>
+                    <div id="subtasks" class="input-group flex-nowrap">
+                        <span class="input-group-text bg-dark" id="addon-wrapping"></span>
+                        <input type="text" class="form-control bg-transparent text-white" placeholder="Subtask ..."
+                            aria-label="Username" aria-describedby="addon-wrapping">
+                    </div>
+                    <div class="d-grid gap-2 mt-2">
+                        <button type="button" class="btn btn-secondary btn-sm">Add New Subtask</button>
+                    </div>
+                    <hr>
+                    <label for="select-status" class="mb-2">Task Status</label>
+                    <select name="status" id="select-status" class="form-select bg-dark text-white"
+                        aria-label="Default select example">
+                        {% for column in board.board_to_column.all %}
+                        <option value="{{ column.id }}">{{ column.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="modal-footer bg-dark d-flex justify-content-center">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Add Task</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
