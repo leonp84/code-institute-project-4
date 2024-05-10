@@ -6,14 +6,21 @@ from .models import Board, Column, Label
 
 # Create your views here.
 @login_required
-def index(request):
-    board = Board.objects.all().first()
-    for item in board.board_to_column.all():
-        print(item.title)
+def index(request, display_board=None):
+    print('Display Board = ' + str(display_board))
+    all_boards = Board.objects.all()
+
+    if display_board is not None:
+        current_board = Board.objects.all().filter(pk=display_board).first()
+        print('Current Board = ' + str(current_board))
+    else:
+        current_board = Board.objects.all().first
+
     return render(
         request,
         'main/index.html',
-        {'board': board}
+        {'all_boards': all_boards,
+         'board': current_board}
         )
 
 

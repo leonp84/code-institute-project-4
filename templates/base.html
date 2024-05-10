@@ -57,14 +57,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                 <ul class="navbar-nav mb-2 ms-auto mb-md-0 me-md-2">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'create_new_board' %}">New Board</a>
                     </li>
-                    <ul class="navbar-nav mb-2 ms-auto mb-md-0 me-md-2">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'create_new_board' %}">New Board</a>
-                        </li>
 
                     <li class="nav-item dropdown d-md-none">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -110,17 +107,14 @@
         {% endblock %}
 
         <div class="side-board bg-dark d-none d-md-flex flex-column pt-5">
-            <a href="#" class="board-name">
-                Project Design Board
+            {% for board in all_boards.all %}
+            <a href="{% url 'index' board.id %}" class="board-name">
+                {{ board.title }}
             </a>
-            <a href="#" class="board-name">
-                Another Cool Board
-            </a>
-            <a href="#" class="board-name">
-                Another Cool Board name that is too long!
-            </a>
+            {% endfor %}
+
             <div class="big-nav-bottom">
-                <a href="#" class="board-buttons mt-5 fs-5">+ New Task</a>
+                <a href="#" class="board-buttons mt-5 fs-6">+ New Task</a>
             </div>
         </div>
 

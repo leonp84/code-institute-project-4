@@ -57,14 +57,20 @@ function extraCol(num) {
         <span class="mb-2">Choose a colour for Column ${num}:</span>
 
         <div class="mb-3">
-            <input type="radio" class="btn-check" name="column_colour-${num}" value="0" id="black-${num}" checked>
-            <label class="btn btn-outline-secondary" for="black-${num}">Black</label>
+            <input type="radio" class="btn-check" name="column_colour-${num}" value="white" id="white-${num}" checked>
+            <label class="btn btn-outline-light colour-selector" for="white-${num}">White</label>
 
-            <input type="radio" class="btn-check" name="column_colour-${num}" value="1" id="blue-${num}" >
-            <label class="btn btn-outline-primary" for="blue-${num}">Blue</label>
+            <input type="radio" class="btn-check" name="column_colour-${num}" value="red" id="red-${num}">
+            <label class="btn btn-outline-danger colour-selector" for="red-${num}">Red</label>
 
-            <input type="radio" class="btn-check" name="column_colour-${num}" value="2" id="green-${num}" >
-            <label class="btn btn-outline-success" for="green-${num}">Green</label>
+            <input type="radio" class="btn-check" name="column_colour-${num}" value="green" id="green-${num}">
+            <label class="btn btn-outline-success colour-selector" for="green-${num}">Green</label>
+
+            <input type="radio" class="btn-check" name="column_colour-${num}" value="blue" id="blue-${num}">
+            <label class="btn btn-outline-primary colour-selector" for="blue-${num}">Blue</label>
+
+            <input type="radio" class="btn-check" name="column_colour-${num}" value="yellow" id="yellow-${num}">
+            <label class="btn btn-outline-warning colour-selector" for="yellow-${num}">Yellow</label>
         </div>
     </div>`
 }
@@ -87,15 +93,20 @@ function extraLabel(num) {
         </div>
         <span class="mb-2">Choose a colour for Label ${num}:</span>
         <div class="mb-3">
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="0" id="label-black-${num}" checked>
-            <label class="btn btn-outline-secondary" for="label-black-${num}">Black</label>
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="white" id="label-white-${num}" checked>
+            <label class="btn btn-outline-light colour-selector" for="label-white-${num}">White</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="1" id="label-blue-${num}">
-            <label class="btn btn-outline-primary" for="label-blue-${num}">Blue</label>
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="red" id="label-red-${num}">
+            <label class="btn btn-outline-danger colour-selector" for="label-red-${num}">Red</label>
 
-            <input type="radio" class="btn-check" name="label_colour-${num}" value="2" id="label-green-${num}">
-            <label class="btn btn-outline-success" for="label-green-${num}">Green</label>
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="green" id="label-green-${num}">
+            <label class="btn btn-outline-success colour-selector" for="label-green-${num}">Green</label>
 
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="blue" id="label-blue-${num}">
+            <label class="btn btn-outline-primary colour-selector" for="label-blue-${num}">Blue</label>
+
+            <input type="radio" class="btn-check" name="label_colour-${num}" value="yellow" id="label-yellow-${num}">
+            <label class="btn btn-outline-warning colour-selector" for="label-yellow-${num}">Yellow</label>
         </div>
     </div>`
 }

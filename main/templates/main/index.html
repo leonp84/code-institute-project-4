@@ -3,13 +3,13 @@
 {% block content %}
 
 <div class="board">
-
+    {% for column in board.board_to_column.all %}
     <!-- Insert Columns -->
 
     <div class="column">
         <div class="column-heading">
-            <div class="circle"></div>
-            <span>Column Title</span>
+            <div class="circle {{ column.colour }}"></div>
+            <span>{{ column.title }}</span>
             
         </div>
         <hr class="line">
@@ -28,12 +28,8 @@
         </div>
 
     </div>
-    <div class="column">
+    {% endfor %}
 
-    </div>
-    <div class="column">
-
-    </div>
 </div>
 
 {% endblock %}

@@ -19,6 +19,11 @@ main {
     /* padding-bottom: 55px; */
 }
 
+.colour-selector {
+    padding: 5px;
+    margin: 5px 1px;
+}
+
 .side-board {
     width: 220px;
     min-height: 90vh;
@@ -27,8 +32,9 @@ main {
 }
 
 .board-name {
+    font-size: smaller;
     text-align: center;
-    padding: 10px 8px;
+    padding: 10px 6px;
     background-color: rgb(64, 64, 172);
     margin-bottom: 20px;
     width: 105%;
@@ -69,7 +75,7 @@ main {
 .big-nav-bottom {
     position: absolute;
     bottom: 84px;
-    left: 12px;
+    left: 15px;
     text-align: center;
 }
 
@@ -118,7 +124,6 @@ main {
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background-color: brown;
     margin-right: 10px;
 }
 
@@ -156,6 +161,15 @@ footer {
     width: 100vw;
     background-color: darkslateblue;
 }
+
+/* Color classes for use with the Column & Label Models */
+
+.white { background-color: white;}
+.red { background-color: red;}
+.green { background-color: green;}
+.blue { background-color: blue;}
+.yellow { background-color: yellow;}
+
 
 /* Customize appearance of Django Allauth account forms */
 
@@ -214,7 +228,7 @@ label[for="id_login"] {
 
 .border-container {
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid rgb(64, 64, 172);
     border-radius: 20px;
     position: relative;
 }
