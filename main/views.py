@@ -48,15 +48,15 @@ def create_new_board(request):
             new_label.save()
 
         # Return to index.html with new Board instance
-    board = Board.objects.all().first()
+        board = Board.objects.all().first()
+
+        return render(
+            request,
+            'main/index.html',
+            {'board': board}
+            )
 
     return render(
         request,
-        'main/index.html',
-        {'board': board}
-        )
-
-    return render(
-        request,
-        'main/create_edit_board.html',
+        'main/create_new_board.html',
     )

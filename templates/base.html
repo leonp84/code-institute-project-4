@@ -43,29 +43,62 @@
 <body>
 
     <!-- Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-secondary mb-3">
+
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center text-white" href="{% url 'index' %}">
                 <img src="{% static 'assets/images/logo.webp' %}" alt="TaskFlow Logo" width="40" height="40"
                     class="d-inline-block align-text-top">
                 <span class="fs-2 ms-2">TaskFlow</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
-                    <a class="nav-link" aria-current="page" href="{% url 'create_new_board' %}">Create Board</a>
-                    {% if not user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                    <a class="nav-link" href="{% url 'account_signup' %}">Signup</a>
-                    {% else %}
-                    <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-                    {% endif %}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 ms-auto mb-md-0 me-md-2">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <ul class="navbar-nav mb-2 ms-auto mb-md-0 me-md-2">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'create_new_board' %}">New Board</a>
+                        </li>
 
-                </div>
+                    <li class="nav-item dropdown d-md-none">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Switch Boards
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Board 1</a></li>
+                            <li><a class="dropdown-item" href="#">Board 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-md-none" href="#">Edit Current Board</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-md-none" href="{% url 'create_new_board' %}">Add New Board</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if not user.is_authenticated %}
+                        <a class="nav-link d-md-none" href="{% url 'account_login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-md-none" href="{% url 'account_signup' %}">Signup</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link board-button-top mt-3 mt-md-0" href="#">&nbsp;&nbsp;+ Add New
+                            Task&nbsp;&nbsp;</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -76,12 +109,28 @@
 
         {% endblock %}
 
+        <div class="side-board bg-dark d-none d-md-flex flex-column pt-5">
+            <a href="#" class="board-name">
+                Project Design Board
+            </a>
+            <a href="#" class="board-name">
+                Another Cool Board
+            </a>
+            <a href="#" class="board-name">
+                Another Cool Board name that is too long!
+            </a>
+            <div class="big-nav-bottom">
+                <a href="#" class="board-buttons mt-5 fs-5">+ New Task</a>
+            </div>
+        </div>
+
     </main>
 
-    <footer class="d-flex justify-content-center align-items-center">
-        <span>© 2024 TaskFlow | <a href="">Privacy Policy</span></p>
+
+    <footer>
+        <span class="p-3">Copright 2024 | TaskFlow</span>
     </footer>
-    
+
 </body>
 
 </html>

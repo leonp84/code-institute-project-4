@@ -2,33 +2,38 @@
 
 {% block content %}
 
-<div><h4>{{ board.title }}</h4><span><em>{{ board.description }}</em></span></div>
 <div class="board">
-    {% for item in board.board_to_column.all %}
+
+    <!-- Insert Columns -->
+
     <div class="column">
-        <div class="card">
-            <div class="card-header">
-                <span>Column {{ item.title }} in colour {{ item.colour }}<br>
+        <div class="column-heading">
+            <div class="circle"></div>
+            <span>Column Title</span>
+            
+        </div>
+        <hr class="line">
+
+        <!-- Insert Tasks -->
+
+        <div class="task">
+            <p class="mb-2 task-title">Add clickable panels for board display in mobile view</p>
+            <p class="mb-1 small">2 of 3 subtasks</p>
+            <div class="progress mb-1">
+                <div class="progress-bar bg-secondary" role="progressbar" style="width: 66%" aria-valuenow="25"
+                    aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="card-body">
-                <div class="task">
-                    <h6>Task1</h6>
-                </div>    
-                <div class="task">
-                    <h6>Task2</h6>
-                </div> 
-            </div>
-          </div>
+            <span class="badge rounded-pill bg-success me-1">task</span>
+            <span class="badge rounded-pill bg-danger">must-have</span>
+        </div>
+
     </div>
-    {% endfor %}
+    <div class="column">
 
+    </div>
+    <div class="column">
+
+    </div>
 </div>
-
-<span>Available Labels: </span>
-{% for item in board.board_to_label.all %}
-<span>Label {{ item.title }} in colour {{ item.colour }}<br>
-{% endfor %}
-<br><br><br><br>
-
 
 {% endblock %}
