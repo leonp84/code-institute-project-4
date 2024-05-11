@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse  # noqa
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm, CreateNewTaskForm
-from .models import Board, Column, Label, Subtask
+from .models import Board, Column, Label, Subtask, Task
 
 
 # Create your views here.
@@ -114,4 +114,39 @@ def add_new_task(request, display_board):
 
 
 def edit_task(request, task_id):
-    return HttpResponse(task_id)
+
+    task_to_edit = Task.objects.filter(id=task_id).first()
+
+    # Update Priority    
+    task_to_edit.priority = request.POST.get('priority')
+
+    # Update Status
+    task_to_column = request.POST.get('status')
+    task_to_edit.column = Column.objects.filter(id=task_to_column).first()
+    task_to_edit.save()
+
+    # Update Subtasks
+    queryset = request.POST.getlist('subtasks')
+    for subtask in task_to_edit.subtask_to_task.all():
+        if str(subtask.id) in queryset:
+            subtask.status = True
+        else:
+            subtask.status = False
+        subtask.save()
+
+    # Update Labels
+    task_to_edit.label.clear()
+    queryset = request.POST.getlist('new-label')
+    for id in queryset:
+        new_label = Label.objects.filter(id=id).first()
+        task_to_edit.label.add(new_label)
+
+    current_board = Board.objects.filter(
+        id=task_to_edit.column.board.id).first()
+    all_boards = Board.objects.all()
+    return render(
+        request,
+        'main/index.html',
+        {'all_boards': all_boards,
+         'board': current_board}
+        )

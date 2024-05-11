@@ -22,7 +22,10 @@
         <div class="task">
             <div class="task-card-priority {{ task.priority }}">
             </div>
-            <a class="mb-2 task-title" data-bs-toggle="modal" data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}</a>
+            <div class="mb-2">
+                <a class="task-title" data-bs-toggle="modal" 
+                data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}</a>
+            </div>
 
             <!-- Subtasks -->
             {% if task.total_subtasks != 0 %}
@@ -33,7 +36,6 @@
                     aria-valuemax="100"></div>
             </div>
             {% endif %}
-
             {% for label in task.label.all %}
             <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} 
                 text-{{ label.colour }} me-1">{{ label.title }}</span>
@@ -49,7 +51,7 @@
                         <h5 class="modal-title">{{ task.title }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" action="">
+                    <form method="post" action="{% url 'edit_task' task.id %}">
 
                         <div class="modal-body bg-dark bg-gradient">
                             <p>{{ task.description }}</p>
@@ -63,28 +65,26 @@
                                     <option {% if task.priority == 'red' %}selected{% endif %} value="red" style="background: red;" >High</option>
                                 </select>
                                 <hr>
-                                {% if task.subtask_to_task.all != 0 %}
+                                {% if task.subtask_to_task.all.count != 0 %}
                                 <label for="subtasks" class="mb-2">Subtasks</label>
                                     {% for subtask in task.subtask_to_task.all %}
-                                    <div id="subtask-container">
-                                        <div id="subtasks" class="input-group flex-nowrap">
-                                            <span class="input-group-text bg-dark text-white delete-subtask"
-                                                id="delete-subtask-1">X</span>
-                                            <input type="text" name="subtasks"
-                                                class="form-control bg-transparent text-white" value="{{ subtask.title }}"
-                                                aria-label="Subtask" aria-describedby="delete-subtask-1">
-                                        </div>
+                                    <div class="form-check">
+                                        <input {% if subtask.status == True %}checked{% endif %} name="subtasks" class="form-check-input" type="checkbox" value="{{ subtask.id }}" id="{{ subtask.title}}-{{ subtask.id }}">
+                                        <label class="form-check-label bg-transparent text-white {% if subtask.status == True %}strikethrough{% endif %}" for="{{ subtask.title}}-{{ subtask.id }}">
+                                            {{ subtask.title }}
+                                        </label>
                                     </div>
                                     {% endfor %}
+
                                 {% endif %}
 
                                 <!-- Labels -->
-                                <div class="d-flex justify-content-center flex-wrap" id="label-div">
+                                <div class="d-flex justify-content-center flex-wrap mt-2">
                                     {% for label in board.label_to_board.all %}
-                                    <input name="label" type="checkbox" class="btn-check" value="{{ label.id }}"
-                                        id="{{ label.id }}" {% if label in task.label.all %}checked{% endif %}>
+                                    <input name="new-label" type="checkbox" class="btn-check" value="{{ label.id }}" autocomplete="off"
+                                    id="{{ task.id }}-new-label-{{forloop.counter}}" {% if label in task.label.all %}checked{% endif %}>
                                     <label class="btn label-button btn-outline-{{ label.colour }}"
-                                        for="{{ label.id }}">{{ label.title }}</label>
+                                    for="{{ task.id }}-new-label-{{forloop.counter}}">{{ label.title }}</label>
                                     {% endfor %}
                                 </div>
                                 <hr>
@@ -92,7 +92,20 @@
                                 <select name="status" id="select-status" class="form-select bg-dark text-white"
                                     aria-label="Default select example">
                                     {% for column in board.column_to_board.all %}
-                                    <option value="{{ column.id }}">{{ column.title }}</option>
+                                    <option {% if column == task.column %}selected{% endif %} value="{{ column.id }}">
+                                        <span>{% if column.colour == 'blue' %}
+                                            &#128309;
+                                            {% elif column.colour == 'green' %}
+                                            &#128994;
+                                            {% elif column.colour == 'red' %}
+                                            &#128308;
+                                            {% elif column.colour == 'yellow' %}
+                                            &#128993;
+                                            {% else %}
+                                            &#9675; 
+                                            {% endif %}
+                                            {{ column.title }}</span>
+                                    </option>
                                     {% endfor %}
                                 </select>
                         </div>
@@ -106,9 +119,6 @@
             </div>
         </div>
         <!-- Hidden Modal to later edit task | END -->
-
-
-
         {% endfor %}
 
     </div>

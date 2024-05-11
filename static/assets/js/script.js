@@ -11,6 +11,9 @@ $(function () {
         })
     })    
 
+    $('.form-check-input').on('click', function() {
+        $(this).next().toggleClass('strikethrough')
+    })
    
     addEventListener()
 
@@ -22,6 +25,13 @@ $(function () {
         progressBars[i].setAttribute('style', `width: ${newValue}%`)
     }
 })
+
+{/* <div class="form-check">
+<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+<label class="form-check-label bg-transparent text-white" for="flexCheckDefault">
+    {{ subtask.title }}
+</label>
+</div> */}
 
 
 

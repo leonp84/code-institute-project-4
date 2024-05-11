@@ -136,6 +136,10 @@ main {
     background-color: rgb(38, 38, 38);
 }
 
+.strikethrough {
+    text-decoration: line-through;
+}
+
 .task img {
     position: absolute;
     top: -5px;
@@ -146,9 +150,15 @@ main {
     width: 95%;
     white-space: wrap;
     overflow-wrap: break-word;
-    font-weight:6800;
+    font-weight: 500;
     font-size: 16px;
     color:white;
+    text-decoration: none;
+
+}
+
+.task-title:hover {
+    color: rgb(64, 64, 172)
 }
 
 .task-card-priority {
