@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load mathfilters %}
+
 {% block content %}
 
 <div class="board">
@@ -21,13 +23,18 @@
             <div class="task-card-priority {{ task.priority }}">
             </div>
             <p class="mb-2 task-title">{{ task.title }}</p>
-            <p class="mb-1 small">2 of 3 subtasks</p>
+
+            <!-- Subtasks -->
+            {% if task.total_subtasks != 0 %}
+            <p class="mb-1 small">{{ task.subtasks_completed }} of {{ task.total_subtasks}} subtasks</p>
             <div class="progress mb-1">
-                <div class="progress-bar bg-secondary" role="progressbar" style="width: 66%" aria-valuenow="25"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="{{ task.subtasks_completed|div:task.total_subtasks|mul:100 }}" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
+            {% endif %}
+
             {% for label in task.label.all %}
-            <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} text-{{ label.colour }} me-1">{{ label.title }}</span>
+            <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} 
+                text-{{ label.colour }} me-1">{{ label.title }}</span>
             {% endfor %}
         </div>
         {% endfor %}
@@ -72,20 +79,25 @@
                     <hr>
 
                     <label for="subtasks" class="mb-2">Subtasks</label>
-                    <div id="subtasks" class="input-group flex-nowrap">
-                        <span class="input-group-text bg-dark" id="addon-wrapping"></span>
-                        <input type="text" class="form-control bg-transparent text-white" placeholder="Subtask ..."
-                            aria-label="Username" aria-describedby="addon-wrapping">
+                    <div id="subtask-container">
+                        <div id="subtasks" class="input-group flex-nowrap">
+                            <span class="input-group-text bg-dark text-white delete-subtask"
+                                id="delete-subtask-1">X</span>
+                            <input type="text" name="subtasks" class="form-control bg-transparent text-white" placeholder="Subtask ..."
+                                aria-label="Subtask" aria-describedby="delete-subtask-1">
+                        </div>
                     </div>
                     <div class="d-grid gap-2 mt-2">
-                        <button type="button" class="btn btn-secondary btn-sm">Add New Subtask</button>
+                        <button id="add-new-subtask" type="button" class="btn btn-secondary btn-sm">Add New
+                            Subtask</button>
                     </div>
                     <hr>
                     <!-- Labels -->
                     <label for="label-div" class="mb-2 d-flex justify-content-center">Available Labels</label>
                     <div class="d-flex justify-content-center flex-wrap" id="label-div">
                         {% for label in board.label_to_board.all %}
-                        <input name="label" type="checkbox" class="btn-check" value="{{ label.id }}" id="{{ label.id }}">
+                        <input name="label" type="checkbox" class="btn-check" value="{{ label.id }}"
+                            id="{{ label.id }}">
                         <label class="btn label-button btn-outline-{{ label.colour }}" 
                         for="{{ label.id }}">{{ label.title }}</label>
                         {% endfor %}

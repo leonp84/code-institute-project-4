@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse  # noqa
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm, CreateNewTaskForm
-from .models import Board, Column, Label
+from .models import Board, Column, Label, Subtask
 
 
 # Create your views here.
@@ -90,9 +90,19 @@ def add_new_task(request, display_board):
         # Add Task Column
         task_to_column = request.POST.get('status')
         new_task.column = Column.objects.filter(id=task_to_column).first()
+        new_task.save()
+
+        # Add Task Subtasks
+        subtasks = request.POST.getlist('subtasks')
+        for title in subtasks:
+            if title:
+                subtask = Subtask(
+                    title=title,
+                    task=new_task
+                )
+                subtask.save()
 
         # Add Task Labels
-        new_task.save()
         label_ids = request.POST.getlist('label')
         for id in label_ids:
             new_label = Label.objects.filter(id=id).first()

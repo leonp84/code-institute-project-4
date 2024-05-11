@@ -195,6 +195,10 @@ main {
     color: rgb(163, 163, 163);
 }
 
+.delete-subtask {
+    cursor: pointer;
+}
+
 footer {
     position: absolute;
     bottom: 0;
