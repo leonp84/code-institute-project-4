@@ -42,7 +42,7 @@ class Task(models.Model):
     description = models.TextField(blank=True)
     priority = models.CharField()
     status = models.CharField()
-    label = models.ManyToManyField('Label')
+    label = models.ManyToManyField(Label)
     column = models.ForeignKey(Column, on_delete=models.CASCADE,
                                related_name="task_to_column")
     archived = models.BooleanField(default=False)

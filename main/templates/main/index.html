@@ -26,8 +26,9 @@
                 <div class="progress-bar bg-secondary" role="progressbar" style="width: 66%" aria-valuenow="25"
                     aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <span class="badge rounded-pill bg-success me-1">task</span>
-            <span class="badge rounded-pill bg-danger">must-have</span>
+            {% for label in task.label.all %}
+            <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} text-{{ label.colour }} me-1">{{ label.title }}</span>
+            {% endfor %}
         </div>
         {% endfor %}
 
@@ -46,7 +47,7 @@
                 <h5 class="modal-title">Add New Task</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="post" action="{% url 'add_new_task' %}">
+            <form method="post" action="{% url 'add_new_task' board.id %}">
 
                 <div class="modal-body bg-dark bg-gradient">
                     <div class="form-floating mb-3">
@@ -63,9 +64,10 @@
                     <label for="select-status" class="mb-2">Task Priority</label>
                     <select name="priority" id="select-status" class="form-select bg-dark text-white"
                         aria-label="Default select example">
-                        <option value="red">High</option>
-                        <option value="yellow">Medium</option>
-                        <option value="green" selected>Low</option>
+                        <option value="None" selected>None</option>
+                        <option value="green" style="background: green;">Low</option>
+                        <option value="yellow" style="background: yellow;" class="text-dark">Medium</option>
+                        <option value="red" style="background: red;">High</option>
                     </select>
                     <hr>
 
@@ -80,20 +82,19 @@
                     </div>
                     <hr>
                     <!-- Labels -->
-                    <!-- <div class="btn-group bg-dark" role="group" aria-label="Basic checkbox toggle button group"> -->
-
-                    <div class="d-flex justify-content-center flex-wrap">
+                    <label for="label-div" class="mb-2 d-flex justify-content-center">Available Labels</label>
+                    <div class="d-flex justify-content-center flex-wrap" id="label-div">
                         {% for label in board.label_to_board.all %}
-                        <input name="label" type="checkbox" class="btn-check" id="{{ label.id }}">
-                        <label class="btn label-button btn-outline-{{ label.colour }}" for="{{ label.id }}">{{ label.title }}</label>
+                        <input name="label" type="checkbox" class="btn-check" value="{{ label.id }}" id="{{ label.id }}">
+                        <label class="btn label-button btn-outline-{{ label.colour }}" 
+                        for="{{ label.id }}">{{ label.title }}</label>
                         {% endfor %}
                     </div>
-                    <!-- </div> -->
                     <hr>
                     <label for="select-status" class="mb-2">Task Status</label>
                     <select name="status" id="select-status" class="form-select bg-dark text-white"
                         aria-label="Default select example">
-                        {% for column in board.board_to_column.all %}
+                        {% for column in board.column_to_board.all %}
                         <option value="{{ column.id }}">{{ column.title }}</option>
                         {% endfor %}
                     </select>

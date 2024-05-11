@@ -206,11 +206,12 @@ footer {
 
 /* Color classes for use with the Column & Label Models */
 
-.white { background-color: white;}
-.red { background-color: red;}
-.green { background-color: green;}
-.blue { background-color: blue;}
-.yellow { background-color: yellow;}
+.white { background-color: white; }
+.red { background-color: red; }
+.green { background-color: green; }
+.blue { background-color: blue; }
+.yellow { background-color: yellow; }
+.none { display: none; }
 
 
 /* Customize appearance of Django Allauth account forms */

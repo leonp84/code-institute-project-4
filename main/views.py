@@ -11,7 +11,9 @@ def index(request, display_board=None):
 
     if display_board is not None:
         current_board = Board.objects.all().filter(pk=display_board).first()
-        print('Current Board = ' + str(current_board))
+        # print('Current Board = ' + str(current_board))
+        # for item in current_board.label_to_board.all():
+        #     print('Current Labels = ' + str(item))
     else:
         current_board = Board.objects.all().first
 
@@ -74,16 +76,27 @@ def create_new_board(request):
         )
 
 
-def add_new_task(request):
+def add_new_task(request, display_board):
     all_boards = Board.objects.all()
-    current_board = Board.objects.all().first
+    current_board = Board.objects.all().filter(pk=display_board).first()
 
     if request.method == 'POST':
         queryset = CreateNewTaskForm(data=request.POST)
-        new_task = queryset.save(commit=False)
+        if queryset.is_valid():
+            new_task = queryset.save(commit=False)
+        else:
+            print(queryset.errors)
+
+        # Add Task Column
         task_to_column = request.POST.get('status')
         new_task.column = Column.objects.filter(id=task_to_column).first()
+
+        # Add Task Labels
         new_task.save()
+        label_ids = request.POST.getlist('label')
+        for id in label_ids:
+            new_label = Label.objects.filter(id=id).first()
+            new_task.label.add(new_label)
 
     return render(
         request,
