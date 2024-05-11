@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'assets/js/create-board.js' %}" defer="defer"></script>
+<div class="container col-md-6 mt-md-3 mb-5 pb-3">
+    <h3 class="mt-3 text-center">Edit Board</h3>
+    <form id="add-border-form" method="post" style="margin-top: 2em; margin-bottom: 2em;">
+        <div id="div_id_title" class="mb-3">
+            <label for="id_title" class="form-label requiredField">
+                Title
+                <span class="asteriskField">*</span>
+            </label>
+            <input type="text" name="title" value="{{ board.title }}" maxlength="200" class="textinput form-control" required id="id_title">
+        </div>
+        <div id="div_id_description" class="mb-3">
+            <label for="id_description" class="form-label">
+                Description
+            </label>
+            <textarea name="description" cols="40" rows="3" class="textarea form-control"
+                id="id_description">{{ board.description }}</textarea>
+        </div>
+
+        <!-- Columns -->
+        <div class="border-container">
+        {% for column in board.column_to_board.all %}
+
+            <div class="mb-3">
+                <label for="column_title" class="form-label requiredField">
+                    Column {{forloop.counter}} Title
+                    <span class="asteriskField">*</span>
+                </label>
+                <input type="text" name="column_title" maxlength="200" class="textinput form-control" required
+                    id="column_title_{{forloop.counter}}" value="{{ column.title }} | {{ column.colour }}">
+            </div>
+            <span class="mb-2">Choose a colour for Column {{forloop.counter}}:</span>
+            <div class="mb-3">
+                <input {% if column.colour == 'white' %}checked{% endif %} type="radio" class="btn-check" name="column_colour-{{forloop.counter}}" value="white" id="white-{{forloop.counter}}">
+                <label class="btn btn-outline-light colour-selector" for="white-{{forloop.counter}}">White</label>
+
+                <input {% if column.colour == 'red' %}checked{% endif %} type="radio" class="btn-check" name="column_colour-{{forloop.counter}}" value="red" id="red-{{forloop.counter}}">
+                <label class="btn btn-outline-danger colour-selector" for="red-{{forloop.counter}}">Red</label>
+
+                <input {% if column.colour == 'green' %}checked{% endif %} type="radio" class="btn-check" name="column_colour-{{forloop.counter}}" value="green" id="green-{{forloop.counter}}">
+                <label class="btn btn-outline-success colour-selector" for="green-{{forloop.counter}}">Green</label>
+                
+                <input {% if column.colour == 'blue' %}checked{% endif %} type="radio" class="btn-check" name="column_colour-{{forloop.counter}}" value="blue" id="blue-{{forloop.counter}}">
+                <label class="btn btn-outline-primary colour-selector" for="blue-{{forloop.counter}}">Blue</label>
+
+                <input {% if column.colour == 'yellow' %}checked{% endif %} type="radio" class="btn-check" name="column_colour-{{forloop.counter}}" value="yellow" id="yellow-{{forloop.counter}}">
+                <label class="btn btn-outline-warning colour-selector" for="yellow-{{forloop.counter}}">Yellow</label>
+            </div>
+            {% if forloop.counter != board.column_to_board.all.count %}
+            <hr style="border: 3px solid yellow;">
+            {% endif %}
+            {% endfor %}
+
+        </div>
+
+        <button type="button" id="create-new-column" class="btn btn-primary mt-3 mb-5">Add
+            Column</button>
+        <!-- Labels -->
+        
+        <div class="border-container">
+            {% for label in board.label_to_board.all %}
+            <div class="mb-3">
+                <label for="label_title" class="form-label requiredField">
+                    Label {{forloop.counter}} Title
+                    <span class="asteriskField">*</span>
+                </label>
+                <input type="text" name="label_title" maxlength="200" class="textinput form-control" required
+                    id="label_title_{{forloop.counter}}" value="{{ label.title }}">
+            </div>
+            <span class="mb-2">Choose a colour for Label {{forloop.counter}}:</span>
+            <div class="mb-3">
+                <input {% if label.colour == 'light' %}checked{% endif %} type="radio" class="btn-check" name="label_colour-{{forloop.counter}}" value="light" id="label-white-{{forloop.counter}}">
+                <label class="btn btn-outline-light colour-selector" for="label-white-{{forloop.counter}}">White</label>
+
+                <input {% if label.colour == 'danger' %}checked{% endif %} type="radio" class="btn-check" name="label_colour-{{forloop.counter}}" value="danger" id="label-red-{{forloop.counter}}">
+                <label class="btn btn-outline-danger colour-selector" for="label-red-{{forloop.counter}}">Red</label>
+
+                <input {% if label.colour == 'success' %}checked{% endif %} type="radio" class="btn-check" name="label_colour-{{forloop.counter}}" value="success" id="label-green-{{forloop.counter}}">
+                <label class="btn btn-outline-success colour-selector" for="label-green-{{forloop.counter}}">Green</label>
+                
+                <input {% if label.colour == 'primary' %}checked{% endif %} type="radio" class="btn-check" name="label_colour-{{forloop.counter}}" value="primary" id="label-blue-{{forloop.counter}}">
+                <label class="btn btn-outline-primary colour-selector" for="label-blue-{{forloop.counter}}">Blue</label>
+
+                <input {% if label.colour == 'warning' %}checked{% endif %} type="radio" class="btn-check" name="label_colour-{{forloop.counter}}" value="warning" id="label-yellow-{{forloop.counter}}">
+                <label class="btn btn-outline-warning colour-selector" for="label-yellow-{{forloop.counter}}">Yellow</label>
+            </div>
+            {% if forloop.counter != board.label_to_board.all.count %}
+            <hr style="border: 3px solid yellow;">
+            {% endif %}
+
+        {% endfor %}
+
+        </div>
+
+        <button type="button" id="create-new-label" class="btn btn-primary mt-3 mb-5 small">Add Label</button>
+        <br>
+
+
+        {% csrf_token %}
+        <button type="submit" class="btn btn-lg btn-success mt-3 me-2">Edit Board</button>
+    </form>
+    <script src=""></script>
+</div>
+
+{% endblock %}
+
+
+

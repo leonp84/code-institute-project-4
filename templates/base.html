@@ -3,8 +3,6 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
-{% url 'index' as home_url %}
-{% url 'show_board' as show_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,7 +74,7 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link d-md-none" href="#">Edit Current Board</a>
+                        <a class="nav-link" href="{% url 'edit_board' board.id %}">Edit Current Board</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link d-md-none" href="{% url 'create_new_board' %}">Add New Board</a>

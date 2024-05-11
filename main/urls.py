@@ -9,5 +9,7 @@ urlpatterns = [
     path('add-task/<int:display_board>', views.add_new_task,
          name='add_new_task'),
     path('edit-task/<int:task_id>', views.edit_task,
-         name='edit_task')
+         name='edit_task'),
+    path('edit-board/<int:board_id>', views.edit_board,
+         name='edit_board')
 ]

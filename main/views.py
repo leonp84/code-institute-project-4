@@ -73,6 +73,19 @@ def create_new_board(request):
         )
 
 
+def edit_board(request, board_id):
+
+    current_board = Board.objects.filter(id=board_id).first()
+    all_boards = Board.objects.all()
+
+    return render(
+        request,
+        'main/edit_board.html',
+        {'all_boards': all_boards,
+         'board': current_board}
+        )
+
+
 def add_new_task(request, display_board):
     all_boards = Board.objects.all()
     current_board = Board.objects.all().filter(pk=display_board).first()
@@ -117,10 +130,10 @@ def edit_task(request, task_id):
 
     task_to_edit = Task.objects.filter(id=task_id).first()
 
-    # Update Priority    
+    # Update Priority
     task_to_edit.priority = request.POST.get('priority')
 
-    # Update Status
+    # Update Status (Column)
     task_to_column = request.POST.get('status')
     task_to_edit.column = Column.objects.filter(id=task_to_column).first()
     task_to_edit.save()
@@ -144,6 +157,7 @@ def edit_task(request, task_id):
     current_board = Board.objects.filter(
         id=task_to_edit.column.board.id).first()
     all_boards = Board.objects.all()
+    
     return render(
         request,
         'main/index.html',
