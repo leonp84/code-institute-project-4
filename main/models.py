@@ -14,7 +14,7 @@ class Board(models.Model):
         ordering = ["created_on"]
 
     def __str__(self):
-        return f"*{self.title}* BY USER: {self.author}"
+        return self.title
 
 
 class Column(models.Model):

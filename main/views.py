@@ -11,9 +11,6 @@ def index(request, display_board=None):
 
     if display_board is not None:
         current_board = Board.objects.all().filter(pk=display_board).first()
-        # print('Current Board = ' + str(current_board))
-        # for item in current_board.label_to_board.all():
-        #     print('Current Labels = ' + str(item))
     else:
         current_board = Board.objects.all().first
 
@@ -114,3 +111,7 @@ def add_new_task(request, display_board):
         {'all_boards': all_boards,
          'board': current_board}
         )
+
+
+def edit_task(request, task_id):
+    return HttpResponse(task_id)

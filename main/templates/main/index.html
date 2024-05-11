@@ -22,13 +22,15 @@
         <div class="task">
             <div class="task-card-priority {{ task.priority }}">
             </div>
-            <p class="mb-2 task-title">{{ task.title }}</p>
+            <a class="mb-2 task-title" data-bs-toggle="modal" data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}</a>
 
             <!-- Subtasks -->
             {% if task.total_subtasks != 0 %}
             <p class="mb-1 small">{{ task.subtasks_completed }} of {{ task.total_subtasks}} subtasks</p>
             <div class="progress mb-1">
-                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="{{ task.subtasks_completed|div:task.total_subtasks|mul:100 }}" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-secondary" role="progressbar"
+                    aria-valuenow="{{ task.subtasks_completed|div:task.total_subtasks|mul:100 }}" aria-valuemin="0"
+                    aria-valuemax="100"></div>
             </div>
             {% endif %}
 
@@ -37,6 +39,76 @@
                 text-{{ label.colour }} me-1">{{ label.title }}</span>
             {% endfor %}
         </div>
+
+        <!-- Hidden Modal to later edit task | START -->
+        <div class="modal fade" id="edit-task-{{ task.id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-dark bg-gradient">
+                        <h5 class="modal-title">{{ task.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="">
+
+                        <div class="modal-body bg-dark bg-gradient">
+                            <p>{{ task.description }}</p>
+                                <hr>
+                                <label for="select-status" class="mb-2">Task Priority</label>
+                                <select name="priority" id="select-status" class="form-select bg-dark text-white"
+                                    aria-label="Default select example">
+                                    <option {% if task.priority == 'none' %}selected{% endif %} value="None">None</option>
+                                    <option {% if task.priority == 'green' %}selected{% endif %} value="green" style="background: green;">Low</option>
+                                    <option {% if task.priority == 'yellow' %}selected{% endif %} value="yellow" style="background: yellow;" class="text-dark">Medium</option>
+                                    <option {% if task.priority == 'red' %}selected{% endif %} value="red" style="background: red;" >High</option>
+                                </select>
+                                <hr>
+                                {% if task.subtask_to_task.all != 0 %}
+                                <label for="subtasks" class="mb-2">Subtasks</label>
+                                    {% for subtask in task.subtask_to_task.all %}
+                                    <div id="subtask-container">
+                                        <div id="subtasks" class="input-group flex-nowrap">
+                                            <span class="input-group-text bg-dark text-white delete-subtask"
+                                                id="delete-subtask-1">X</span>
+                                            <input type="text" name="subtasks"
+                                                class="form-control bg-transparent text-white" value="{{ subtask.title }}"
+                                                aria-label="Subtask" aria-describedby="delete-subtask-1">
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+
+                                <!-- Labels -->
+                                <div class="d-flex justify-content-center flex-wrap" id="label-div">
+                                    {% for label in board.label_to_board.all %}
+                                    <input name="label" type="checkbox" class="btn-check" value="{{ label.id }}"
+                                        id="{{ label.id }}" {% if label in task.label.all %}checked{% endif %}>
+                                    <label class="btn label-button btn-outline-{{ label.colour }}"
+                                        for="{{ label.id }}">{{ label.title }}</label>
+                                    {% endfor %}
+                                </div>
+                                <hr>
+                                <label for="select-status" class="mb-2">Update Task Status</label>
+                                <select name="status" id="select-status" class="form-select bg-dark text-white"
+                                    aria-label="Default select example">
+                                    {% for column in board.column_to_board.all %}
+                                    <option value="{{ column.id }}">{{ column.title }}</option>
+                                    {% endfor %}
+                                </select>
+                        </div>
+                        <div class="modal-footer bg-dark d-flex justify-content-center">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Edit Task</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Hidden Modal to later edit task | END -->
+
+
+
         {% endfor %}
 
     </div>
@@ -83,8 +155,8 @@
                         <div id="subtasks" class="input-group flex-nowrap">
                             <span class="input-group-text bg-dark text-white delete-subtask"
                                 id="delete-subtask-1">X</span>
-                            <input type="text" name="subtasks" class="form-control bg-transparent text-white" placeholder="Subtask ..."
-                                aria-label="Subtask" aria-describedby="delete-subtask-1">
+                            <input type="text" name="subtasks" class="form-control bg-transparent text-white"
+                                placeholder="Subtask ..." aria-label="Subtask" aria-describedby="delete-subtask-1">
                         </div>
                     </div>
                     <div class="d-grid gap-2 mt-2">
@@ -98,8 +170,7 @@
                         {% for label in board.label_to_board.all %}
                         <input name="label" type="checkbox" class="btn-check" value="{{ label.id }}"
                             id="{{ label.id }}">
-                        <label class="btn label-button btn-outline-{{ label.colour }}" 
-                        for="{{ label.id }}">{{ label.title }}</label>
+                        <label class="btn label-button btn-outline-{{ label.colour }}" for="{{ label.id }}">{{ label.title }}</label>
                         {% endfor %}
                     </div>
                     <hr>
