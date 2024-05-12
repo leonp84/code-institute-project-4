@@ -1,12 +1,5 @@
 $(function () {
 
-    // Theme Toggle Function
-    $('.bg-dark').addClass('theme-switch')
-    $('#toggle-theme').on('click', function() {
-        $('body').toggleClass('dark')
-        $('.theme-switch').toggleClass('bg-dark');
-    })
-
     colCounter = 2
 
     $('#create-new-column').on('click', function () {

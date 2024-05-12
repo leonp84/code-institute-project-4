@@ -15,18 +15,17 @@ $(function () {
         $(this).next().toggleClass('strikethrough')
     })
 
-    // Update Modal box if archived tasks modal is empty on index.html
-    if (window.location.href.indexOf('index.html') > -1) {
-        if ($('#archived-tasks').find('.modal-body').html().replace(/\s/g,'') == '') {
-            $('#archived-tasks').find('.modal-body').html('<p class="mt-2">You have no Archived Tasks.</p>')
-        }
-    }
-
     // Theme Toggle Function
-    $('.bg-dark').addClass('theme-switch')
     $('#toggle-theme').on('click', function() {
         $('body').toggleClass('dark')
         $('.theme-switch').toggleClass('bg-dark');
+        if ($('html').attr('data-bs-theme') == 'light') {
+            $('html').attr('data-bs-theme', 'dark')
+        } else {
+            $('html').attr('data-bs-theme', 'light')
+        }
+        $('#logo-light').toggle()
+        $('#logo-dark').toggle()
     })
 
     addEventListener()
@@ -44,8 +43,8 @@ $(function () {
 function extraTask(num) {
     return `
     <div id="subtasks" class="input-group flex-nowrap">
-        <span class="input-group-text bg-dark text-white delete-subtask" id="delete-subtask-{{ num }}">X</span>
-        <input type="text" name="subtasks" class="form-control bg-transparent text-white" placeholder="Subtask ..."
+        <span class="input-group-text delete-subtask" id="delete-subtask-{{ num }}">X</span>
+        <input type="text" name="subtasks" class="form-control" placeholder="Subtask ..."
             aria-label="Subtask" aria-describedby="delete-subtask-{{ num }}">
     </div>
     `

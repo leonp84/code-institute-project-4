@@ -7,6 +7,7 @@ class Board(models.Model):
                                related_name="boards")
     title = models.CharField(max_length=200, blank=False, unique=True)
     description = models.TextField(blank=True)
+    has_archived_tasks = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

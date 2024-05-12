@@ -53,7 +53,7 @@
             </div>
             <span class="column-counter hidden">{{ forloop.counter}}</span>
             {% if forloop.counter != board.column_to_board.all.count %}
-            <hr style="border: 3px solid yellow;">
+            <hr style="border: 3px solid var(--project-blue);">
             {% endif %}
             {% endfor %}
 
@@ -110,7 +110,6 @@
         {% csrf_token %}
         <button type="submit" class="btn btn-lg btn-success mt-3 me-2">Edit Board</button>
     </form>
-    <script src=""></script>
 </div>
 
 {% endblock %}

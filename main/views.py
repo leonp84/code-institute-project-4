@@ -244,6 +244,8 @@ def archive_task(request, task_id=None):
 
     current_board = Board.objects.filter(
         id=task_to_archive.column.board.id).first()
+    current_board.has_archived_tasks = True
+    current_board.save()
     all_boards = Board.objects.all()
 
     return render(

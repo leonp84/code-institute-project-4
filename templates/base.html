@@ -5,7 +5,7 @@
 {% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
-<html lang="en-gb">
+<html lang="en-gb" data-bs-theme="light">
 
 <head>
 
@@ -36,7 +36,7 @@
     <!-- Project CSS -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
 
-    <title>TaskFlow - Kanban Simplified</title>
+    <title>TaskFlow</title>
 
 </head>
 
@@ -44,13 +44,18 @@
 
     <!-- Bootstrap Navbar -->
 
-    <nav class="navbar navbar-dark navbar-expand-md bg-dark">
+    <nav class="navbar navbar-expand-md theme-switch">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
-                <img src="{% static 'assets/images/logo.webp' %}" alt="TaskFlow Logo" width="40" height="40"
-                    class="d-inline-block align-text-top">
-                <span class="fs-2 ms-2">TaskFlow</span>
+            <div id="logo-light">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="TaskFlow Logo" height="40" >
+                </a>
+            </div>
+            <div id="logo-dark" style="display: none">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}" id="logo-dark">
+                <img src="{% static 'assets/images/logo-dark.png' %}" alt="TaskFlow Logo" height="40">
             </a>
+            </div>
             <div class="ms-3 d-none d-md-block">
                 <span><strong>{{ board.title }}</strong></span><br>
                 <span class="small"><em>{{ board.description }}</em></span>
@@ -83,10 +88,12 @@
                     <li class="nav-item">
                         <a class="nav-link d-md-none" href="{% url 'create_new_board' %}">Add New Board</a>
                     </li>
+                    {% if board.has_archived_tasks == True %}
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#archived-tasks" href="#">See
-                            Archived Tasks</a>
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#archived-tasks" 
+                        href="#">See Archived Tasks</a>
                     </li>
+                    {% endif %}
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link d-md-none" href="{% url 'account_login' %}">Login</a>
@@ -110,7 +117,7 @@
 
         {% endblock %}
 
-        <div class="side-board bg-dark d-none d-md-flex flex-column pt-4">
+        <div class="side-board theme-switch d-none d-md-flex flex-column pt-4">
             <div class="d-flex justify-content-center flex-column align-items-center mb-4">
                 <div class="form-check form-switch d-flex justify-content-center">
                     <input id="toggle-theme" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
