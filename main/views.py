@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse  # noqa
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm, CreateNewTaskForm
 from .models import Board, Column, Label, Subtask, Task
@@ -73,19 +73,6 @@ def create_new_board(request):
         )
 
 
-def edit_board(request, board_id):
-
-    current_board = Board.objects.filter(id=board_id).first()
-    all_boards = Board.objects.all()
-
-    return render(
-        request,
-        'main/edit_board.html',
-        {'all_boards': all_boards,
-         'board': current_board}
-        )
-
-
 def add_new_task(request, display_board):
     all_boards = Board.objects.all()
     current_board = Board.objects.all().filter(pk=display_board).first()
@@ -157,10 +144,84 @@ def edit_task(request, task_id):
     current_board = Board.objects.filter(
         id=task_to_edit.column.board.id).first()
     all_boards = Board.objects.all()
-    
+
     return render(
         request,
         'main/index.html',
+        {'all_boards': all_boards,
+         'board': current_board}
+        )
+
+
+def edit_board(request, board_id):
+
+    all_boards = Board.objects.all()
+    current_board = Board.objects.filter(id=board_id).first()
+
+    if request.method == 'POST':
+        # Update Board Title & Description
+        current_board.title = request.POST.get('title')
+        current_board.description = request.POST.get('description')
+        current_board.save()
+
+        # Update Column Titles & Colours
+        new_column_names = request.POST.getlist('column_title')
+        update_columns = request.POST.getlist('column-id')
+
+        for i in range(len(new_column_names)):
+            # Update Existing Column (Current column.id = present)
+            if i < len(update_columns):
+
+                current_column = Column.objects.filter(
+                    id=update_columns[i]).first()
+                current_column.title = new_column_names[i]
+                current_column.colour = request.POST.get(
+                    f'column_colour-{i+1}')
+                current_column.save()
+            # Create New Column (Since no current column.id present)
+            else:
+                new_column = Column(
+                    title=new_column_names[i],
+                    colour=request.POST.get(f'column_colour-{i+1}'),
+                    board=current_board
+                )
+                new_column.save()
+
+        # Update Label Titles & Colours
+        new_label_names = request.POST.getlist('label_title')
+        update_labels = request.POST.getlist('label-id')
+
+        for i in range(len(new_label_names)):
+            # Update Existing label (Current label.id = present)
+            if i < len(update_labels):
+
+                current_label = Label.objects.filter(
+                    id=update_labels[i]).first()
+                current_label.title = new_label_names[i]
+                current_label.colour = request.POST.get(
+                    f'label_colour-{i+1}')
+                current_label.save()
+            # Create New label (Since no current label.id present)
+            else:
+                new_label = Label(
+                    title=new_label_names[i],
+                    colour=request.POST.get(f'label_colour-{i+1}'),
+                    board=current_board
+                )
+                new_label.save()
+
+        all_boards = Board.objects.all()
+
+        return render(
+            request,
+            'main/edit_board.html',
+            {'all_boards': all_boards,
+             'board': current_board}
+            )
+
+    return render(
+        request,
+        'main/edit_board.html',
         {'all_boards': all_boards,
          'board': current_board}
         )
