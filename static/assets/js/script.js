@@ -16,8 +16,8 @@ $(function () {
     })
    
     // Update Modal box if archived tasks modal is empty
-    console.log($('#archived-tasks').find('.modal-body').html())
-    if ($('#archived-tasks').find('.modal-body').val().trim() == "") {
+    console.log($('#archived-tasks').find('.modal-body').html().replace(/\s/g,''))
+    if ($('#archived-tasks').find('.modal-body').html().replace(/\s/g,'') == '') {
         $('#archived-tasks').find('.modal-body').html('<p class="mt-2">You have no Archived Tasks.</p>')
     }
 

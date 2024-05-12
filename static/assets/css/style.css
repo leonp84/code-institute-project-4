@@ -196,6 +196,10 @@ main {
     position: relative
 }
 
+.modal-content {
+    white-space: wrap;
+}
+
 .task-completed-check-modal { 
     width: 60px;
     height: 60px;

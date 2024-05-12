@@ -13,5 +13,7 @@ urlpatterns = [
     path('edit-board/<int:board_id>', views.edit_board,
          name='edit_board'),
     path('archive_task/<int:task_id>', views.archive_task,
-         name='archive_task')
+         name='archive_task'),
+    path('delete_task/<int:task_id>', views.delete_task,
+         name='delete_task')
 ]

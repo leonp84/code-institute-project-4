@@ -12,7 +12,7 @@ def index(request, display_board=None):
     if display_board is not None:
         current_board = Board.objects.all().filter(pk=display_board).first()
     else:
-        current_board = Board.objects.all().first
+        current_board = Board.objects.all().first()
 
     return render(
         request,
@@ -244,6 +244,25 @@ def archive_task(request, task_id):
 
     current_board = Board.objects.filter(
         id=task_to_archive.column.board.id).first()
+    all_boards = Board.objects.all()
+
+    return render(
+        request,
+        'main/index.html',
+        {'all_boards': all_boards,
+         'board': current_board}
+        )
+
+
+def delete_task(request, task_id):
+
+    task_to_delete = Task.objects.filter(id=task_id).first()
+
+    current_board = Board.objects.filter(
+        id=task_to_delete.column.board.id).first()
+
+    task_to_delete.delete()
+
     all_boards = Board.objects.all()
 
     return render(
