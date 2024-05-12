@@ -14,12 +14,20 @@ $(function () {
     $('.form-check-input').on('click', function() {
         $(this).next().toggleClass('strikethrough')
     })
-   
-    // Update Modal box if archived tasks modal is empty
-    console.log($('#archived-tasks').find('.modal-body').html().replace(/\s/g,''))
-    if ($('#archived-tasks').find('.modal-body').html().replace(/\s/g,'') == '') {
-        $('#archived-tasks').find('.modal-body').html('<p class="mt-2">You have no Archived Tasks.</p>')
+
+    // Update Modal box if archived tasks modal is empty on index.html
+    if (window.location.href.indexOf('index.html') > -1) {
+        if ($('#archived-tasks').find('.modal-body').html().replace(/\s/g,'') == '') {
+            $('#archived-tasks').find('.modal-body').html('<p class="mt-2">You have no Archived Tasks.</p>')
+        }
     }
+
+    // Theme Toggle Function
+    $('.bg-dark').addClass('theme-switch')
+    $('#toggle-theme').on('click', function() {
+        $('body').toggleClass('dark')
+        $('.theme-switch').toggleClass('bg-dark');
+    })
 
     addEventListener()
 
@@ -31,14 +39,6 @@ $(function () {
         progressBars[i].setAttribute('style', `width: ${newValue}%`)
     }
 })
-
-{/* <div class="form-check">
-<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-<label class="form-check-label bg-transparent text-white" for="flexCheckDefault">
-    {{ subtask.title }}
-</label>
-</div> */}
-
 
 
 function extraTask(num) {

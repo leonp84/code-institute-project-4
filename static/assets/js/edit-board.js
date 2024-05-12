@@ -1,5 +1,12 @@
 $(function () {
 
+    // Theme Toggle Function
+    $('.bg-dark').addClass('theme-switch')
+    $('#toggle-theme').on('click', function() {
+        $('body').toggleClass('dark')
+        $('.theme-switch').toggleClass('bg-dark');
+    })
+
     // Find number of last current column on board
     colCounter = parseInt($('.column-counter').last().text()) + 1
     startColCounter = colCounter

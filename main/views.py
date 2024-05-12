@@ -73,7 +73,7 @@ def create_new_board(request):
         )
 
 
-def add_new_task(request, display_board):
+def add_new_task(request, display_board=None):
     all_boards = Board.objects.all()
     current_board = Board.objects.all().filter(pk=display_board).first()
 
@@ -113,7 +113,7 @@ def add_new_task(request, display_board):
         )
 
 
-def edit_task(request, task_id):
+def edit_task(request, task_id=None):
 
     task_to_edit = Task.objects.filter(id=task_id).first()
     current_board = Board.objects.filter(
@@ -160,7 +160,7 @@ def edit_task(request, task_id):
         )
 
 
-def edit_board(request, board_id):
+def edit_board(request, board_id=None):
 
     all_boards = Board.objects.all()
     current_board = Board.objects.filter(id=board_id).first()
@@ -234,7 +234,7 @@ def edit_board(request, board_id):
         )
 
 
-def archive_task(request, task_id):
+def archive_task(request, task_id=None):
 
     print('Task to archive logic')
 
@@ -254,7 +254,7 @@ def archive_task(request, task_id):
         )
 
 
-def delete_task(request, task_id):
+def delete_task(request, task_id=None):
 
     task_to_delete = Task.objects.filter(id=task_id).first()
 

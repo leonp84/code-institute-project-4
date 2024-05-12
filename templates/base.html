@@ -5,7 +5,7 @@
 {% url 'account_logout' as logout_url %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-gb">
 
 <head>
 
@@ -46,14 +46,14 @@
 
     <nav class="navbar navbar-dark navbar-expand-md bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand d-flex align-items-center text-white" href="{% url 'index' %}">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
                 <img src="{% static 'assets/images/logo.webp' %}" alt="TaskFlow Logo" width="40" height="40"
                     class="d-inline-block align-text-top">
                 <span class="fs-2 ms-2">TaskFlow</span>
             </a>
             <div class="ms-3 d-none d-md-block">
-            <span ><strong>{{ board.title }}</strong></span><br>
-            <span class="small"><em>{{ board.description }}</em></span>
+                <span><strong>{{ board.title }}</strong></span><br>
+                <span class="small"><em>{{ board.description }}</em></span>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -64,7 +64,7 @@
 
                 <ul class="navbar-nav mb-2 ms-auto mb-md-0 me-md-2">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'create_new_board' %}">New Board</a>
+                        <a class="nav-link" aria-current="page" href="{% url 'create_new_board' %}">New Board</a>
                     </li>
 
                     <li class="nav-item dropdown d-md-none">
@@ -84,8 +84,8 @@
                         <a class="nav-link d-md-none" href="{% url 'create_new_board' %}">Add New Board</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="modal"
-                        data-bs-target="#archived-tasks" href="#">See Archived Tasks</a>
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#archived-tasks" href="#">See
+                            Archived Tasks</a>
                     </li>
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
@@ -99,11 +99,6 @@
                         <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link board-button-top mt-3 mt-md-0" data-bs-toggle="modal"
-                            data-bs-target="#add-new-task" href="#">&nbsp;&nbsp;+ Add New
-                            Task&nbsp;&nbsp;</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -115,7 +110,13 @@
 
         {% endblock %}
 
-        <div class="side-board bg-dark d-none d-md-flex flex-column pt-5">
+        <div class="side-board bg-dark d-none d-md-flex flex-column pt-4">
+            <div class="d-flex justify-content-center flex-column align-items-center mb-4">
+                <div class="form-check form-switch d-flex justify-content-center">
+                    <input id="toggle-theme" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                </div>
+                <span class="small">&#9788; / &#9789;</span>
+            </div>
             {% for board in all_boards.all %}
             <a href="{% url 'show_board' board.id %}" class="board-name">
                 {{ board.title }}
