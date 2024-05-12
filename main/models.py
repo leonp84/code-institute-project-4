@@ -11,7 +11,7 @@ class Board(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["created_on"]
+        ordering = ["id"]
 
     def __str__(self):
         return self.title
@@ -22,6 +22,9 @@ class Column(models.Model):
     colour = models.CharField(default='white')
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
                               related_name="column_to_board")
+
+    class Meta:
+        ordering = ["id"]
 
     def __str__(self):
         return f"*{self.title}* OF BOARD: {self.board}"
@@ -42,6 +45,7 @@ class Task(models.Model):
     description = models.TextField(blank=True)
     priority = models.CharField()
     status = models.CharField()
+    completed = models.BooleanField(default=False)
     label = models.ManyToManyField(Label)
     column = models.ForeignKey(Column, on_delete=models.CASCADE,
                                related_name="task_to_column")

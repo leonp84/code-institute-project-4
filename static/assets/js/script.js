@@ -15,6 +15,12 @@ $(function () {
         $(this).next().toggleClass('strikethrough')
     })
    
+    // Update Modal box if archived tasks modal is empty
+    console.log($('#archived-tasks').find('.modal-body').html())
+    if ($('#archived-tasks').find('.modal-body').val().trim() == "") {
+        $('#archived-tasks').find('.modal-body').html('<p class="mt-2">You have no Archived Tasks.</p>')
+    }
+
     addEventListener()
 
 

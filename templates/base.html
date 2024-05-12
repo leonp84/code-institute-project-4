@@ -80,7 +80,11 @@
                         <a class="nav-link d-md-none" href="{% url 'create_new_board' %}">Add New Board</a>
                     </li>
                     <li class="nav-item">
-                        {% if not user.is_authenticated %}
+                        <a class="nav-link" data-bs-toggle="modal"
+                        data-bs-target="#archived-tasks" href="#">See Archived Tasks</a>
+                    </li>
+                    {% if not user.is_authenticated %}
+                    <li class="nav-item">
                         <a class="nav-link d-md-none" href="{% url 'account_login' %}">Login</a>
                     </li>
                     <li class="nav-item">

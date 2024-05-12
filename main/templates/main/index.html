@@ -18,6 +18,7 @@
 
         <!-- Insert Tasks -->
         {% for task in column.task_to_column.all %}
+        {% if task.archived == False %}
 
         <div class="task">
             <div class="task-card-priority {{ task.priority }}">
@@ -40,7 +41,14 @@
             <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} 
                 text-{{ label.colour }} me-1">{{ label.title }}</span>
             {% endfor %}
+
+            {% if column.id == board.column_to_board.last.id %}
+            <div class="task-completed-check">
+                &#10003;
+            </div>
+            {% endif %}
         </div>
+        {% endif %}
 
         <!-- Hidden Modal to later edit task | START -->
         <div class="modal fade" id="edit-task-{{ task.id }}" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -58,7 +66,7 @@
                                 <hr>
                                 <label for="select-status" class="mb-2">Task Priority</label>
                                 <select name="priority" id="select-status" class="form-select bg-dark text-white"
-                                    aria-label="Default select example">
+                                {% if task.archived == True %}disabled{% endif%} aria-label="Default select example ">
                                     <option {% if task.priority == 'none' %}selected{% endif %} value="None">None</option>
                                     <option {% if task.priority == 'green' %}selected{% endif %} value="green" style="background: green;">Low</option>
                                     <option {% if task.priority == 'yellow' %}selected{% endif %} value="yellow" style="background: yellow;" class="text-dark">Medium</option>
@@ -69,7 +77,7 @@
                                 <label for="subtasks" class="mb-2">Subtasks</label>
                                     {% for subtask in task.subtask_to_task.all %}
                                     <div class="form-check">
-                                        <input {% if subtask.status == True %}checked{% endif %} name="subtasks" class="form-check-input" type="checkbox" value="{{ subtask.id }}" id="{{ subtask.title}}-{{ subtask.id }}">
+                                        <input {% if subtask.status == True %}checked{% endif %} {% if task.archived == True %}disabled{% endif%} name="subtasks" class="form-check-input" type="checkbox" value="{{ subtask.id }}" id="{{ subtask.title}}-{{ subtask.id }}">
                                         <label class="form-check-label bg-transparent text-white {% if subtask.status == True %}strikethrough{% endif %}" for="{{ subtask.title}}-{{ subtask.id }}">
                                             {{ subtask.title }}
                                         </label>
@@ -82,7 +90,7 @@
                                 <div class="d-flex justify-content-center flex-wrap mt-2">
                                     {% for label in board.label_to_board.all %}
                                     <input name="new-label" type="checkbox" class="btn-check" value="{{ label.id }}" autocomplete="off"
-                                    id="{{ task.id }}-new-label-{{forloop.counter}}" {% if label in task.label.all %}checked{% endif %}>
+                                    id="{{ task.id }}-new-label-{{forloop.counter}}" {% if label in task.label.all %}checked{% endif %} {% if task.archived == True %}disabled{% endif%}>
                                     <label class="btn label-button btn-outline-{{ label.colour }}"
                                     for="{{ task.id }}-new-label-{{forloop.counter}}">{{ label.title }}</label>
                                     {% endfor %}
@@ -92,7 +100,7 @@
                                 <select name="status" id="select-status" class="form-select bg-dark text-white"
                                     aria-label="Default select example">
                                     {% for column in board.column_to_board.all %}
-                                    <option {% if column == task.column %}selected{% endif %} value="{{ column.id }}">
+                                    <option {% if column == task.column %}selected{% endif %} value="{{ column.id }}" {% if task.archived == True %}disabled{% endif%}>
                                         <span>{% if column.colour == 'blue' %}
                                             &#128309;
                                             {% elif column.colour == 'green' %}
@@ -108,20 +116,36 @@
                                     </option>
                                     {% endfor %}
                                 </select>
-                        </div>
+                        </div>            
+
                         <div class="modal-footer bg-dark d-flex justify-content-center">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-success">Edit Task</button>
+
+                            {% if task.archived == False %}
+                            {% if column.id == board.column_to_board.last.id%}
+                            <div class="task-completed-check task-completed-check-modal">
+                                &#10003;
+                            </div>
+                            <a class="btn btn-success" href="{% url 'archive_task' task.id %}" role="button">Archive Task</a>
+                            {% endif %}
+                            <button type="submit" class="btn btn-primary">Edit Task</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Delete Task</button>
+                            {% else %}
+                            <div class="task-completed-check task-completed-check-modal">
+                                &#10003;
+                            </div>
+                            {% endif %}
+                            
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- Hidden Modal to later edit task | END -->
+        <!-- Hidden Modal to later edit task or view archived tasks | END -->
         {% endfor %}
 
     </div>
+
     {% endfor %}
 
 </div>
@@ -202,4 +226,57 @@
     </div>
 </div>
 
+<!-- Archived Tasks Modal -->
+<div class="modal fade" id="archived-tasks" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-dark bg-gradient">
+                <h5 class="modal-title">Archived Tasks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+                <div class="modal-body bg-dark bg-gradient d-flex flex-column align-items-center">
+                    {% for task in board.column_to_board.last.task_to_column.all %}
+                    {% if task.archived == True %}
+                    
+                    <div class="task">
+                        <div class="task-card-priority {{ task.priority }}">
+                        </div>
+                        <div class="mb-2">
+                            <a class="task-title" data-bs-toggle="modal" 
+                            data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}</a>
+                        </div>
+            
+                        <!-- Subtasks -->
+                        {% if task.total_subtasks != 0 %}
+                        <p class="mb-1 small">{{ task.subtasks_completed }} of {{ task.total_subtasks}} subtasks</p>
+                        <div class="progress mb-1">
+                            <div class="progress-bar bg-secondary" role="progressbar"
+                                aria-valuenow="{{ task.subtasks_completed|div:task.total_subtasks|mul:100 }}" aria-valuemin="0"
+                                aria-valuemax="100"></div>
+                        </div>
+                        {% endif %}
+                        {% for label in task.label.all %}
+                        <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} 
+                            text-{{ label.colour }} me-1">{{ label.title }}</span>
+                        {% endfor %}
+            
+                        {% if column.id == board.column_to_board.last.id %}
+                        <div class="task-completed-check">
+                            &#10003;
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- <div class="modal-footer bg-dark d-flex justify-content-center">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Add Task</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

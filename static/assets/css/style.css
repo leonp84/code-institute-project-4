@@ -172,6 +172,38 @@ main {
     border-bottom-left-radius: 5px;
 }
 
+.task-completed-check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: 1000;
+    color:white;
+    background-color: green;
+    position:absolute;
+    top: -2px;
+    right: -4px;
+}
+
+#archived-tasks .modal-dialog {
+    width: 310px;
+}
+
+.modal-footer {
+    position: relative
+}
+
+.task-completed-check-modal { 
+    width: 60px;
+    height: 60px;
+    font-size: 44px;
+    top: 11px;
+    right: -11px;
+}
+
 .hidden {
     display: none;
 }

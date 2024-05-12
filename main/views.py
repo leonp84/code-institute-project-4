@@ -116,6 +116,8 @@ def add_new_task(request, display_board):
 def edit_task(request, task_id):
 
     task_to_edit = Task.objects.filter(id=task_id).first()
+    current_board = Board.objects.filter(
+        id=task_to_edit.column.board.id).first()
 
     # Update Priority
     task_to_edit.priority = request.POST.get('priority')
@@ -123,6 +125,13 @@ def edit_task(request, task_id):
     # Update Status (Column)
     task_to_column = request.POST.get('status')
     task_to_edit.column = Column.objects.filter(id=task_to_column).first()
+
+    # Update Completion = True / False
+    if task_to_edit.column.id == current_board.column_to_board.last().id:
+        task_to_edit.completed = True
+    else:
+        task_to_edit.completed = False
+
     task_to_edit.save()
 
     # Update Subtasks
@@ -141,8 +150,6 @@ def edit_task(request, task_id):
         new_label = Label.objects.filter(id=id).first()
         task_to_edit.label.add(new_label)
 
-    current_board = Board.objects.filter(
-        id=task_to_edit.column.board.id).first()
     all_boards = Board.objects.all()
 
     return render(
@@ -222,6 +229,26 @@ def edit_board(request, board_id):
     return render(
         request,
         'main/edit_board.html',
+        {'all_boards': all_boards,
+         'board': current_board}
+        )
+
+
+def archive_task(request, task_id):
+
+    print('Task to archive logic')
+
+    task_to_archive = Task.objects.filter(id=task_id).first()
+    task_to_archive.archived = True
+    task_to_archive.save()
+
+    current_board = Board.objects.filter(
+        id=task_to_archive.column.board.id).first()
+    all_boards = Board.objects.all()
+
+    return render(
+        request,
+        'main/index.html',
         {'all_boards': all_boards,
          'board': current_board}
         )
