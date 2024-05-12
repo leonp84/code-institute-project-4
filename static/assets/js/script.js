@@ -1,3 +1,7 @@
+if (window.localStorage.getItem('currentTheme') == 'dark') {
+    toggleTheme()
+}
+
 $(function () {
 
     IdCounter = 2
@@ -21,11 +25,18 @@ $(function () {
         $('.theme-switch').toggleClass('bg-dark');
         if ($('html').attr('data-bs-theme') == 'light') {
             $('html').attr('data-bs-theme', 'dark')
+            window.localStorage.currentTheme = 'dark'
+            window.localStorage.setItem('currentTheme', 'dark')
+
+
         } else {
             $('html').attr('data-bs-theme', 'light')
+            window.localStorage.setItem('currentTheme', 'light')
+
         }
         $('#logo-light').toggle()
         $('#logo-dark').toggle()
+        console.log(window.localStorage.getItem('currentTheme'))
     })
 
     addEventListener()
@@ -39,6 +50,19 @@ $(function () {
     }
 })
 
+function toggleTheme() {
+    $('body').toggleClass('dark')
+    $('.theme-switch').toggleClass('bg-dark');
+    if ($('html').attr('data-bs-theme') == 'light') {
+        $('html').attr('data-bs-theme', 'dark')
+    } else {
+        $('html').attr('data-bs-theme', 'light')
+
+    }
+    $('#logo-light').toggle()
+    $('#logo-dark').toggle()
+    console.log('test')
+}
 
 function extraTask(num) {
     return `

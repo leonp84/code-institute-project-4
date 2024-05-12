@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm, CreateNewTaskForm
 from .models import Board, Column, Label, Subtask, Task
@@ -18,7 +18,8 @@ def index(request, display_board=None):
         request,
         'main/index.html',
         {'all_boards': all_boards,
-         'board': current_board}
+         'board': current_board,
+         'home': True}
         )
 
 
@@ -58,12 +59,7 @@ def create_new_board(request):
         # Return to index.html with new Board instance
         current_board = Board.objects.all().first()
 
-        return render(
-            request,
-            'main/index.html',
-            {'all_boards': all_boards,
-             'board': current_board}
-            )
+        return redirect(index)
 
     return render(
         request,
@@ -74,8 +70,8 @@ def create_new_board(request):
 
 
 def add_new_task(request, display_board=None):
-    all_boards = Board.objects.all()
-    current_board = Board.objects.all().filter(pk=display_board).first()
+    # all_boards = Board.objects.all()
+    # current_board = Board.objects.all().filter(pk=display_board).first()
 
     if request.method == 'POST':
         queryset = CreateNewTaskForm(data=request.POST)
@@ -105,12 +101,7 @@ def add_new_task(request, display_board=None):
             new_label = Label.objects.filter(id=id).first()
             new_task.label.add(new_label)
 
-    return render(
-        request,
-        'main/index.html',
-        {'all_boards': all_boards,
-         'board': current_board}
-        )
+    return redirect(index)
 
 
 def edit_task(request, task_id=None):
@@ -150,14 +141,7 @@ def edit_task(request, task_id=None):
         new_label = Label.objects.filter(id=id).first()
         task_to_edit.label.add(new_label)
 
-    all_boards = Board.objects.all()
-
-    return render(
-        request,
-        'main/index.html',
-        {'all_boards': all_boards,
-         'board': current_board}
-        )
+    return redirect(index)
 
 
 def edit_board(request, board_id=None):
@@ -217,14 +201,7 @@ def edit_board(request, board_id=None):
                 )
                 new_label.save()
 
-        all_boards = Board.objects.all()
-
-        return render(
-            request,
-            'main/edit_board.html',
-            {'all_boards': all_boards,
-             'board': current_board}
-            )
+        return redirect(index)
 
     return render(
         request,
@@ -246,30 +223,17 @@ def archive_task(request, task_id=None):
         id=task_to_archive.column.board.id).first()
     current_board.has_archived_tasks = True
     current_board.save()
-    all_boards = Board.objects.all()
 
-    return render(
-        request,
-        'main/index.html',
-        {'all_boards': all_boards,
-         'board': current_board}
-        )
+    return redirect(index)
 
 
 def delete_task(request, task_id=None):
 
     task_to_delete = Task.objects.filter(id=task_id).first()
 
-    current_board = Board.objects.filter(
-        id=task_to_delete.column.board.id).first()
+    # current_board = Board.objects.filter(
+    #     id=task_to_delete.column.board.id).first()
 
     task_to_delete.delete()
 
-    all_boards = Board.objects.all()
-
-    return render(
-        request,
-        'main/index.html',
-        {'all_boards': all_boards,
-         'board': current_board}
-        )
+    return redirect(index)

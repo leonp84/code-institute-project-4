@@ -3,6 +3,7 @@
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
+{% url 'index_url' as index %}
 
 <!DOCTYPE html>
 <html lang="en-gb" data-bs-theme="light">
@@ -68,18 +69,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                 <ul class="navbar-nav mb-2 ms-auto mb-md-0 me-md-2">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'create_new_board' %}">New Board</a>
-                    </li>
-
                     <li class="nav-item dropdown d-md-none">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Switch Boards
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Board 1</a></li>
-                            <li><a class="dropdown-item" href="#">Board 2</a></li>
+                            {% for board in all_boards.all %}
+                            <li><a class="dropdown-item" href="{% url 'show_board' board.id %}">{{ board.title }}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -88,7 +86,7 @@
                     <li class="nav-item">
                         <a class="nav-link d-md-none" href="{% url 'create_new_board' %}">Add New Board</a>
                     </li>
-                    {% if board.has_archived_tasks == True %}
+                    {% if board.has_archived_tasks == True and home %}
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#archived-tasks" 
                         href="#">See Archived Tasks</a>
@@ -122,7 +120,7 @@
                 <div class="form-check form-switch d-flex justify-content-center">
                     <input id="toggle-theme" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                 </div>
-                <span class="small">&#9788; / &#9789;</span>
+                <span style="font-family: serif"><strong>&#9788; / &#9789;</strong></span>
             </div>
             {% for board in all_boards.all %}
             <a href="{% url 'show_board' board.id %}" class="board-name">
@@ -130,12 +128,12 @@
             </a>
             {% endfor %}
 
-            {% if not all_boards|length == 0 %}
-            <div class="big-nav-bottom">
-                <a href="#" class="board-buttons mt-5 fs-6" data-bs-toggle="modal" data-bs-target="#add-new-task">+ New
-                    Task</a>
-            </div>
-            {% endif %}
+                {% if home %}
+                <div class="big-nav-bottom">
+                    <a href="#" class="board-buttons mt-5 fs-6" data-bs-toggle="modal" data-bs-target="#add-new-task">+ New
+                        Task</a>
+                </div>
+                {% endif %}
 
         </div>
 
