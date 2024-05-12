@@ -3,10 +3,9 @@
 {% load account socialaccount %}
 
 {% block content %}
-
-<div class="center">
-    <form class="login account-form" method="POST" action="{% url 'account_login' %}">
-        <p>Welcome, please sign in</p>
+<div class="container col-md-4 mt-3">
+    <form class="login account-form mt-5" method="POST" action="{% url 'account_login' %}">
+        <p>Welcome, please sign in or <a href="{% url 'account_signup' %}">sign up</a></p>
         {% csrf_token %}
         {{ form.as_p }}
         {% if redirect_field_value %}

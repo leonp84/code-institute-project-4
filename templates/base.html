@@ -49,13 +49,13 @@
         <div class="container-fluid">
             <div id="logo-light">
                 <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
-                    <img src="{% static 'assets/images/logo.png' %}" alt="TaskFlow Logo" height="40" >
+                    <img src="{% static 'assets/images/logo.png' %}" alt="TaskFlow Logo" height="40">
                 </a>
             </div>
             <div id="logo-dark" style="display: none">
-            <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}" id="logo-dark">
-                <img src="{% static 'assets/images/logo-dark.png' %}" alt="TaskFlow Logo" height="40">
-            </a>
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}" id="logo-dark">
+                    <img src="{% static 'assets/images/logo-dark.png' %}" alt="TaskFlow Logo" height="40">
+                </a>
             </div>
             <div class="ms-3 d-none d-md-block">
                 <span><strong>{{ board.title }}</strong></span><br>
@@ -76,33 +76,38 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% for board in all_boards.all %}
-                            <li><a class="dropdown-item" href="{% url 'show_board' board.id %}">{{ board.title }}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'show_board' board.id %}">{{ board.title }}</a>
+                            </li>
                             {% endfor %}
                         </ul>
                     </li>
+                    {% if home %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'edit_board' board.id %}">Edit Current Board</a>
                     </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link d-md-none" href="{% url 'create_new_board' %}">Add New Board</a>
                     </li>
                     {% if board.has_archived_tasks == True and home %}
                     <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#archived-tasks" 
-                        href="#">See Archived Tasks</a>
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#archived-tasks" href="#">See
+                            Archived Tasks</a>
                     </li>
                     {% endif %}
-                    {% if not user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link d-md-none" href="{% url 'account_login' %}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link d-md-none" href="{% url 'account_signup' %}">Signup</a>
-                    </li>
-                    {% else %}
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                     </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_signup' %}">Signup</a>
+                    </li>
+
                     {% endif %}
                 </ul>
             </div>
@@ -118,7 +123,8 @@
         <div class="side-board theme-switch d-none d-md-flex flex-column pt-4">
             <div class="d-flex justify-content-center flex-column align-items-center mb-4">
                 <div class="form-check form-switch d-flex justify-content-center">
-                    <input id="toggle-theme" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <input id="toggle-theme" class="form-check-input" type="checkbox" role="switch"
+                        id="flexSwitchCheckDefault">
                 </div>
                 <span style="font-family: serif"><strong>&#9788; / &#9789;</strong></span>
             </div>
@@ -128,12 +134,12 @@
             </a>
             {% endfor %}
 
-                {% if home %}
-                <div class="big-nav-bottom">
-                    <a href="#" class="board-buttons mt-5 fs-6" data-bs-toggle="modal" data-bs-target="#add-new-task">+ New
-                        Task</a>
-                </div>
-                {% endif %}
+            {% if home %}
+            <div class="big-nav-bottom">
+                <a href="#" class="board-buttons mt-5 fs-6" data-bs-toggle="modal" data-bs-target="#add-new-task">+ New
+                    Task</a>
+            </div>
+            {% endif %}
 
         </div>
 

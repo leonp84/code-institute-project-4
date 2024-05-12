@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="center">
-
-    <form class="account-form" method="post" action="{% url 'account_logout' %}">
+<div class="container col-md-4 mt-3">
+    <form class="account-form mt-5" method="post" action="{% url 'account_logout' %}">
         <p>Are you sure you want to sign out?</p>
         {% csrf_token %}
         {% if redirect_field_value %}
@@ -12,5 +11,6 @@
         <button class="btn btn-primary" type="submit">Sign Out</button>
     </form>
 </div>
+
 
 {% endblock %}

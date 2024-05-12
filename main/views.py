@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm, CreateNewTaskForm
 from .models import Board, Column, Label, Subtask, Task
+from datetime import datetime
 
 
 # Create your views here.
@@ -120,6 +121,7 @@ def edit_task(request, task_id=None):
     # Update Completion = True / False
     if task_to_edit.column.id == current_board.column_to_board.last().id:
         task_to_edit.completed = True
+        task_to_edit.completed_on = datetime.now()
     else:
         task_to_edit.completed = False
 
