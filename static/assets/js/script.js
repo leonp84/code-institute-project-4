@@ -40,6 +40,7 @@ $(function () {
     })
 
     addEventListener()
+    checkTaskNameDuplicates()
 
 
     // Updating DOM Progress Bar Visuals due to HTML Linter giving errors with Python Templating Language
@@ -77,4 +78,41 @@ function addEventListener() {
     $('.delete-subtask').on('click', function () {
         $(this).parent().remove()
     })
+}
+
+
+function checkTaskNameDuplicates() {
+    let currentTasks = []
+    saved_tasks = document.getElementsByClassName('task-title')
+    for (i = 0; i < saved_tasks.length; i++) {
+        currentTasks.push(saved_tasks[i].innerText)
+    }
+    console.log(currentTasks)
+
+    let errorState = false
+    document.getElementById('new-task-title').addEventListener('keydown', function(e) {
+
+        // Take care of Backpsace character
+        user_input = this.value + e.key
+        if (e.key == 'Backspace') { 
+            user_input = this.value.slice(0,-1)
+        }
+
+        if (currentTasks.includes(user_input)) {
+            $('#new-task-title').css('border', '2px solid red')
+            $('#new-task-title').next().text('A Task with that name already exists')
+            $('#new-task-title').next().css('color', 'red')
+            $('#submit-new-task').addClass('disabled')
+            errorState = true
+        } else {
+            if (errorState) {
+                $('#new-task-title').css('border', '1px solid #dee2e6')
+                $('#new-task-title').next().text('Title')
+                $('#new-task-title').next().css('color', 'rgb(186, 185, 185)')
+                $('#submit-new-task').removeClass('disabled')
+                errorState = false
+            }
+        }
+    })
+    
 }

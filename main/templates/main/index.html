@@ -184,8 +184,8 @@
                 <div class="modal-body theme-switch bg-gradient">
                     <div class="form-floating mb-3">
                         <input name="title" type="text" class="form-control bg-transparent"
-                            id="floatingInput" placeholder="Task Title" required>
-                        <label for="floatingInput">Title</label>
+                            id="new-task-title" placeholder="Task Title" required>
+                        <label for="new-task-title">Title</label>
                     </div>
                     <div class="form-floating">
                         <textarea name="description" class="form-control bg-transparent"
@@ -237,7 +237,7 @@
                 </div>
                 <div class="modal-footer theme-switch d-flex justify-content-center">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-success">Add Task</button>
+                    <button type="submit" id="submit-new-task" class="btn btn-success">Add Task</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>

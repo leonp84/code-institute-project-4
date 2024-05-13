@@ -53,7 +53,13 @@ function checkBoardNameDuplicates() {
 
     let errorState = false
     document.getElementById('id_title').addEventListener('keydown', function(e) {
-        user_input = document.getElementById('id_title').value + e.key
+
+        // Take care of Backpsace character
+        user_input = this.value + e.key
+        if (e.key == 'Backspace') { 
+            user_input = this.value.slice(0,-1)
+        }
+
         if (currentBoards.includes(user_input)) {
             $('#id_title').css('border', '1px solid red')
             $('#id_title').prev().text('A Board with that name already exists')
@@ -124,7 +130,7 @@ function extraCol(num) {
                 Column ${num} Title
                 <span class="asteriskField">*</span>
             </label>
-            <input type="text" name="column_title" maxlength="200" class="textinput form-control col-titles" required id="id_title-${num}">
+            <input type="text" name="column_title" maxlength="200" class="textinput form-control col-titles" pattern="[^\s].*" required id="id_title-${num}">
         </div>
 
         <span class="mb-2">Choose a colour for Column ${num}:</span>

@@ -52,7 +52,10 @@ class Task(models.Model):
                                related_name="task_to_column")
     archived = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
-    completed_on = models.DateTimeField(blank=True)
+    completed_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta():
+        ordering = ["id"]
 
     def total_subtasks(self):
         return self.subtask_to_task.all().count()

@@ -11,7 +11,7 @@
                 Title
                 <span class="asteriskField">*</span>
             </label>
-            <input type="text" name="title" maxlength="200" class="textinput form-control" required id="id_title">
+            <input type="text" name="title" maxlength="200" class="textinput form-control" pattern="[^\s].*" required id="id_title">
         </div>
         <div id="div_id_description" class="mb-3">
             <label for="id_description" class="form-label">
@@ -32,7 +32,7 @@
                     Column 1 Title
                     <span class="asteriskField">*</span>
                 </label>
-                <input type="text" name="column_title" maxlength="200" class="textinput form-control col-titles" required
+                <input type="text" name="column_title" maxlength="200" pattern="[^\s].*" class="textinput form-control col-titles" required
                     id="column_title_1">
             </div>
             <span class="mb-2">Choose a colour for Column 1:</span>

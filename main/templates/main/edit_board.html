@@ -11,7 +11,7 @@
                 Title
                 <span class="asteriskField">*</span>
             </label>
-            <input type="text" name="title" value="{{ board.title }}" maxlength="200" class="textinput form-control" required id="id_title">
+            <input type="text" name="title" value="{{ board.title }}" maxlength="200" class="textinput form-control" pattern="[^\s].*" required id="id_title">
         </div>
         <div id="div_id_description" class="mb-3">
             <label for="id_description" class="form-label">
@@ -26,12 +26,12 @@
         {% for column in board.column_to_board.all %}
 
             <div class="mb-3">
+                <input class="hidden" name="column-id" value="{{ column.id }}">
                 <label for="column_title" class="form-label requiredField">
                     Column {{forloop.counter}} Title
                     <span class="asteriskField">*</span>
-                    <input class="hidden" name="column-id" value="{{ column.id }}">
                 </label>
-                <input type="text" name="column_title" maxlength="200" class="textinput form-control" required
+                <input type="text" name="column_title" maxlength="200" class="textinput form-control col-titles" pattern="[^\s].*" required
                     id="column_title_{{forloop.counter}}" value="{{ column.title }}">
             </div>
             <span class="mb-2">Choose a colour for Column {{forloop.counter}}:</span>
@@ -108,7 +108,7 @@
 
 
         {% csrf_token %}
-        <button type="submit" class="btn btn-lg btn-success mt-3 me-2">Edit Board</button>
+        <button type="submit" id="edit-current-board" class="btn btn-lg btn-success mt-3 me-2">Edit Board</button>
     </form>
 </div>
 
