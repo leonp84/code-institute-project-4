@@ -86,9 +86,11 @@
                         <a class="nav-link" href="{% url 'edit_board' board.id %}">Edit Current Board</a>
                     </li>
                     {% endif %}
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'create_new_board' %}">Add New Board</a>
                     </li>
+                    {% endif %}
                     {% if board.has_archived_tasks == True and home %}
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="modal" data-bs-target="#archived-tasks" href="#">See

@@ -19,6 +19,9 @@ class Task(models.Model):
     class Meta():
         ordering = ["id"]
 
+    def board_name(self):
+        return self.column.board.title
+
     def total_subtasks(self):
         return self.subtask_to_task.all().count()
 

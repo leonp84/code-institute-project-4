@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
 {% load account socialaccount %}
+{% load static %}
 
 {% block content %}
-<div class="container col-md-4 mt-3">
-    <form class="login account-form mt-5" method="POST" action="{% url 'account_login' %}">
-        <p>Welcome, please sign in or <a href="{% url 'account_signup' %}">sign up</a></p>
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="btn btn-outline-success" type="submit">Sign In</button>
+<div class="container col-md-7">
+    <form class="login account-form-image d-flex flex-wrap" method="POST" action="{% url 'account_login' %}">
+        <div class="image-container"></div>
+        <div class="p-4 my-auto mx-auto">
+            <div style="max-width: 350px;">
+                <h4>TaskFlow</h4>                  
+                <p>A simple Kanban board webapp</p>
+                <em>Distraction Free. Customizable. Simple. Free</em>
+                <br>
+                <br>
+                <p>Please Sign In or <a href="{% url 'account_signup' %}">Sign Up</a></p>
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="btn btn-outline-primary" type="submit">Sign In</button>
+            </div>
+        </div>
     </form>
 </div>
 

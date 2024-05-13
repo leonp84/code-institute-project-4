@@ -20,7 +20,7 @@
       "**/CVS": true
    },
    "files.autoSave": "off",
-   "workbench.colorTheme": "Gitpod Dark",
+   "workbench.colorTheme": "One Dark Pro Darker",
    "terminal.integrated.gpuAcceleration": "canvas",
 "editor.defaultFormatter": "HookyQR.beautify",
 "[html]": {

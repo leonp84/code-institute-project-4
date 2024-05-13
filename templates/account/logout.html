@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container col-md-4 mt-3">
-    <form class="account-form mt-5" method="post" action="{% url 'account_logout' %}">
-        <p>Are you sure you want to sign out?</p>
+<div class="container col-md-3 mt-3">
+    <form class="account-form mt-5 py-5" method="post" action="{% url 'account_logout' %}">
+        <p>Logout?</p>
         {% csrf_token %}
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button class="btn btn-primary" type="submit">Sign Out</button>
+        <button class="btn btn-outline-primary" type="submit">Sign Out 👋</button>
     </form>
 </div>
 

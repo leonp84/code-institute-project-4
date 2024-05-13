@@ -1,4 +1,5 @@
-from django.utils.html import format_html
+from django.utils.html import format_html, urlencode
+from django.urls import reverse
 from django.contrib import admin
 from .models import Board, Column, Label
 from task.models import Task
@@ -37,7 +38,13 @@ class BoardAdmin(admin.ModelAdmin):
             total_tasks += column.task_to_column.all().count()
             open_tasks += column.task_to_column.filter(completed=True).count()
 
-        return format_html("<b>{}</b>/{}", open_tasks, total_tasks)
+        url = (
+            reverse("admin:task_task_changelist")
+            + "?"
+            + urlencode({"completed": False})
+        )
+        return format_html(
+            '<a href="{}">{}</a>/{}', url, open_tasks, total_tasks)
     open_tasks.short_description = 'Open/Total Tasks'
 
     def archived_tasks(self, obj):

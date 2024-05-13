@@ -37,7 +37,7 @@
             <span class="mb-2">Choose a colour for Column {{forloop.counter}}:</span>
             <div class="mb-3">
                 <input {% if column.colour == 'white' %}checked{% endif %} type="radio" class="btn-check" name="column_colour-{{forloop.counter}}" value="white" id="white-{{forloop.counter}}">
-                <label class="btn btn-outline-light colour-selector" for="white-{{forloop.counter}}">White</label>
+                <label class="btn btn btn-light colour-selector" for="white-{{forloop.counter}}">White</label>
 
                 <input {% if column.colour == 'red' %}checked{% endif %} type="radio" class="btn-check" name="column_colour-{{forloop.counter}}" value="red" id="red-{{forloop.counter}}">
                 <label class="btn btn-outline-danger colour-selector" for="red-{{forloop.counter}}">Red</label>
@@ -79,7 +79,7 @@
             <span class="mb-2">Choose a colour for Label {{forloop.counter}}:</span>
             <div class="mb-3">
                 <input {% if label.colour == 'light' %}checked{% endif %} type="radio" class="btn-check" name="label_colour-{{forloop.counter}}" value="light" id="label-white-{{forloop.counter}}">
-                <label class="btn btn-outline-light colour-selector" for="label-white-{{forloop.counter}}">White</label>
+                <label class="btn btn btn-light colour-selector" for="label-white-{{forloop.counter}}">White</label>
 
                 <input {% if label.colour == 'danger' %}checked{% endif %} type="radio" class="btn-check" name="label_colour-{{forloop.counter}}" value="danger" id="label-red-{{forloop.counter}}">
                 <label class="btn btn-outline-danger colour-selector" for="label-red-{{forloop.counter}}">Red</label>

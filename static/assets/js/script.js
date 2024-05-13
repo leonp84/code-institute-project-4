@@ -4,10 +4,17 @@ if (window.localStorage.getItem('currentTheme') == 'dark') {
 
 $(function () {
 
+    $('#signup_form').find('#id_email').attr('placeholder', 'Email (optional)')
+    $('#reset-password').find('button').addClass('btn btn-outline-primary')
+
     IdCounter = 2
 
     $('#add-new-subtask').on('click', function () {
         $('#subtask-container').append(extraTask(IdCounter))
+
+        $('input[name="subtasks"]').focus()
+
+
         IdCounter++
         $('.delete-subtask').on('click', function () {
             $(this).parent().remove()
@@ -66,7 +73,7 @@ function toggleTheme() {
 
 function extraTask(num) {
     return `
-    <div id="subtasks" class="input-group flex-nowrap">
+    <div class="input-group flex-nowrap mt-1">
         <span class="input-group-text delete-subtask" id="delete-subtask-{{ num }}">X</span>
         <input type="text" name="subtasks" class="form-control" placeholder="Subtask ..."
             aria-label="Subtask" aria-describedby="delete-subtask-{{ num }}">

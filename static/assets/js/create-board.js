@@ -41,6 +41,8 @@ $(function () {
 
     checkBoardNameDuplicates()
     checkColumnNameDuplicates()
+
+    $('#id_title').focus()
 })
 
 function checkBoardNameDuplicates() {
@@ -137,7 +139,7 @@ function extraCol(num) {
 
         <div class="mb-3">
             <input type="radio" class="btn-check" name="column_colour-${num}" value="white" id="white-${num}" checked>
-            <label class="btn btn-outline-light colour-selector" for="white-${num}">White</label>
+            <label class="btn btn btn-light colour-selector" for="white-${num}">White</label>
 
             <input type="radio" class="btn-check" name="column_colour-${num}" value="red" id="red-${num}">
             <label class="btn btn-outline-danger colour-selector" for="red-${num}">Red</label>
@@ -173,7 +175,7 @@ function extraLabel(num) {
         <span class="mb-2">Choose a colour for Label ${num}:</span>
         <div class="mb-3">
             <input type="radio" class="btn-check" name="label_colour-${num}" value="light" id="label-white-${num}" checked>
-            <label class="btn btn-outline-light colour-selector" for="label-white-${num}">White</label>
+            <label class="btn btn btn-light colour-selector" for="label-white-${num}">White</label>
 
             <input type="radio" class="btn-check" name="label_colour-${num}" value="danger" id="label-red-${num}">
             <label class="btn btn-outline-danger colour-selector" for="label-red-${num}">Red</label>

@@ -341,8 +341,29 @@ footer {
 .yellow { background-color: rgba(255, 255, 0, 0.5); border: 2px solid yellow; }
 .none { background-color: transparent }
 
+#intro-image {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.image-container {
+    width: 450px;
+    height: 550px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: url('/static/assets/images/intro-screen.jpg') no-repeat center center / cover;
+}
+
+.image-container-signup {
+    width: 450px;
+    height: 550px;
+}
 
 /* Customize appearance of Django Allauth account forms */
+
+.btn-light {
+    border: 1px solid black;
+}
 
 .account-form {
     text-align: center;
@@ -351,29 +372,35 @@ footer {
     padding: 20px;
 }
 
-.account-form input {
-    padding: 5px;
+.account-form-image {
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    margin-top: 37px;
+}
+
+.dark .account-form,
+.dark .account-form-image {
+    border: 2px solid rgb(205, 205, 205);
+}
+
+.account-form-image input {
+    padding: 8px;
+    overflow-y: scroll;
 }
 
 #div_id_colour label:hover {
     box-shadow: 1px 1px 10px var(--project-grey);
 }
 
-.signup-container { 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    margin-bottom: 100px;
-}
-
-.signup {
-    width: 360px;
-}
-
 .signup label {
-    display: block;
-    margin-bottom: 8px;
+    display: none;
+}
+
+.signup input {
+    height: 35px;
+    /* background-color: transparent; */
+    caret-color: red;
 }
 
 .signup li {
