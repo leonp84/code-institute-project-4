@@ -102,6 +102,7 @@ function checkTaskNameDuplicates() {
             $('#new-task-title').css('border', '2px solid red')
             $('#new-task-title').next().text('A Task with that name already exists')
             $('#new-task-title').next().css('color', 'red')
+            $('#new-task-title').next().css('text-decoration', 'none')
             $('#submit-new-task').addClass('disabled')
             errorState = true
         } else {
@@ -109,6 +110,7 @@ function checkTaskNameDuplicates() {
                 $('#new-task-title').css('border', '1px solid #dee2e6')
                 $('#new-task-title').next().text('Title')
                 $('#new-task-title').next().css('color', 'rgb(186, 185, 185)')
+                $('#new-task-title').next().css('text-decoration', 'underline')
                 $('#submit-new-task').removeClass('disabled')
                 errorState = false
             }

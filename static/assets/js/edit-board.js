@@ -72,14 +72,14 @@ function checkBoardNameDuplicates() {
             $('#id_title').css('border', '1px solid red')
             $('#id_title').prev().text('A Board with that name already exists')
             $('#id_title').prev().css('color', 'red')
-            $('#submit-new-board').addClass('disabled')
+            $('#edit-current-board').addClass('disabled')
             errorState = true
         } else {
             if (errorState) {
                 $('#id_title').css('border', '1px solid #dee2e6')
                 $('#id_title').prev().text('Title *')
                 $('#id_title').prev().css('color', '#383140')
-                $('#submit-new-board').removeClass('disabled')
+                $('#edit-current-board').removeClass('disabled')
                 errorState = false
             }
         }

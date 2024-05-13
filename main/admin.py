@@ -1,11 +1,10 @@
 from django.utils.html import format_html
 from django.contrib import admin
-from .models import Board, Column, Label, Task, Subtask
+from .models import Board, Column, Label
+from task.models import Task
 
 admin.site.register(Column)
 admin.site.register(Label)
-admin.site.register(Task)
-admin.site.register(Subtask)
 
 admin.site.site_header = "FlowTask - Admin Panel"
 admin.site.site_title = "Admin Panel"
@@ -15,13 +14,20 @@ admin.site.index_title = 'FlowTask Dashboard'
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'author',
-                    'show_columns', 'open_tasks', 'archived_tasks')
+                    'show_columns', 'show_labels', 
+                    'open_tasks', 'archived_tasks')
 
     def show_columns(self, obj):
         nr_columns = Board.objects.filter(id=obj.id).first(
             ).column_to_board.all().count()
         return nr_columns
     show_columns.short_description = '#Columns'
+
+    def show_labels(self, obj):
+        nr_labels = Board.objects.filter(id=obj.id).first(
+            ).label_to_board.all().count()
+        return nr_labels
+    show_labels.short_description = '#Labels'
 
     def open_tasks(self, obj):
         total_tasks = 0
