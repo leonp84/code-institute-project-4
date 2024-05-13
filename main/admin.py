@@ -14,7 +14,7 @@ admin.site.index_title = 'FlowTask Dashboard'
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'author',
-                    'show_columns', 'show_labels', 
+                    'show_columns', 'show_labels',
                     'open_tasks', 'archived_tasks')
 
     def show_columns(self, obj):

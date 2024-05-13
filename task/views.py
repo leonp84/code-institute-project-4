@@ -66,6 +66,7 @@ def edit_task(request, task_id=None):
     for subtask in task_to_edit.subtask_to_task.all():
         if str(subtask.id) in queryset:
             subtask.status = True
+            subtask.completed_on = datetime.now()
         else:
             subtask.status = False
         subtask.save()

@@ -14,7 +14,7 @@ class Task(models.Model):
                                related_name="task_to_column")
     label = models.ManyToManyField(Label)
     created_on = models.DateTimeField(auto_now_add=True)
-    completed_on = models.DateTimeField(auto_now_add=True)
+    completed_on = models.DateTimeField(null=True)
 
     class Meta():
         ordering = ["id"]
@@ -30,7 +30,7 @@ class Task(models.Model):
         return subtasks_done
 
     def __str__(self):
-        return f"*{self.title}* ON COLUMN: {self.column}"
+        return self.title
 
 
 class Subtask(models.Model):
@@ -39,7 +39,7 @@ class Subtask(models.Model):
     title = models.CharField(max_length=300, blank=False, unique=False)
     status = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
-    completed_on = models.DateTimeField(auto_now_add=True)
+    completed_on = models.DateTimeField(null=True)
 
     def __str__(self):
         return f"*{self.title}* OF TASK: {self.task}"
