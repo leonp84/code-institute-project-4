@@ -32,7 +32,7 @@
                     Column 1 Title
                     <span class="asteriskField">*</span>
                 </label>
-                <input type="text" name="column_title" maxlength="200" class="textinput form-control" required
+                <input type="text" name="column_title" maxlength="200" class="textinput form-control col-titles" required
                     id="column_title_1">
             </div>
             <span class="mb-2">Choose a colour for Column 1:</span>
@@ -94,7 +94,7 @@
 
 
         {% csrf_token %}
-        <button type="submit" class="btn btn-lg btn-success mt-3 me-2">Add Board</button>
+        <button type="submit" id="submit-new-board" class="btn btn-lg btn-success mt-3 me-2">Add Board</button>
     </form>
 </div>
 

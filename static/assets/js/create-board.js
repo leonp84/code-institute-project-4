@@ -5,6 +5,7 @@ $(function () {
     $('#create-new-column').on('click', function () {
         $('#create-new-column').prev().append(extraCol(colCounter))
         $('#remove-new-column').show()
+        checkColumnNameDuplicates()
         colCounter ++
     })
 
@@ -37,7 +38,80 @@ $(function () {
             $('#remove-new-label').hide()
         }
     })
+
+    checkBoardNameDuplicates()
+    checkColumnNameDuplicates()
 })
+
+function checkBoardNameDuplicates() {
+
+    let currentBoards = []
+    saved_boards = document.getElementsByClassName('board-name')
+    for (i = 0; i < saved_boards.length; i++) {
+        currentBoards.push(saved_boards[i].innerText)
+    }
+
+    let errorState = false
+    document.getElementById('id_title').addEventListener('keydown', function(e) {
+        user_input = document.getElementById('id_title').value + e.key
+        if (currentBoards.includes(user_input)) {
+            $('#id_title').css('border', '1px solid red')
+            $('#id_title').prev().text('A Board with that name already exists')
+            $('#id_title').prev().css('color', 'red')
+            $('#submit-new-board').addClass('disabled')
+            errorState = true
+        } else {
+            if (errorState) {
+                $('#id_title').css('border', '1px solid #dee2e6')
+                $('#id_title').prev().text('Title *')
+                $('#id_title').prev().css('color', '#383140')
+                $('#submit-new-board').removeClass('disabled')
+                errorState = false
+            }
+        }
+    })
+    
+}
+
+
+function checkColumnNameDuplicates() {
+
+    let errorState = false
+
+    $('input[name="column_title"]').on('keydown', function(e) {
+        
+        // Take care of Backpsace character
+        currentInput = this.value + e.key
+        if (e.key == 'Backspace') { 
+            currentInput = this.value.slice(0,-1)
+        }
+
+        // Get current column names from unfocused input fields
+        let currentCols = []
+        let allInputs = $('.col-titles')
+        let unfocusedInputs = allInputs.not(':focus');
+        for (i = 0; i < unfocusedInputs.length; i++) {
+            currentCols.push(unfocusedInputs[i].value)
+        }
+
+        // Check if currently inputted column name is a duplicate
+        if (currentCols.includes(currentInput)) {
+            $(this).css('border', '1px solid red')
+            $(this).prev().text('Duplicate Column Names Are Not Recommended')
+            $(this).prev().css('color', 'red')
+            $('#submit-new-board').addClass('disabled')
+            errorState = true
+        } else {
+            if (errorState) {
+                $(this).css('border', '1px solid #dee2e6')
+                $(this).prev().text('Title *')
+                $(this).prev().css('color', '#383140')
+                $('#submit-new-board').removeClass('disabled')
+                errorState = false
+            }
+        }
+    })
+}
 
 
 function extraCol(num) {
@@ -50,7 +124,7 @@ function extraCol(num) {
                 Column ${num} Title
                 <span class="asteriskField">*</span>
             </label>
-            <input type="text" name="column_title" maxlength="200" class="textinput form-control" required id="id_title-${num}">
+            <input type="text" name="column_title" maxlength="200" class="textinput form-control col-titles" required id="id_title-${num}">
         </div>
 
         <span class="mb-2">Choose a colour for Column ${num}:</span>

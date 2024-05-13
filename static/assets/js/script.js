@@ -36,7 +36,7 @@ $(function () {
         }
         $('#logo-light').toggle()
         $('#logo-dark').toggle()
-        console.log(window.localStorage.getItem('currentTheme'))
+
     })
 
     addEventListener()
@@ -61,7 +61,6 @@ function toggleTheme() {
     }
     $('#logo-light').toggle()
     $('#logo-dark').toggle()
-    console.log('test')
 }
 
 function extraTask(num) {

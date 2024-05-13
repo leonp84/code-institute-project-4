@@ -25,7 +25,6 @@ def index(request, display_board=None):
 
 
 def create_new_board(request):
-
     current_board = Board.objects.all().first()
     all_boards = Board.objects.all()
 
@@ -36,7 +35,9 @@ def create_new_board(request):
             new_board = user_input.save(commit=False)
             new_board.author = request.user
             new_board.save()
-
+        print('##### DEBUG ######')
+        print(new_board)
+        print('##### DEBUG ######')
         # Add new Column Instance(s)
         add_cols = request.POST.getlist('column_title')
         for i in range(1, len(add_cols)+1):
