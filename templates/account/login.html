@@ -4,14 +4,14 @@
 {% load static %}
 
 {% block content %}
-<div class="container col-md-7">
+<div class="container col-md-7 d-flex justify-content-center">
     <form class="login account-form-image d-flex flex-wrap" method="POST" action="{% url 'account_login' %}">
         <div class="image-container"></div>
         <div class="p-4 my-auto mx-auto">
             <div style="max-width: 350px;">
                 <h4>TaskFlow</h4>                  
                 <p>A simple Kanban board webapp</p>
-                <em>Distraction Free. Customizable. Simple. Free</em>
+                <em>Distraction Free | Customizable<br>Simple | Free</em>
                 <br>
                 <br>
                 <p>Please Sign In or <a href="{% url 'account_signup' %}">Sign Up</a></p>

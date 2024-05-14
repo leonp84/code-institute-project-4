@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container col-md-7">
-        <form class="signup account-form-image small d-flex flex-wrap mt-5" id="signup_form" method="post" action="{% url 'account_signup' %}">
+<div class="container col-md-7 d-flex justify-content-center">
+        <form class="signup account-form-image account-form-image-signup small d-flex flex-wrap mt-5" id="signup_form" method="post" action="{% url 'account_signup' %}">
             <div class="image-container image-container-signup"></div>
             <div class="p-4 my-auto mx-auto">
-                <div style="max-width: 350px; max-height: 502px; overflow: scroll">
+                <div style="max-width: 300px; max-height: 400px; overflow: scroll">
                     <h4>TaskFlow</h4>
                     <h6 class="mb-4">Create an Account</h6>
                     {% csrf_token %}

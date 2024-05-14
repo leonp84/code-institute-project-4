@@ -1,6 +1,6 @@
 $(function () {
 
-    colCounter = 2
+    colCounter = 3
 
     $('#create-new-column').on('click', function () {
         $('#create-new-column').prev().append(extraCol(colCounter))
@@ -15,7 +15,7 @@ $(function () {
         if (colCounter != 1) {
             colCounter --
         }
-        if (colCounter == 2) {
+        if (colCounter == 3) {
             $('#remove-new-column').hide()
         }
     })

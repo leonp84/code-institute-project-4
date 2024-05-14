@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
+from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm
 from .models import Board, Column, Label
@@ -25,8 +25,8 @@ def index(request, display_board=None):
 
 
 def create_new_board(request):
-    current_board = Board.objects.all().first()
     all_boards = Board.objects.all()
+    current_board = Board.objects.all().first()
 
     if request.method == 'POST':
 
@@ -35,9 +35,7 @@ def create_new_board(request):
             new_board = user_input.save(commit=False)
             new_board.author = request.user
             new_board.save()
-        print('##### DEBUG ######')
-        print(new_board)
-        print('##### DEBUG ######')
+
         # Add new Column Instance(s)
         add_cols = request.POST.getlist('column_title')
         for i in range(1, len(add_cols)+1):
@@ -58,10 +56,7 @@ def create_new_board(request):
             )
             new_label.save()
 
-        # Return to index.html with new Board instance
-        current_board = Board.objects.all().first()
-
-        return redirect(index)
+        return HttpResponseRedirect(reverse('show_board', args=[new_board.id]))
 
     return render(
         request,

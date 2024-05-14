@@ -75,11 +75,18 @@
                             Switch Boards
                         </a>
                         <ul class="dropdown-menu">
+                        {% if user.is_authenticated %}
+
                             {% for board in all_boards.all %}
                             <li><a class="dropdown-item" href="{% url 'show_board' board.id %}">{{ board.title }}</a>
                             </li>
                             {% endfor %}
+                    {% else %}
+                    <span class="p-3">Please Login First</span>
+                    {% endif %}
                         </ul>
+
+
                     </li>
                     {% if home %}
                     <li class="nav-item">

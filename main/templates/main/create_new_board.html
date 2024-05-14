@@ -11,14 +11,14 @@
                 Title
                 <span class="asteriskField">*</span>
             </label>
-            <input type="text" name="title" maxlength="200" class="textinput form-control" pattern="[^\s].*" required id="id_title">
+            <input type="text" name="title" maxlength="200" class="textinput form-control" pattern="[^\s].*" required id="id_title" placeholder="What needs to be done?">
         </div>
         <div id="div_id_description" class="mb-3">
             <label for="id_description" class="form-label">
                 Description
             </label>
             <textarea name="description" cols="40" rows="3" class="textarea form-control"
-                id="id_description"></textarea>
+                id="id_description" placeholder="Provide some task detail..."></textarea>
         </div>
 
         <!-- Columns -->
@@ -33,7 +33,7 @@
                     <span class="asteriskField">*</span>
                 </label>
                 <input type="text" name="column_title" maxlength="200" pattern="[^\s].*" class="textinput form-control col-titles" required
-                    id="column_title_1">
+                    id="column_title_1" placeholder="e.g. 'Todo'">
             </div>
             <span class="mb-2">Choose a colour for Column 1:</span>
             <div class="mb-3">
@@ -52,6 +52,32 @@
                 <input type="radio" class="btn-check" name="column_colour-1" value="yellow" id="yellow-1">
                 <label class="btn btn-outline-warning colour-selector" for="yellow-1">Yellow</label>
             </div>
+            <hr>
+            <div class="mb-3">
+                <label for="column_title" class="form-label requiredField">
+                    Column 2 Title
+                    <span class="asteriskField">*</span>
+                </label>
+                <input type="text" name="column_title" maxlength="200" pattern="[^\s].*" class="textinput form-control col-titles" required
+                    id="column_title_1" placeholder="e.g. 'Doing'">
+            </div>
+            <span class="mb-2">Choose a colour for Column 2:</span>
+            <div class="mb-3">
+                <input type="radio" class="btn-check" name="column_colour-2" value="white" id="white-2">
+                <label class="btn btn-light colour-selector" for="white-2">White</label>
+
+                <input type="radio" class="btn-check" name="column_colour-2" value="red" id="red-2">
+                <label class="btn btn-outline-danger colour-selector" for="red-2">Red</label>
+
+                <input type="radio" class="btn-check" name="column_colour-2" value="green" id="green-2" checked>
+                <label class="btn btn-outline-success colour-selector" for="green-2">Green</label>
+                
+                <input type="radio" class="btn-check" name="column_colour-2" value="blue" id="blue-2">
+                <label class="btn btn-outline-primary colour-selector" for="blue-2">Blue</label>
+
+                <input type="radio" class="btn-check" name="column_colour-2" value="yellow" id="yellow-2">
+                <label class="btn btn-outline-warning colour-selector" for="yellow-2">Yellow</label>
+            </div>
         </div>
         <button type="button" id="create-new-column" class="btn btn-primary mt-3 mb-5">Add
             Column</button>
@@ -67,14 +93,14 @@
                     <span class="asteriskField">*</span>
                 </label>
                 <input type="text" name="label_title" maxlength="200" class="textinput form-control" required
-                    id="label_title_1">
+                    id="label_title_1" placeholder="e.g. 'urgent'">
             </div>
             <span class="mb-2">Choose a colour for Label 1:</span>
             <div class="mb-3">
-                <input type="radio" class="btn-check" name="label_colour-1" value="light" id="label-white-1" checked>
+                <input type="radio" class="btn-check" name="label_colour-1" value="light" id="label-white-1">
                 <label class="btn btn btn-light colour-selector" for="label-white-1">White</label>
 
-                <input type="radio" class="btn-check" name="label_colour-1" value="danger" id="label-red-1">
+                <input type="radio" class="btn-check" name="label_colour-1" value="danger" id="label-red-1" checked>
                 <label class="btn btn-outline-danger colour-selector" for="label-red-1">Red</label>
 
                 <input type="radio" class="btn-check" name="label_colour-1" value="success" id="label-green-1">
