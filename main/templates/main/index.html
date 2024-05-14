@@ -19,7 +19,7 @@
     <div class="column">
         <div class="column-heading">
             <div class="circle {{ column.colour }}"></div>
-            <span>{{ column.title }}</span>
+            <span id="column-title">{{ column.title }}</span>
 
         </div>
         <hr class="line">
@@ -28,7 +28,7 @@
         {% for task in column.task_to_column.all %}
         {% if task.archived == False %}
 
-        <div class="task">
+        <div class="task" draggable="true">
             <div class="task-card-priority {{ task.priority }}">
             </div>
             <div class="mb-2">
@@ -311,4 +311,7 @@
         </div>
     </div>
 </div>
+<script>
+    var CSRF_TOKEN = '{{ csrf_token }}';
+</script>
 {% endblock %}

@@ -7,6 +7,10 @@
 }
 
 
+.dragging {
+    opacity: .5;
+}
+
 * {
     padding: 0;
     margin: 0;
@@ -250,6 +254,7 @@ main {
     padding: 10px 15px;
     position: relative;
     background-color: white;
+    cursor: move;
 }
 
 .strikethrough {

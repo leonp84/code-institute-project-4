@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm
 from .models import Board, Column, Label
 from task.models import Task
-from django.db.models import Q
+from django.http import JsonResponse
 
 # Create your views here.
 @login_required
@@ -219,3 +219,23 @@ def create_initial_board(request):
     new_task.label.add(new_label)
 
     return HttpResponseRedirect(reverse('show_board', args=[first_board.id]))
+
+
+def update_status(request):
+    print('####### DEBUG ######')
+    for item, value in request.headers.items():
+        print(item + ': ' + value)
+        if item == 'Task':
+
+            update_item = value
+        if item == 'Column':
+            new_column = value
+    print('####### DEBUG ######')
+
+    to_update = Task.objects.filter(title=update_item).first()
+    to_update.column = Column.objects.filter(title=new_column).first()
+    to_update.save()
+
+    print(to_update.title + "'s new column = " + str(to_update.column))
+
+    return JsonResponse({'message': 'Model Updated'})

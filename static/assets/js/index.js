@@ -1,5 +1,53 @@
 $(function () {
 
+    // Implementing Drag and Drop
+
+    // Add & remove opacity to picked dragged item
+    dragItems = document.getElementsByClassName('task')
+    for (i = 0; i < dragItems.length; i++) {
+        dragItems[i].addEventListener('dragstart', function() {
+            $(this).addClass('dragging')
+        })
+        dragItems[i].addEventListener('dragend', function() {
+            $(this).removeClass('dragging')
+
+            // Send Ajax request to Python backend with task name and new column title
+            taskName = ($(this).find('.task-title').first().text())
+            newColumn = ($(this).parent().find('#column-title').text())
+
+            $.ajax({
+                url: "/update_status/",
+                type: "POST",
+                dataType: "json",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": CSRF_TOKEN, 
+                    'task': taskName,
+                    'column': newColumn,
+                },
+                success: function(response) {
+                    console.log(response.message);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+
+        })
+    }
+
+    // Append dragged item to the end of dragover container
+    dropZones = document.getElementsByClassName('column')
+    for (i = 0; i < dropZones.length; i++) { 
+        dropZones[i].addEventListener('dragover', function(e) {
+            e.preventDefault()
+            let draggedItem = document.getElementsByClassName('dragging')[0]
+            this.append(draggedItem)
+        })
+    }
+
+
+
     IdCounter = 2
 
     $('#add-new-subtask').on('click', function () {
