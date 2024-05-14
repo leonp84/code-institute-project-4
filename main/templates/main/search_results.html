@@ -10,7 +10,7 @@
 
     <form class="form-floating" id="search-box" style="display: none;" method="POST" action="{% url 'search' board.id %}">
         <input type="text" class="form-control" name="user_search" id="search" placeholder="">
-        <label for="search" class="ps-4">Search Task Content</label>
+        <label for="search" class="ps-4">Search Task Title & Description</label>
         {% csrf_token %}
     </form>
     <h5 class="p-3">Found {{ count }} results for '{{ user_search }}'</h5>
@@ -29,12 +29,11 @@
         {% for task in column.task_to_column.all %}
         {% if task in search_results and task.column == column %}
         <div class="task">
-            {{task.id}}
             <div class="task-card-priority {{ task.priority }}">
             </div>
             <div class="mb-2">
                 <a class="task-title" data-bs-toggle="modal" 
-                data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}{% if task.archived == True %} *Archived*{% endif %}  </a>
+                data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}</a>
             </div>
 
             <!-- Subtasks -->
@@ -54,6 +53,11 @@
             {% if column.id == board.column_to_board.last.id %}
             <div class="task-completed-check">
                 &#10003;
+            </div>
+            {% endif %}
+            {% if task.archived == True %}
+            <div class="archived">
+                <img src="{% static 'assets/images/archived.webp' %}" alt="Archived" height="35">
             </div>
             {% endif %}
         </div>

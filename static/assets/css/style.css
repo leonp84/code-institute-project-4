@@ -98,6 +98,14 @@ nav {
     cursor: pointer;
 }
 
+.dark #search-icon {
+    background-color: rgb(185, 177, 177);
+}
+
+.dark #search-icon:hover {
+    background-color: rgb(229, 224, 224);
+}
+
 #board-info-text {
     max-width: 625px;
     max-height: 75px;
@@ -214,6 +222,12 @@ main {
     margin: 15px 0 0 0;
 }
 
+.archived {
+    position:absolute;
+    bottom: 0;
+    right: 0;
+}
+
 .line {
     border: 1px solid grey;
     width: 70%;
@@ -242,12 +256,7 @@ main {
     text-decoration: line-through;
 }
 
-.task img {
-    position: absolute;
-    top: -5px;
-    right: 1px;
-}
-
+.task-title-archived,
 .task-title {
     width: 95%;
     white-space: wrap;
@@ -258,8 +267,9 @@ main {
     color: var(--project-grey);
 }
 
-.task-title:hover {
-    color: var(--project-blue);
+.task-title-archived:hover,
+.task-title:hover { 
+    color:rgb(71, 110, 183)
 }
 
 .task-card-priority {

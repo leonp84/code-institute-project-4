@@ -10,7 +10,7 @@
 
     <form class="form-floating" id="search-box" style="display: none;" method="POST" action="{% url 'search' board.id %}">
         <input type="text" class="form-control" name="user_search" id="search" placeholder="">
-        <label for="search" class="ps-4">Search Task Content</label>
+        <label for="search" class="ps-4">Search Task Title & Description</label>
         {% csrf_token %}
     </form>
 

@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm
 from .models import Board, Column, Label
 from task.models import Task
-
+from django.db.models import Q
 
 # Create your views here.
 @login_required
@@ -147,7 +147,9 @@ def search(request, board_id):
     if request.method == 'POST':
         user_search = request.POST.get('user_search')
         search_results = current_board_tasks.filter(
-            title__icontains=user_search)
+            title__icontains=user_search) | current_board_tasks.filter(
+            description__icontains=user_search)
+
         count = len(search_results)
         print(search_results)
 
