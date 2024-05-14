@@ -17,6 +17,11 @@ $(function () {
         $(this).next().toggleClass('strikethrough')
     })
 
+    $('#search-icon').on('click', function() {
+        $('#search-box').toggle()
+        $('#search-box').find('input').focus()
+    })
+
     addEventListener()
     checkTaskNameDuplicates()
 

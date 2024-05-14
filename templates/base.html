@@ -136,9 +136,11 @@
                     </div>
                     <span class="ms-2" style="font-family: serif"><strong>&#9788; / &#9789;</strong></span>
                 </div>
+                {% if home %}
                 <div id="search-icon">
-                    <img src="{% static 'assets/images/search.png' %}" class="" alt="Search Icon" height="20">
+                    <img src="{% static 'assets/images/search.png' %}" class="" alt="Search Icon" height="17">
                 </div>
+                {% endif %}
             </div>
             {% for board in all_boards.all %}
             <a href="{% url 'show_board' board.id %}" class="board-name">

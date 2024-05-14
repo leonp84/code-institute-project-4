@@ -13,6 +13,7 @@
         <label for="search" class="ps-4">Search Task Content</label>
         {% csrf_token %}
     </form>
+    <h5 class="p-3">Found {{ count }} results for '{{ user_search }}'</h5>
 
     {% for column in board.column_to_board.all %}
     <!-- Insert Columns -->
@@ -26,13 +27,14 @@
 
         <!-- Insert Tasks -->
         {% for task in column.task_to_column.all %}
-        {% if task.archived == False %}
-
+        {% if task in search_results and task.column == column %}
         <div class="task">
+            {{task.id}}
             <div class="task-card-priority {{ task.priority }}">
             </div>
             <div class="mb-2">
-                <a class="task-title" data-bs-toggle="modal" data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}</a>
+                <a class="task-title" data-bs-toggle="modal" 
+                data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}{% if task.archived == True %} *Archived*{% endif %}  </a>
             </div>
 
             <!-- Subtasks -->

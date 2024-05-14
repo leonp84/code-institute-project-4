@@ -136,6 +136,33 @@ def edit_board(request, board_id=None):
         )
 
 
+def search(request, board_id):
+
+    all_boards = Board.objects.all()
+    current_board = Board.objects.filter(id=board_id).first()
+
+    current_board_tasks = Task.objects.filter(
+        column__in=current_board.column_to_board.all())
+
+    if request.method == 'POST':
+        user_search = request.POST.get('user_search')
+        search_results = current_board_tasks.filter(
+            title__icontains=user_search)
+        count = len(search_results)
+        print(search_results)
+
+    return render(
+        request,
+        'main/search_results.html',
+        {'all_boards': all_boards,
+         'board': current_board,
+         'search_results': search_results,
+         'user_search': user_search,
+         'count': count,
+         'home': True}
+        )
+
+
 def create_initial_board(request):
 
     first_board = Board(

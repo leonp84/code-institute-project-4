@@ -11,4 +11,7 @@ urlpatterns = [
 
     re_path(r'^edit-board/(?P<board_id>.*)$', views.edit_board,
             name='edit_board'),
+
+    re_path(r'^search/(?P<board_id>.*)$', views.search,
+            name='search'),
 ]
