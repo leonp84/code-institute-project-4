@@ -98,7 +98,6 @@ function checkColumnNameDuplicates() {
         if (e.key == 'Backspace') { 
             currentInput = this.value.slice(0,-1)
         }
-        console.log(currentInput)
 
         // Get current column names from unfocused input fields
         let currentCols = []

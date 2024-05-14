@@ -1,19 +1,10 @@
-if (window.localStorage.getItem('currentTheme') == 'dark') {
-    toggleTheme()
-}
-
 $(function () {
-
-    $('#signup_form').find('#id_email').attr('placeholder', 'Email (optional)')
-    $('#reset-password').find('button').addClass('btn btn-outline-primary')
 
     IdCounter = 2
 
     $('#add-new-subtask').on('click', function () {
         $('#subtask-container').append(extraTask(IdCounter))
-
         $('input[name="subtasks"]').focus()
-
 
         IdCounter++
         $('.delete-subtask').on('click', function () {
@@ -26,50 +17,17 @@ $(function () {
         $(this).next().toggleClass('strikethrough')
     })
 
-    // Theme Toggle Function
-    $('#toggle-theme').on('click', function() {
-        $('body').toggleClass('dark')
-        $('.theme-switch').toggleClass('bg-dark');
-        if ($('html').attr('data-bs-theme') == 'light') {
-            $('html').attr('data-bs-theme', 'dark')
-            window.localStorage.currentTheme = 'dark'
-            window.localStorage.setItem('currentTheme', 'dark')
-
-
-        } else {
-            $('html').attr('data-bs-theme', 'light')
-            window.localStorage.setItem('currentTheme', 'light')
-
-        }
-        $('#logo-light').toggle()
-        $('#logo-dark').toggle()
-
-    })
-
     addEventListener()
     checkTaskNameDuplicates()
 
 
-    // Updating DOM Progress Bar Visuals due to HTML Linter giving errors with Python Templating Language
+    // Updating DOM Progress Bar Visuals to avoid linting issues
     let progressBars = document.getElementsByClassName('progress-bar');
     for (let i = 0; i < progressBars.length; i++) {
         newValue = progressBars[i].getAttribute('aria-valuenow')
         progressBars[i].setAttribute('style', `width: ${newValue}%`)
     }
 })
-
-function toggleTheme() {
-    $('body').toggleClass('dark')
-    $('.theme-switch').toggleClass('bg-dark');
-    if ($('html').attr('data-bs-theme') == 'light') {
-        $('html').attr('data-bs-theme', 'dark')
-    } else {
-        $('html').attr('data-bs-theme', 'light')
-
-    }
-    $('#logo-light').toggle()
-    $('#logo-dark').toggle()
-}
 
 function extraTask(num) {
     return `
@@ -94,7 +52,6 @@ function checkTaskNameDuplicates() {
     for (i = 0; i < saved_tasks.length; i++) {
         currentTasks.push(saved_tasks[i].innerText)
     }
-    console.log(currentTasks)
 
     let errorState = false
     document.getElementById('new-task-title').addEventListener('keydown', function(e) {
@@ -103,6 +60,13 @@ function checkTaskNameDuplicates() {
         user_input = this.value + e.key
         if (e.key == 'Backspace') { 
             user_input = this.value.slice(0,-1)
+        }
+
+        if (user_input.length > 100) {
+            e.preventDefault()
+        } else {
+            // Update Character Count with Task Title Creation
+            $('#char-count').text(100 - user_input.length)
         }
 
         if (currentTasks.includes(user_input)) {

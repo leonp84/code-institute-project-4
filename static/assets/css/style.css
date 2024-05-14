@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 :root {
-    --project-blue: #4b658c;
+    --project-blue: rgb(75, 101, 140);
     --project-grey: #383140;
     --project-white: #EEF0F4;
 }
@@ -55,6 +55,15 @@ body {
     color: rgb(71, 110, 183);
 }
 
+.nav-item {
+    border-left: 1px solid lightgrey;
+    padding: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
 nav {
     border-bottom: 1px solid lightgray;
 }
@@ -71,6 +80,34 @@ nav {
 .nav-link:hover {
     text-decoration: underline;
 }
+
+#search-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 3px solid var(--project-blue);
+    background-color: white;
+    margin-left: 20px;
+}
+
+#search-icon:hover { 
+    background-color: rgba(0, 0, 0, 0.416);
+    cursor: pointer;
+}
+
+#board-info-text {
+    max-width: 625px;
+    max-height: 75px;
+    margin-right: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
 
 main {
     display: flex;
@@ -222,7 +259,7 @@ main {
 }
 
 .task-title:hover {
-    color: rgb(64, 64, 172)
+    color: var(--project-blue);
 }
 
 .task-card-priority {
@@ -249,6 +286,12 @@ main {
     position:absolute;
     top: -2px;
     right: -4px;
+}
+
+#char-count-span {
+    font-size: 12px;
+    color: rgb(172, 170, 170);
+    margin-left: 10px;
 }
 
 #archived-tasks .modal-dialog {
@@ -286,7 +329,13 @@ main {
 #toggle-theme {
     height: 23px;
     width: 51px;
+    cursor: pointer;
+    border: 3px solid var(--project-blue);
 }
+#toggle-theme:hover { 
+    background-color: rgba(0, 0, 0, 0.416);
+}
+
 
 .form-check-input:checked {
     background-color: var(--project-blue);
@@ -329,7 +378,16 @@ footer {
     justify-content: center;
     width: 100vw;
     background-color: var(--project-blue);
-    color: white;
+    color: rgb(222, 222, 222);
+}
+
+footer a {
+    color: rgb(222, 222, 222);
+}
+
+footer a:hover {
+    color: black;
+    text-decoration: none;
 }
 
 /* Color classes for use with the Column & Label Models */
@@ -390,9 +448,10 @@ footer {
     border: 2px solid rgb(205, 205, 205);
 }
 
-.account-form-image input {
+.account-form-image input[type="text"] {
     padding: 8px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #div_id_colour label:hover {

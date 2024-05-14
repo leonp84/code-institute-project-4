@@ -2,19 +2,22 @@ from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth.decorators import login_required
 from .forms import CreateBoardForm
 from .models import Board, Column, Label
+from task.models import Task
 
 
 # Create your views here.
 @login_required
 def index(request, display_board=None):
-    all_boards = Board.objects.all()
-    print('DisplBoard = ' + str(display_board))
 
+    if request.user.board_to_user.all().count() == 0:
+        create_initial_board(request)
+
+    all_boards = Board.objects.all()
     if display_board is not None:
         current_board = Board.objects.all().filter(pk=display_board).first()
     else:
         current_board = Board.objects.all().first()
-    print(current_board)
+
     return render(
         request,
         'main/index.html',
@@ -131,3 +134,59 @@ def edit_board(request, board_id=None):
         {'all_boards': all_boards,
          'board': current_board}
         )
+
+
+def create_initial_board(request):
+
+    first_board = Board(
+        title='Kanban',
+        description='Kanban (Japanese: 看板, meaning signboard or billboard) is '
+                    'a lean method to manage and improve work across human '
+                    'systems. This approach aims to manage work by balancing '
+                    'demands with available capacity, and by improving the '
+                    'handling of system-level bottlenecks. - Wikipedia',
+
+        author=request.user
+    )
+    first_board.save()
+
+    first_column = Column(
+        title='Todo',
+        colour='blue',
+        board=first_board
+    )
+    first_column.save()
+
+    second_column = Column(
+        title='Doing',
+        colour='yellow',
+        board=first_board
+    )
+    second_column.save()
+
+    third_column = Column(
+        title='Done',
+        colour='green',
+        board=first_board
+    )
+    third_column.save()
+
+    new_label = Label(
+        title='task',
+        colour='primary',
+        board=first_board
+    )
+    new_label.save()
+
+    new_task = Task(
+        title='Click to edit or delete this sample task',
+        description='You can edit this board by adding new columns'
+                    ' and/or labels. Click on "Edit Current Board" '
+                    ' above.',
+        priority='green',
+        column=first_column
+    )
+    new_task.save()
+    new_task.label.add(new_label)
+
+    return HttpResponseRedirect(reverse('show_board', args=[first_board.id]))

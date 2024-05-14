@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 class Board(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE,
-                               related_name="boards_to_user")
-    title = models.CharField(max_length=200, blank=False, unique=True)
+                               related_name="board_to_user")
+    title = models.CharField(max_length=200, blank=False, unique=False)
     description = models.TextField(blank=True)
     has_archived_tasks = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)

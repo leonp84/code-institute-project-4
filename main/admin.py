@@ -7,9 +7,9 @@ from task.models import Task
 admin.site.register(Column)
 admin.site.register(Label)
 
-admin.site.site_header = "FlowTask - Admin Panel"
+admin.site.site_header = "TaskFlow - Admin Panel"
 admin.site.site_title = "Admin Panel"
-admin.site.index_title = 'FlowTask Dashboard'
+admin.site.index_title = 'TaskFlow Dashboard'
 
 
 @admin.register(Board)

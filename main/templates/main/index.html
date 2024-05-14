@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% load mathfilters %}
 
 {% block content %}
+<script src="{% static 'assets/js/index.js' %}" defer="defer"></script>
 
 <div class="board">
     {% for column in board.column_to_board.all %}
@@ -186,12 +188,11 @@
                         <input name="title" type="text" class="form-control bg-transparent"
                             id="new-task-title" placeholder="What needs to be done?" required>
                         <label for="new-task-title">Title</label>
+                        <span id="char-count-span"><span id="char-count">100</span>&nbsp;Characters Left</span>
                     </div>
-                    <div class="form-floating">
-                        <textarea name="description" class="form-control bg-transparent"
-                            placeholder="Provide some task detail..." id="floatingTextarea"></textarea>
-                        <label for="floatingTextarea">Description</label>
-                    </div>
+                        <label for="task-description">Description</label>
+                        <textarea name="description" class="form-control bg-transparent mt-1"
+                            placeholder="Provide some task detail..." id="task-description" rows="2"></textarea>
                     <hr>
                     <label for="select-status" class="mb-2">Task Priority</label>
                     <select name="priority" id="select-status" class="form-select theme-switch"
