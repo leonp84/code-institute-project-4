@@ -5,7 +5,13 @@
 {% load static %}
 
 {% block content %}
+<script src="https://accounts.google.com/gsi/client" async></script>
 <div class="container col-md-7 d-flex justify-content-center">
+    <div id="g_id_onload" data-client_id="1096312196638-vt90kf728au3l9fh3ekj8otbhobr1mv7.apps.googleusercontent.com"
+        data-context="signin"
+        data-login_uri="https://task-flow-kanban-c8cc3decb975.herokuapp.com/accounts/login/?next=/"
+        data-itp_support="true">
+    </div>
     <form class="login account-form-container" id="login-form" method="POST" action="{% url 'account_login' %}">
         <div class="image-container"></div>
         <div class="p-4 my-auto form-container">
@@ -24,8 +30,8 @@
                 {% if redirect_field_value %}
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
-                <button class="btn btn-outline-primary" type="submit">Sign In</button>
-                <a href="{% provider_login_url 'google' %}" type="button" class="btn btn-outline-dark">Or Sign In With Google</a>
+                <button class="btn btn-outline-primary" type="submit">&nbsp;&nbsp;&nbsp;Sign In&nbsp;&nbsp;&nbsp;</button><br>
+                <a href="{% provider_login_url 'google' %}" type="button" class="btn btn-light mt-2"><img class="" width="22" height="22" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"> Or Sign in with Google</a>
             </div>
         </div>
     </form>
