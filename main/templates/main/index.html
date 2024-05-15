@@ -87,7 +87,7 @@
                             <label for="subtasks" class="mb-2">Subtasks</label>
                             {% for subtask in task.subtask_to_task.all %}
                             <div class="form-check">
-                                <input {% if subtask.statu == True %}checked{% endif %} 
+                                <input {% if subtask.status == True %}checked{% endif %} 
                                 {% if task.archived == True %}disabled{% endif%} name="subtasks" class="form-check-input" type="checkbox"
                                     value="{{ subtask.id }}" id="{{ subtask.title}}-{{ subtask.id }}">
                                 <label
