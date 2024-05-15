@@ -15,7 +15,7 @@ class Task(models.Model):
     column_position = models.IntegerField(default=0)
     label = models.ManyToManyField(Label)
     created_on = models.DateTimeField(auto_now_add=True)
-    completed_on = models.DateTimeField(null=True)
+    completed_on = models.DateTimeField(null=True, blank=True)
 
     class Meta():
         ordering = ["id"]
