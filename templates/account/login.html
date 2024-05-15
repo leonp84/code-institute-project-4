@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
-{% load account socialaccount %}
+{% load socialaccount %}
+
 {% load static %}
 
 {% block content %}
@@ -9,7 +10,7 @@
         <div class="image-container"></div>
         <div class="p-4 my-auto form-container">
             <div>
-                <h4>TaskFlow</h4>                  
+                <h4>TaskFlow</h4>
                 <p>A simple Kanban board webapp</p>
                 <em>Distraction Free | Simple<br>Free | Customizable</em>
                 <br>
@@ -21,6 +22,7 @@
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
                 <button class="btn btn-outline-primary" type="submit">Sign In</button>
+                <a href="{% provider_login_url 'google' %}" type="button" class="btn btn-outline-dark">Or Sign In With Google</a>
             </div>
         </div>
     </form>

@@ -33,6 +33,11 @@ SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+AUTHENTICATION_BACKENDS = (
+    'allauth.account.auth_backends.AuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,6 +51,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'cloudinary_storage',
     'cloudinary',
     'crispy_forms',
@@ -55,8 +61,25 @@ INSTALLED_APPS = [
     'task',
 ]
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+# os.environ.get('GOOGLE_LOGIN_CLIENT_ID')
+# os.environ.get('GOOGLE_LOGIN_SECRET')
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '1096312196638-vt90kf728au3l9fh3ekj8otbhobr1mv7.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        },
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
