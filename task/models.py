@@ -12,6 +12,7 @@ class Task(models.Model):
     archived = models.BooleanField(default=False)
     column = models.ForeignKey(Column, on_delete=models.CASCADE,
                                related_name="task_to_column")
+    column_position = models.IntegerField(default=0)
     label = models.ManyToManyField(Label)
     created_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(null=True)

@@ -25,7 +25,7 @@
         <hr class="line">
 
         <!-- Insert Tasks -->
-        {% for task in column.task_to_column.all %}
+        {% for task in column.task_to_column.all|dictsort:'column_position' %}
         {% if task.archived == False %}
 
         <div class="task" draggable="true">

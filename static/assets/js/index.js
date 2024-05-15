@@ -1,53 +1,5 @@
 $(function () {
 
-    // Implementing Drag and Drop
-
-    // Add & remove opacity to picked dragged item
-    dragItems = document.getElementsByClassName('task')
-    for (i = 0; i < dragItems.length; i++) {
-        dragItems[i].addEventListener('dragstart', function() {
-            $(this).addClass('dragging')
-        })
-        dragItems[i].addEventListener('dragend', function() {
-            $(this).removeClass('dragging')
-
-            // Send Ajax request to Python backend with task name and new column title
-            taskName = ($(this).find('.task-title').first().text())
-            newColumn = ($(this).parent().find('#column-title').text())
-
-            $.ajax({
-                url: "/update_status/",
-                type: "POST",
-                dataType: "json",
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest",
-                    "X-CSRFToken": CSRF_TOKEN, 
-                    'task': taskName,
-                    'column': newColumn,
-                },
-                success: function(response) {
-                    console.log(response.message);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error:", error);
-                }
-            });
-
-        })
-    }
-
-    // Append dragged item to the end of dragover container
-    dropZones = document.getElementsByClassName('column')
-    for (i = 0; i < dropZones.length; i++) { 
-        dropZones[i].addEventListener('dragover', function(e) {
-            e.preventDefault()
-            let draggedItem = document.getElementsByClassName('dragging')[0]
-            this.append(draggedItem)
-        })
-    }
-
-
-
     IdCounter = 2
 
     $('#add-new-subtask').on('click', function () {
@@ -80,7 +32,92 @@ $(function () {
         newValue = progressBars[i].getAttribute('aria-valuenow')
         progressBars[i].setAttribute('style', `width: ${newValue}%`)
     }
+
+    // Implementing Drag and Drop
+
+    // Add & remove opacity to picked dragged item
+    dragItems = document.getElementsByClassName('task')
+    for (i = 0; i < dragItems.length; i++) {
+        dragItems[i].addEventListener('dragstart', function() {
+            $(this).addClass('dragging')
+        })
+        dragItems[i].addEventListener('dragend', function() {
+            $(this).removeClass('dragging')
+
+            // Send Ajax request to Python backend with task names and new column title
+            newColumnName = ($(this).parent().find('#column-title').text())
+            $(this).parent().find('.task-title').text()
+
+            let tasksInColumn = [];
+            $(this).parent().find('.task-title').each(function(){
+                tasksInColumn.push($(this).text());
+            })
+
+            $.ajax({
+                url: "/update_status/",
+                type: "POST",
+                data: JSON.stringify({ 'newColumnName': newColumnName, 
+                                       'tasksInColumn': tasksInColumn  }),
+                dataType: "json",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": CSRF_TOKEN, 
+                },
+                success: function(response) {
+                    console.log(response.message);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                }
+            });
+
+        })
+    }
+
+    // Append dragged item to the end of dragover container
+    dropZones = document.getElementsByClassName('column')
+    for (i = 0; i < dropZones.length; i++) { 
+        dropZones[i].addEventListener('dragover', function(e) {
+            e.preventDefault()
+            let closestTask = getClosestTask(this, e.clientY)
+            console.log(closestTask)
+            let draggedItem = document.getElementsByClassName('dragging')[0]
+            // this.append(draggedItem)
+
+
+            if (closestTask == null) {
+                this.append(draggedItem)
+            } else {
+                this.insertBefore(draggedItem, closestTask)
+            }
+        })
+    }
 })
+
+function getClosestTask(column, mouseY) {
+
+    // Get all Tasks in current column that are not being dragged
+    let tasksInColumn = [];
+    $(column).find('.task').each(function(){
+        if (!$(this).hasClass('dragging')) {
+        tasksInColumn.push(this);
+    }
+    })
+
+    return tasksInColumn.reduce((closest, child) => {
+        // Get horizontal and vertical heights of tasks divs
+        let taskBox = child.getBoundingClientRect()
+        // Set mouse offset below zero when above middle of task div
+        let offset = mouseY - taskBox.top - taskBox.height / 2
+        // Reduce down to closest task (offset closest to zero)
+        if (offset < 0 && offset > closest.offset) {
+          return { offset: offset, element: child }
+        } else {
+          return closest
+        }
+      }, { offset: Number.NEGATIVE_INFINITY }).element
+
+}
 
 function extraTask(num) {
     return `

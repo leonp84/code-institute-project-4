@@ -4,6 +4,8 @@ from .forms import CreateBoardForm
 from .models import Board, Column, Label
 from task.models import Task
 from django.http import JsonResponse
+import json
+
 
 # Create your views here.
 @login_required
@@ -222,20 +224,15 @@ def create_initial_board(request):
 
 
 def update_status(request):
-    print('####### DEBUG ######')
-    for item, value in request.headers.items():
-        print(item + ': ' + value)
-        if item == 'Task':
+    if request.method == 'POST':
+        data = json.load(request)
+        new_column = data['newColumnName']
+        tasks_in_column = data['tasksInColumn']
 
-            update_item = value
-        if item == 'Column':
-            new_column = value
-    print('####### DEBUG ######')
-
-    to_update = Task.objects.filter(title=update_item).first()
-    to_update.column = Column.objects.filter(title=new_column).first()
-    to_update.save()
-
-    print(to_update.title + "'s new column = " + str(to_update.column))
+    for i in range(len(tasks_in_column)):
+        task_to_update = Task.objects.filter(title=tasks_in_column[i]).first()
+        task_to_update.column = Column.objects.filter(title=new_column).first()
+        task_to_update.column_position = i
+        task_to_update.save()
 
     return JsonResponse({'message': 'Model Updated'})
