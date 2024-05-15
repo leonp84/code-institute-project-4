@@ -61,14 +61,12 @@ INSTALLED_APPS = [
     'task',
 ]
 
-# os.environ.get('GOOGLE_LOGIN_CLIENT_ID')
-# os.environ.get('GOOGLE_LOGIN_SECRET')
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '1096312196638-vt90kf728au3l9fh3ekj8otbhobr1mv7.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': os.environ.get('GOOGLE_LOGIN_CLIENT_ID'),
+            'secret': os.environ.get('GOOGLE_LOGIN_SECRET'),
             'key': ''
         },
         'SCOPE': [
