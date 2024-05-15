@@ -428,6 +428,12 @@ footer a:hover {
 .yellow { background-color: rgba(255, 255, 0, 0.5); border: 2px solid yellow; }
 .none { background-color: transparent }
 
+/* Customize appearance of Django Allauth account forms */
+
+.btn-light {
+    border: 1px solid black;
+}
+
 #intro-image {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -440,36 +446,18 @@ footer a:hover {
     height: 400px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    background: url('/static/assets/images/intro-screen.jpg') no-repeat center center / cover;
+    background: url('/static/assets/images/intro-screen.webp') no-repeat center center / cover;
+    background-size: 164%;
 }
 
-.image-container-signup {
-    width: 305px;
-    height: 400px;
-}
-
-/* Customize appearance of Django Allauth account forms */
-
-.btn-light {
-    border: 1px solid black;
-}
-
-.account-form {
+.account-form-container {
     text-align: center;
     border: 2px solid black;
     border-radius: 20px;
-    padding: 20px;
-    margin: 10px;
-
-}
-
-.account-form-image {
-    text-align: center;
-    border: 2px solid black;
-    border-radius: 20px;
-    margin-top: 37px;
-    margin-bottom: 80px;
-    max-width: 447px;
+    margin: 40px 15px 200px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .dark .account-form,
@@ -477,10 +465,10 @@ footer a:hover {
     border: 2px solid rgb(205, 205, 205);
 }
 
-.account-form-image input[type="text"] {
+.account-form-container input[type="text"],
+.account-form-container input[type="password"],
+.account-form-container input[type="email"] {
     padding: 8px;
-    overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 #div_id_colour label:hover {
@@ -535,40 +523,35 @@ label[for="id_login"] {
     }
 
     .image-container {
-        width: 450px;
-        height: 550px;
+        background-size: 164%;
+
+    }
+}
+
+@media screen and (min-width: 992px) {
+
+    .account-form-container {
+        flex-wrap: nowrap;
+        width: 800px;
+        height: auto;
+        background-size: 300%;
+    }
+
+    .image-container {
+        background-size: 169%;
+        width: 538px;
+        height: auto;
         border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 20px;
+    }
+
+    .form-container {
+        width: 550px;
     }
 }
 
 @media screen and (min-width: 1200px) {
 
-    .image-container {
-        width: 350px;
-        height: 497px;
-        border-top-right-radius: 0;
-        border-top-left-radius: 20px;
-        border-bottom-left-radius: 20px;
-        flex-grow: 0;
-    }
-
-    .account-form-image {
-       max-width: 730px;
-       width: 730px;
-       max-height: 500px;
-    }
-
-    .account-form-image-signup {
-        max-width: 1000px;
-        width: 1000px;
-        max-height: 450px;
-     }
-
-     .image-container-signup {
-        width: 300px;
-        height: 450px;
-        flex-grow: 1
-    }
 
 }

@@ -31,6 +31,10 @@ $(function() {
     $('#reset-password').find('button').addClass('btn btn-outline-primary')
     }
 
+    if ($('#login-form')) {
+            $('#id_password_helptext').hide()
+        }
+
     // Update Footer Copyright Date
     let now = new Date();
     $('#footer-date').text(now.getFullYear())

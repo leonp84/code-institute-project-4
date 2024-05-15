@@ -14,11 +14,11 @@ def index(request, display_board=None):
     if request.user.board_to_user.all().count() == 0:
         create_initial_board(request)
 
-    all_boards = Board.objects.all()
+    all_boards = Board.objects.filter(author=request.user)
     if display_board is not None:
         current_board = Board.objects.all().filter(pk=display_board).first()
     else:
-        current_board = Board.objects.all().first()
+        current_board = Board.objects.filter(author=request.user).first()
 
     return render(
         request,
@@ -30,8 +30,8 @@ def index(request, display_board=None):
 
 
 def create_new_board(request):
-    all_boards = Board.objects.all()
-    current_board = Board.objects.all().first()
+    all_boards = Board.objects.filter(author=request.user)
+    current_board = Board.objects.filter(author=request.user).first()
 
     if request.method == 'POST':
 
@@ -73,7 +73,7 @@ def create_new_board(request):
 
 def edit_board(request, board_id=None):
 
-    all_boards = Board.objects.all()
+    all_boards = Board.objects.filter(author=request.user)
     current_board = Board.objects.filter(id=board_id).first()
 
     if request.method == 'POST':
@@ -140,7 +140,7 @@ def edit_board(request, board_id=None):
 
 def search(request, board_id):
 
-    all_boards = Board.objects.all()
+    all_boards = Board.objects.filter(author=request.user)
     current_board = Board.objects.filter(id=board_id).first()
 
     current_board_tasks = Task.objects.filter(

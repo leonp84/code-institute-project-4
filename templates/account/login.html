@@ -5,13 +5,13 @@
 
 {% block content %}
 <div class="container col-md-7 d-flex justify-content-center">
-    <form class="login account-form-image d-flex flex-wrap" method="POST" action="{% url 'account_login' %}">
+    <form class="login account-form-container" id="login-form" method="POST" action="{% url 'account_login' %}">
         <div class="image-container"></div>
-        <div class="p-4 my-auto mx-auto">
-            <div style="max-width: 350px;">
+        <div class="p-4 my-auto form-container">
+            <div>
                 <h4>TaskFlow</h4>                  
                 <p>A simple Kanban board webapp</p>
-                <em>Distraction Free | Customizable<br>Simple | Free</em>
+                <em>Distraction Free | Simple<br>Free | Customizable</em>
                 <br>
                 <br>
                 <p>Please Sign In or <a href="{% url 'account_signup' %}">Sign Up</a></p>

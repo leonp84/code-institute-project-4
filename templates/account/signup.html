@@ -2,22 +2,20 @@
 
 {% block content %}
 <div class="container col-md-7 d-flex justify-content-center">
-        <form class="signup account-form-image account-form-image-signup small d-flex flex-wrap mt-5" id="signup_form" method="post" action="{% url 'account_signup' %}">
-            <div class="image-container image-container-signup"></div>
-            <div class="p-4 my-auto mx-auto">
-                <div style="max-width: 300px; max-height: 400px; overflow: scroll">
-                    <h4>TaskFlow</h4>
-                    <h6 class="mb-4">Create an Account</h6>
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-
-                    {% endif %}
-                    <button class="btn btn-signup btn-outline-primary mt-3" type="submit">Create Account</button>
-                </div>
-            </div>
-        </form>
+    <form class="signup account-form-container" id="signup_form" method="post"
+        action="{% url 'account_signup' %}">
+        <div class="image-container"></div>
+        <div class="p-4 my-auto form-container">
+            <h4>TaskFlow</h4>
+            <h6 class="mb-4">Create an Account</h6>
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button class="btn btn-signup btn-outline-primary mt-3" type="submit">Create Account</button>
+        </div>
+    </form>
 </div>
 
 {% endblock %}
