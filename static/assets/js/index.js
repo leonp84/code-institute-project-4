@@ -25,7 +25,6 @@ $(function () {
     addEventListener()
     checkTaskNameDuplicates()
 
-
     // Updating DOM Progress Bar Visuals to avoid linting issues
     let progressBars = document.getElementsByClassName('progress-bar');
     for (let i = 0; i < progressBars.length; i++) {
@@ -48,9 +47,6 @@ $(function () {
             newColumnId = ($(this).parent().find('.column-id').text())
             lastColumnName = ($('.column').last().find('.column-title').text())
             taskId = $(this).find('.task-id').text()
-            console.log(newColumnName)
-            console.log(newColumnId)
-            console.log(lastColumnName)
 
             // Update Visuals after task lands in new column
             if (newColumnName === lastColumnName) {
@@ -70,13 +66,9 @@ $(function () {
                     editStatus[i].setAttribute('selected', '')
                 } 
             }
-            console.log($('body').find(`#select-status-${taskId}`).html())
-
-
 
 
             // Send Ajax request to Python backend with task names and new column title
-            // $(this).parent().find('.task-title').text()
             let tasksInColumn = [];
             $(this).parent().find('.task-title').each(function(){
                 tasksInColumn.push($(this).text());
@@ -93,10 +85,10 @@ $(function () {
                     "X-CSRFToken": CSRF_TOKEN, 
                 },
                 success: function(response) {
-                    // console.log(response.message);
+                    console.log(response.message);
                 },
                 error: function(xhr, status, error) {
-                    // console.error("Error:", error);
+                    console.error("Error:", error);
                 }
             });
 

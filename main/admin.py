@@ -36,7 +36,7 @@ class BoardAdmin(admin.ModelAdmin):
         cols = Board.objects.filter(id=obj.id).first().column_to_board.all()
         for column in cols:
             total_tasks += column.task_to_column.all().count()
-            open_tasks += column.task_to_column.filter(completed=True).count()
+            open_tasks += column.task_to_column.filter(completed=False).count()
 
         url = (
             reverse("admin:task_task_changelist")
