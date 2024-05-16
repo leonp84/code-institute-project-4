@@ -8,7 +8,6 @@ from datetime import datetime
 def add_new_task(request, display_board=None):
 
     if request.method == 'POST':
-        print('POST')
         queryset = CreateNewTaskForm(data=request.POST)
         if queryset.is_valid():
             new_task = queryset.save(commit=False)
@@ -17,6 +16,10 @@ def add_new_task(request, display_board=None):
 
         # Add Task Column
         task_to_column = request.POST.get('status')
+        print('### DEBUG ###')
+        print(task_to_column)
+        print('### DEBUG ###')
+        
         new_task.column = Column.objects.filter(id=task_to_column).first()
         new_task.completed = False
         new_task.save()

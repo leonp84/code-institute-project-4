@@ -255,6 +255,7 @@ main {
     position: relative;
     background-color: white;
     cursor: move;
+    white-space: normal;
 }
 
 .strikethrough {

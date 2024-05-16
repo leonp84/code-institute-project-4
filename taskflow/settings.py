@@ -95,9 +95,16 @@ WSGI_APPLICATION = 'taskflow.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
 if 'test' in sys.argv:
-    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
-    del DATABASES['default']['OPTIONS']['sslmode']
+    DATABASES = {'default': {
+                    'ENGINE': 'django.db.backends.postgresql',
+                    'NAME': 'test_db_taskflow',
+                    'OPTIONS': {
+                        'options': '-c search_path=public',
+                    },
+                }
+    }
 
 
 # Password validation

@@ -4,10 +4,10 @@ from main.models import Label, Column
 
 # Create your models here.
 class Task(models.Model):
-    title = models.CharField(max_length=300, blank=False, unique=False)
+    title = models.CharField(max_length=105, blank=False, unique=False)
     description = models.TextField(blank=True)
-    priority = models.CharField()
-    status = models.CharField()
+    priority = models.CharField(max_length=300)
+    status = models.CharField(max_length=300)
     completed = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
     column = models.ForeignKey(Column, on_delete=models.CASCADE,
@@ -40,10 +40,10 @@ class Task(models.Model):
 class Subtask(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE,
                              related_name="subtask_to_task")
-    title = models.CharField(max_length=300, blank=False, unique=False)
+    title = models.CharField(blank=False, unique=False, max_length=300)
     status = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(null=True)
 
     def __str__(self):
-        return f"*{self.title}* OF TASK: {self.task}"
+        return self.title

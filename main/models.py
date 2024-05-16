@@ -18,8 +18,8 @@ class Board(models.Model):
 
 
 class Column(models.Model):
-    title = models.CharField(max_length=50, blank=False, unique=False)
-    colour = models.CharField(default='white')
+    title = models.CharField(blank=False, unique=False, max_length=300)
+    colour = models.CharField(default='white', max_length=300)
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
                               related_name="column_to_board")
 
@@ -31,8 +31,8 @@ class Column(models.Model):
 
 
 class Label(models.Model):
-    title = models.CharField(max_length=20, blank=False, unique=False)
-    colour = models.CharField(default='light')
+    title = models.CharField(blank=False, unique=False, max_length=300)
+    colour = models.CharField(default='light', max_length=300)
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
                               related_name="label_to_board")
 
