@@ -44,10 +44,24 @@ $(function () {
         dragItems[i].addEventListener('dragend', function() {
             $(this).removeClass('dragging')
 
-            // Send Ajax request to Python backend with task names and new column title
-            newColumnName = ($(this).parent().find('#column-title').text())
-            $(this).parent().find('.task-title').text()
+            newColumnName = ($(this).parent().find('.column-title').text())
+            lastColumnName = ($('.column').last().find('.column-title').text())
+            console.log(newColumnName)
+            console.log(lastColumnName)
 
+            // Update Visuals after task lands in new column
+            if (newColumnName === lastColumnName) {
+                $(this).find('.task-completed-check').show()
+            }  else {
+                $(this).find('.task-completed-check').hide()
+            }
+            // x = $(this).parent().find('#select-status').html()
+            // console.log(x)
+
+
+
+            // Send Ajax request to Python backend with task names and new column title
+            // $(this).parent().find('.task-title').text()
             let tasksInColumn = [];
             $(this).parent().find('.task-title').each(function(){
                 tasksInColumn.push($(this).text());
@@ -64,10 +78,10 @@ $(function () {
                     "X-CSRFToken": CSRF_TOKEN, 
                 },
                 success: function(response) {
-                    console.log(response.message);
+                    // console.log(response.message);
                 },
                 error: function(xhr, status, error) {
-                    console.error("Error:", error);
+                    // console.error("Error:", error);
                 }
             });
 
@@ -80,9 +94,7 @@ $(function () {
         dropZones[i].addEventListener('dragover', function(e) {
             e.preventDefault()
             let closestTask = getClosestTask(this, e.clientY)
-            console.log(closestTask)
             let draggedItem = document.getElementsByClassName('dragging')[0]
-            // this.append(draggedItem)
 
 
             if (closestTask == null) {

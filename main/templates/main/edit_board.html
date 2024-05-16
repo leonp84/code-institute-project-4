@@ -27,7 +27,7 @@
 
             <div class="mb-3">
                 <input class="hidden" name="column-id" value="{{ column.id }}">
-                <label for="column_title" class="form-label requiredField">
+                <label for="column_title_{{forloop.counter}}" class="form-label requiredField">
                     Column {{forloop.counter}} Title
                     <span class="asteriskField">*</span>
                 </label>
@@ -68,10 +68,11 @@
         <div class="border-container">
             {% for label in board.label_to_board.all %}
             <div class="mb-3">
-                <label for="label_title" class="form-label requiredField">
+                <label class="hidden" for="{{ label.id }}-hidden"></label>
+                <input class="hidden" name="label-id" value="{{ label.id }}" id="{{ label.id }}-hidden">
+                <label for="label_title_{{forloop.counter}}" class="form-label requiredField">
                     Label {{forloop.counter}} Title
                     <span class="asteriskField">*</span>
-                    <input class="hidden" name="label-id" value="{{ label.id }}">
                 </label>
                 <input type="text" name="label_title" maxlength="200" class="textinput form-control" required
                     id="label_title_{{forloop.counter}}" value="{{ label.title }}">

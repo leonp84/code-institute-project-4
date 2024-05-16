@@ -19,7 +19,7 @@
     <div class="column">
         <div class="column-heading">
             <div class="circle {{ column.colour }}"></div>
-            <span id="column-title">{{ column.title }}</span>
+            <span class="column-title">{{ column.title }}</span>
 
         </div>
         <hr class="line">
@@ -49,17 +49,17 @@
                 text-{{ label.colour }} me-1">{{ label.title }}</span>
             {% endfor %}
 
-            {% if column.id == board.column_to_board.last.id %}
-            <div class="task-completed-check">
+            
+            <div class="task-completed-check" {% if column.id != board.column_to_board.last.id %}style="display: none"{% endif %}>
                 &#10003;
             </div>
-            {% endif %}
+
         </div>
         {% endif %}
 
         <!-- Hidden Modal to later edit task | START -->
         <div class="modal fade" id="edit-task-{{ task.id }}" data-bs-backdrop="static" data-bs-keyboard="false"
-            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header theme-switch bg-gradient">
@@ -71,8 +71,8 @@
                         <div class="modal-body theme-switch bg-gradient">
                             <p>{{ task.description }}</p>
                             <hr>
-                            <label for="select-status" class="mb-2">Task Priority</label>
-                            <select name="priority" id="select-status" class="form-select theme-switch" 
+                            <label class="mb-2">Task Priority</label>
+                            <select name="priority" class="form-select theme-switch" 
                             {% if task.archived == True %}disabled{% endif%} aria-label="Default select example ">
                                 <option {% if task.priorit == 'none' %}selected{% endif %} value="None">None</option>
                                 <option {% if task.priority == 'green' %}selected{% endif %} value="green"
@@ -84,15 +84,15 @@
                             </select>
                             <hr>
                             {% if task.subtask_to_task.all.count != 0 %}
-                            <label for="subtasks" class="mb-2">Subtasks</label>
+                            <label class="mb-2">Subtasks</label>
                             {% for subtask in task.subtask_to_task.all %}
-                            <div class="form-check">
+                            <div class="form-check" id="subtasks-{{forloop.counter}}-{{task.id}}">
                                 <input {% if subtask.status == True %}checked{% endif %} 
                                 {% if task.archived == True %}disabled{% endif%} name="subtasks" class="form-check-input" type="checkbox"
-                                    value="{{ subtask.id }}" id="{{ subtask.title}}-{{ subtask.id }}">
+                                    value="{{ subtask.id }}" id="{{forloop.counter}}-{{ subtask.id }}">
                                 <label
                                     class="form-check-label bg-transparent {% if subtask.status == True %}strikethrough{% endif %}"
-                                    for="{{ subtask.title}}-{{ subtask.id }}">
+                                    for="{{forloop.counter}}-{{ subtask.id }}">
                                     {{ subtask.title }}
                                 </label>
                             </div>
@@ -103,31 +103,25 @@
                             <div class="d-flex justify-content-center flex-wrap mt-2">
                                 {% for label in board.label_to_board.all %}
                                 <input name="new-label" type="checkbox" class="btn-check" value="{{ label.id }}"
-                                    autocomplete="off" id="{{ task.id }}-new-label-{{forloop.counter}}" 
+                                    id="{{ task.id }}-new-label-{{forloop.counter}}" 
                                     {% if label in task.label.all %}checked{% endif %} {% if task.archived == True %}disabled{% endif%}>
                                 <label class="btn label-button btn-outline-{{ label.colour }}"
                                     for="{{ task.id }}-new-label-{{forloop.counter}}">{{ label.title }}</label>
                                 {% endfor %}
                             </div>
                             <hr>
-                            <label for="select-status" class="mb-2">Update Task Status</label>
-                            <select name="status" id="select-status" class="form-select theme-switch"
+                            <label for="select-priority-{{ task.id }}" class="mb-2">Update Task Status</label>
+                            <select name="status" id="select-priority-{{ task.id }}" class="form-select theme-switch"
                                 aria-label="Default select example">
                                 {% for column in board.column_to_board.all %}
                                 <option {% if column == task.column %}selected{% endif %} value="{{ column.id }}" 
                                 {% if task.archived == True %}disabled{% endif%}>
-                                    <span>{% if column.colour == 'blue' %}
-                                        &#128309;
-                                        {% elif column.colour == 'green' %}
-                                        &#128994;
-                                        {% elif column.colour == 'red' %}
-                                        &#128308;
-                                        {% elif column.colour == 'yellow' %}
-                                        &#128993;
-                                        {% else %}
-                                        &#9675;
-                                        {% endif %}
-                                        {{ column.title }}</span>
+                                {% if column.colour == 'blue' %}&#128309;{% endif %}
+                                {% if column.colour == 'green' %}&#128994;{% endif %}
+                                {% if column.colour == 'red' %}&#128308;{% endif %}
+                                {% if column.colour == 'yellow' %}&#128993;{% endif %}
+                                {% if column.colour == 'white' %}&#9675;{% endif %}
+                                {{ column.title }}
                                 </option>
                                 {% endfor %}
                             </select>
@@ -160,12 +154,11 @@
             </div>
         </div>
         <!-- Delete Confirmation Modal -->
-        <div class="modal fade" id="delete-modal-{{ task.id }}" aria-hidden="true" aria-labelledby="delete-modal-label"
-            tabindex="-1">
+        <div class="modal fade" id="delete-modal-{{ task.id }}" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content theme-switch bg-gradient">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="delete-modal-label">Delete Confirmation</h5>
+                        <h5 class="modal-title">Delete Confirmation</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -191,8 +184,7 @@
 
 <!-- Add New Task Modal -->
 
-<div class="modal fade" id="add-new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="add-new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content" style="overflow-y: auto;">
             <div class="modal-header theme-switch bg-gradient">
@@ -212,8 +204,8 @@
                     <textarea name="description" class="form-control bg-transparent mt-1"
                         placeholder="Provide some task detail..." id="task-description" rows="2"></textarea>
                     <hr>
-                    <label for="select-status" class="mb-2">Task Priority</label>
-                    <select name="priority" id="select-status" class="form-select theme-switch"
+                    <label for="select-status-{{task.id}}" class="mb-2">Task Priority</label>
+                    <select name="priority" id="select-status-{{task.id}}" class="form-select theme-switch"
                         aria-label="Default select example">
                         <option value="None" selected>None</option>
                         <option value="green" style="background: green;">Low</option>
@@ -222,9 +214,9 @@
                     </select>
                     <hr>
 
-                    <label for="subtask-container" class="mb-2">Subtasks</label>
+                    <label class="mb-2">Subtasks</label>
                     <div id="subtask-container">
-                        <div id="" class="input-group flex-nowrap">
+                        <div class="input-group flex-nowrap">
                             <span class="input-group-text theme-switch delete-subtask" id="delete-subtask-1">X</span>
                             <input type="text" name="subtasks" class="form-control bg-transparent subtask-input"
                                 placeholder="Subtask ..." aria-label="Subtask" aria-describedby="delete-subtask-1">
@@ -236,8 +228,8 @@
                     </div>
                     <hr>
                     <!-- Labels -->
-                    <label for="label-div" class="mb-2 d-flex justify-content-center">Available Labels</label>
-                    <div class="d-flex justify-content-center flex-wrap" id="label-div">
+                    <label class="mb-2 d-flex justify-content-center">Available Labels</label>
+                    <div class="d-flex justify-content-center flex-wrap">
                         {% for label in board.label_to_board.all %}
                         <input name="label" type="checkbox" class="btn-check" value="{{ label.id }}"
                             id="{{ label.id }}">
@@ -245,8 +237,8 @@
                         {% endfor %}
                     </div>
                     <hr>
-                    <label for="select-status" class="mb-2">Task Status</label>
-                    <select name="status" id="select-status" class="form-select theme-switch"
+                    <label for="select-priority" class="mb-2">Task Status</label>
+                    <select name="status" id="select-priority" class="form-select theme-switch"
                         aria-label="Default select example">
                         {% for column in board.column_to_board.all %}
                         <option value="{{ column.id }}">{{ column.title }}</option>
@@ -264,8 +256,7 @@
 </div>
 
 <!-- Archived Tasks Modal -->
-<div class="modal fade" id="archived-tasks" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="archived-tasks" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content" style="overflow-x: hidden;">
             <div class="modal-header theme-switch bg-gradient">
@@ -307,7 +298,6 @@
                 {% endif %}
                 {% endfor %}
             </div>
-            </form>
         </div>
     </div>
 </div>

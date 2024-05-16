@@ -133,7 +133,7 @@ function extraCol(num) {
     <div id="col-${num}">
         <hr>
         <div class="mb-3" >
-            <label for="column_title" class="form-label requiredField">
+            <label for="id_title-${num}" class="form-label requiredField">
                 Column ${num} Title
                 <span class="asteriskField">*</span>
             </label>
@@ -168,14 +168,14 @@ function extraLabel(num) {
     <div id="label-${num}">
         <hr>
         <div class="mb-3">
-            <label for="label_title" class="form-label requiredField">
+            <label for="label_title-${num}" class="form-label requiredField">
                 Label ${num} Title
                 <span class="asteriskField">*</span>
             </label>
             <button type="button" class="btn-close mb-1 remove-button-label" aria-label="Close"
                 id="remove-button-label-${num}"></button>
             <input type="text" name="label_title" maxlength="200" class="textinput form-control" required
-                id="id_title-${num}">
+                id="label_title-${num}">
         </div>
         <span class="mb-2">Choose a colour for Label ${num}:</span>
         <div class="mb-3">

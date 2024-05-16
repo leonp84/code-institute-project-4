@@ -12,7 +12,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta author="Leon A. Potgieter">
+    <meta name="author" content="Leon A. Potgieter">
     <meta name="keywords"
         content="kanban board, task management, agile project management, workflow visualization, productivity tool, project collaboration, team task tracking, task prioritization, time management, agile methodology, scrum board, task organization, project scheduling, team productivity, task assignment">
     <meta name="description"
@@ -51,7 +51,7 @@
                 </a>
             </div>
             <div id="logo-dark" style="display: none">
-                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}" id="logo-dark">
+                <a class="navbar-brand d-flex align-items-center" href="{% url 'index' %}">
                     <img src="{% static 'assets/images/logo-dark.png' %}" alt="TaskFlow Logo" height="40">
                 </a>
             </div>
@@ -131,8 +131,7 @@
             <div class="d-flex justify-content-center align-items-center mb-4">
                 <div>
                     <div class="form-check form-switch d-flex justify-content-center">
-                        <input id="toggle-theme" class="form-check-input" type="checkbox" role="switch"
-                            id="flexSwitchCheckDefault">
+                        <input id="toggle-theme" class="form-check-input" type="checkbox" role="switch">
                     </div>
                     <span class="ms-2" style="font-family: serif"><strong>&#9788; / &#9789;</strong></span>
                 </div>
