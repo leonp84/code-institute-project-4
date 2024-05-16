@@ -20,6 +20,7 @@
         <div class="column-heading">
             <div class="circle {{ column.colour }}"></div>
             <span class="column-title">{{ column.title }}</span>
+            <span class="hidden column-id">{{ column.id }}</span>
 
         </div>
         <hr class="line">
@@ -29,6 +30,7 @@
         {% if task.archived == False %}
 
         <div class="task" draggable="true">
+            <div class="task-id hidden">{{task.id}}</div>
             <div class="task-card-priority {{ task.priority }}">
             </div>
             <div class="mb-2">
@@ -110,9 +112,8 @@
                                 {% endfor %}
                             </div>
                             <hr>
-                            <label for="select-priority-{{ task.id }}" class="mb-2">Update Task Status</label>
-                            <select name="status" id="select-priority-{{ task.id }}" class="form-select theme-switch"
-                                aria-label="Default select example">
+                            <label for="select-status-{{ task.id }}" class="mb-2">Update Task Status</label>
+                            <select name="status" id="select-status-{{ task.id }}" class="form-select theme-switch">
                                 {% for column in board.column_to_board.all %}
                                 <option {% if column == task.column %}selected{% endif %} value="{{ column.id }}" 
                                 {% if task.archived == True %}disabled{% endif%}>
@@ -131,13 +132,14 @@
                             {% csrf_token %}
 
                             {% if task.archived == False %}
-                            {% if column.id == board.column_to_board.last.id%}
-                            <div class="task-completed-check task-completed-check-modal">
-                                &#10003;
-                            </div>
+                            <div id="completed-check-{{task.id}}" {% if column.id != board.column_to_board.last.id%}style ="display: none"{% endif %}>
+                            <div class="task-completed-check" {% if column.id != board.column_to_board.last.id %}style="display: none"{% endif %}></div>
+                                <div class="task-completed-check task-completed-check-modal">
+                                    &#10003;
+                                </div>
                             <a class="btn btn-success" href="{% url 'archive_task' task.id %}" role="button">Archive
                                 Task</a>
-                            {% endif %}
+                            </div>
                             <button type="submit" class="btn btn-primary">Update Task</button>
                             <button type="button" class="btn btn-danger" data-bs-target="#delete-modal-{{ task.id }}"
                                 data-bs-toggle="modal" data-bs-dismiss="modal">Delete Task</button>
@@ -205,8 +207,7 @@
                         placeholder="Provide some task detail..." id="task-description" rows="2"></textarea>
                     <hr>
                     <label for="select-status-{{task.id}}" class="mb-2">Task Priority</label>
-                    <select name="priority" id="select-status-{{task.id}}" class="form-select theme-switch"
-                        aria-label="Default select example">
+                    <select name="priority" id="select-status-{{task.id}}" class="form-select theme-switch">
                         <option value="None" selected>None</option>
                         <option value="green" style="background: green;">Low</option>
                         <option value="yellow" style="background: yellow;" class="text-dark">Medium</option>
@@ -237,9 +238,8 @@
                         {% endfor %}
                     </div>
                     <hr>
-                    <label for="select-priority" class="mb-2">Task Status</label>
-                    <select name="status" id="select-priority" class="form-select theme-switch"
-                        aria-label="Default select example">
+                    <label for="select-status" class="mb-2">Task Status</label>
+                    <select name="status" id="select-status" class="form-select theme-switch">
                         {% for column in board.column_to_board.all %}
                         <option value="{{ column.id }}">{{ column.title }}</option>
                         {% endfor %}

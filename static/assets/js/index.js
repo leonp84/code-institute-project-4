@@ -45,18 +45,33 @@ $(function () {
             $(this).removeClass('dragging')
 
             newColumnName = ($(this).parent().find('.column-title').text())
+            newColumnId = ($(this).parent().find('.column-id').text())
             lastColumnName = ($('.column').last().find('.column-title').text())
+            taskId = $(this).find('.task-id').text()
             console.log(newColumnName)
+            console.log(newColumnId)
             console.log(lastColumnName)
 
             // Update Visuals after task lands in new column
             if (newColumnName === lastColumnName) {
                 $(this).find('.task-completed-check').show()
+                $('body').find(`#completed-check-${taskId}`).show()
             }  else {
                 $(this).find('.task-completed-check').hide()
+                $('body').find(`#completed-check-${taskId}`).hide()
+
             }
-            // x = $(this).parent().find('#select-status').html()
-            // console.log(x)
+            editStatus = $('body').find(`#select-status-${taskId}`).find('option')
+            for (i = 0; i < editStatus.length; i++) {
+                editStatus[i].removeAttribute('selected')
+            }
+            for (i = 0; i < editStatus.length; i++) {
+                if (editStatus[i].value == newColumnId) {
+                    editStatus[i].setAttribute('selected', '')
+                } 
+            }
+            console.log($('body').find(`#select-status-${taskId}`).html())
+
 
 
 
