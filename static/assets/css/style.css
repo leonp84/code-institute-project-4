@@ -278,6 +278,10 @@ nav {
     margin: 5px 1px;
 }
 
+.text-warning {
+    color: black;
+}
+
 .board .modal-content {
     white-space: wrap;
     overflow: visible;
