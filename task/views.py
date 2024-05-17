@@ -7,9 +7,9 @@ from .forms import CreateNewTaskForm
 
 def add_new_task(request, display_board=None):
     '''
-    Creates new instance of :model:`task.Task` and connects it
+    Creates a new instance of :model:`task.Task` and links it
     to a specific instance of :model:`main.Column`. Each instance
-    contains one or more entries of :model:`task.Subtask` and
+    contains one or more links to :model:`task.Subtask` and/or
     :model:`main.Label`. This instance is then returned to the main
     landing page to be displayed with other tasks.
     **Context**
@@ -109,7 +109,7 @@ def edit_task(request, task_id=None):
 
 def archive_task(request, task_id=None):
     '''
-    Allows update the task.arhived field of one instance
+    Allows update of the task.arhived field of one instance
     of :model:`task.Task` and saves the instance to the
     database. This edited instance is then returned to the main
     landing page to be displayed with other tasks.
@@ -134,7 +134,7 @@ def archive_task(request, task_id=None):
 
 def delete_task(request, task_id=None):
     '''
-    Allows deletion of one instance of :model:`task.Task`
+    Allows deletion of one instance of :model:`task.Task`.
     After deletion, the view redirects to the main
     landing page to be displayed without the deleted task.
     **Context**

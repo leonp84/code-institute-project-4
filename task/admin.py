@@ -7,7 +7,7 @@ admin.site.register(Subtask)
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     '''
-    Register custom Task Model to display detailed Task information for site
+    Register TaskAdmin model to display detailed Task information for site
     admin users. This model displays tasks with their status, priority and
     whether or not they are in the board archive.
     '''

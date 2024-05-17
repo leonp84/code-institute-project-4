@@ -6,7 +6,7 @@ from .models import Column, Board, Label
 
 class TestBoardModel(TestCase):
     '''
-    Test board modal functionality.
+    Test Board modal functionality.
     '''
     def setUp(self):
 
@@ -34,7 +34,7 @@ class TestBoardModel(TestCase):
 
 class TestColumnModel(TestCase):
     '''
-    Test column modal functionality.
+    Test Column modal functionality.
     '''
     def setUp(self):
 
@@ -66,7 +66,7 @@ class TestColumnModel(TestCase):
 
 class TestLabelModel(TestCase):
     '''
-    Test label modal functionality.
+    Test Label modal functionality.
     '''
     def setUp(self):
 

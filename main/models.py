@@ -23,8 +23,8 @@ class Board(models.Model):
 
 class Column(models.Model):
     '''
-    Stores a single column within a board and connects it to one specific
-    Board instance at :model:`main.Board`.
+    Stores a single Column within a Board and links it to one specific
+    instance of :model:`main.Board`.
     '''
     title = models.CharField(blank=False, unique=False, max_length=255)
     colour = models.CharField(default='white', max_length=255)
@@ -40,7 +40,7 @@ class Column(models.Model):
 
 class Label(models.Model):
     '''
-    Stores a label within a board and connects it to one specific
+    Stores a Label within a Board, and links it to one specific
     Board instance at :model:`main.Board`.
     '''
     title = models.CharField(blank=False, unique=False, max_length=255)

@@ -15,9 +15,10 @@ admin.site.index_title = 'TaskFlow Dashboard'
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
     '''
-    Register custom board model to display detailed board information for site
-    admin users. This model displays open and closed tasks per board with a
-    link that takes admin users to all open tasks in the current board.
+    Register BoardAdmin model to display detailed board information for site
+    admin users on the Admin page. This model displays open and closed tasks
+    per board with a link that takes admin users to all open tasks in the
+    current board.
     '''
     list_display = ('title', 'description', 'author',
                     'show_columns', 'show_labels',

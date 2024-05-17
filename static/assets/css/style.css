@@ -354,7 +354,7 @@ footer {
     display: flex;
     justify-content: center;
     width: 100vw;
-    background-color: var(--project-blue);
+    background-color: rgb(58, 73, 96);
     color: rgb(222, 222, 222);
 }
 

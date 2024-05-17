@@ -80,9 +80,9 @@
                             <p>{{ task.description }}</p>
                             <hr>
                             <!-- Update Task Priority -->
-                            <label class="mb-2">Task Priority</label>
-                            <select name="priority" class="form-select theme-switch" 
-                            {% if task.archived == True %}disabled{% endif%} aria-label="Default select example ">
+                            <label for="select-priority-{{task.id}}" class="mb-2">Task Priority</label>
+                            <select name="priority" class="form-select theme-switch" id="select-priority-{{task.id}}"
+                            {% if task.archived == True %}disabled{% endif%} aria-label="Select Task Priority">
                                 <option {% if task.priorit == 'none' %}selected{% endif %} value="None">None</option>
                                 <option {% if task.priority == 'green' %}selected{% endif %} value="green"
                                     style="background: green;">Low</option>
@@ -241,7 +241,7 @@
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text theme-switch delete-subtask" id="delete-subtask-1">X</span>
                             <input type="text" name="subtasks" class="form-control bg-transparent subtask-input"
-                                placeholder="Subtask ..." aria-label="Subtask" aria-describedby="delete-subtask-1">
+                                placeholder="Subtask..." aria-label="Subtask" aria-describedby="delete-subtask-1">
                         </div>
                     </div>
                     <div class="d-grid gap-2 mt-2">
@@ -308,7 +308,7 @@
                     {% if task.total_subtasks != 0 %}
                     <p class="mb-1 small">{{ task.subtasks_completed }} of {{ task.total_subtasks}} subtasks</p>
                     <div class="progress mb-1">
-                        <div class="progress-bar bg-secondary" role="progressbar"
+                        <div class="progress-bar bg-secondary" role="progressbar" aria-label="Subtask Progress Bar"
                             aria-valuenow="{{ task.subtasks_completed|div:task.total_subtasks|mul:100 }}"
                             aria-valuemin="0" aria-valuemax="100"></div>
                     </div>

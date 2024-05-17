@@ -10,7 +10,7 @@ from task.models import Task
 @login_required
 def index(request, display_board=None):
     '''
-    Populated the main landing page with the currently selected instance
+    Populates the main landing page with the currently selected instance
     of :model:`main.Board` and its accompanying information.
     **Context**
     ```all_boards```
@@ -19,10 +19,10 @@ def index(request, display_board=None):
     ```board```
         The primary key of the current instance of :model:`main.Board`.
     ```home```
-        A boolean variable confirming to the template to display navbar
+        A boolean variable instructing the template to display navbar
         links relevant to the home page.
     **Template**
-        GET :template:`main/index.html`
+        template:`main/index.html`
     '''
     if request.user.board_to_user.all().count() == 0:
         create_initial_board(request)
@@ -46,7 +46,7 @@ def create_new_board(request):
     '''
     Allows creation of one new instance of `main.Board`. Each instance
     is connected to its respective Columns - :model:`main.Column` and
-    Labels - :model:`main.Label`This newly created instance is then
+    Labels - :model:`main.Label`. This newly created instance is then
     returned to the main landing page to be displayed.
     **Context**
     ```new_board.id```
@@ -104,7 +104,7 @@ def create_new_board(request):
 
 def edit_board(request, board_id=None):
     '''
-    Allows editing of one new instance of `main.Board`. Each instance
+    Allows editing of one existing instance of `main.Board`. Each instance
     is connected to its respective Columns - :model:`main.Column` and
     Labels - :model:`main.Label`. This newly edited instance is then
     returned to the main landing page to be displayed.
@@ -188,9 +188,10 @@ def edit_board(request, board_id=None):
 
 def search(request, board_id):
     '''
-    Allows user to search through all instances of :model:`task.Task`
+    Allows a user to search through all instances of :model:`task.Task`
     on the current instance of :modal:`main.Board`. The view returns
     a queryset of search results to be displayed on a search results page.
+    Task name and description fields are searched.
     **Context**
     ```all_boards```
         Queryset containing all current instances of :model:`main.Board`
@@ -238,10 +239,10 @@ def search(request, board_id):
 
 def create_initial_board(request):
     '''
-    Relevant for newly created instances of :model:`auth.User`
-    Newly registered users do not start not empty Boards, but this
-    view generated initial models for them. It creates the following
-    instances:
+    Relevant for newly created instances of :model:`auth.User`.
+    Newly registered users do not start with empty Boards, instead, this
+    view generates initial models for the landing page. It creates the 
+    following instances:
     :model:`main.Board` x 1
     :model:`main.Column` x 3
     :model:`main.Label` x 1
@@ -312,10 +313,10 @@ def update_status(request):
     '''
     Updates instances of :model:`task.Task` through asyncronous Javascript
     whenever tasks are moved around through drag-and-drop. The view
-    return a Jsonresponse and does not cause any page reload.
+    returns a Jsonresponse and does not cause any page reload.
     **Context**
     ```message```
-        Internal Reply to Jquery
+        Internal Reply to Jquery (see `static/assets/js/index.js:67)
     '''
     if request.method == 'POST':
         data = json.load(request)

@@ -7,7 +7,7 @@ from main.models import Column, Board
 
 class TestTaskModel(TestCase):
     '''
-    Test task modal functionality.
+    Test Task modal functionality.
     '''
     def setUp(self):
 
@@ -57,7 +57,7 @@ class TestTaskModel(TestCase):
 
 class TestSubaskModel(TestCase):
     '''
-    Test subtask modal functionality.
+    Test Subtask modal functionality.
     '''
     def setUp(self):
 

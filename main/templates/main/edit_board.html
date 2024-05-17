@@ -33,6 +33,7 @@
         {% for column in board.column_to_board.all %}
 
             <div class="mb-3">
+                <label for="column-id" class="hidden" aria-label="Column Id"></label>
                 <input class="hidden" name="column-id" value="{{ column.id }}">
                 <label for="column_title_{{forloop.counter}}" class="form-label requiredField">
                     Column {{forloop.counter}} Title

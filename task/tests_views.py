@@ -8,7 +8,7 @@ from main.models import Board, Column, Label
 class TestNewTaskCreation(TestCase):
     '''
     Test task creation process functionality, populating a reloaded version
-    of the main landing page with a new instance Task.
+    of the main landing page with a new instance of :model:`task.Task`
     '''
     def setUp(self):
 

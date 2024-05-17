@@ -4,9 +4,9 @@ from main.models import Label, Column
 
 class Task(models.Model):
     '''
-    Stores a task and connects it to one specific
-    Column instance at :model:`main.Column`, which in turn is connected
-    to one specific Board instance at :model:`main.Board`
+    Stores a Task and connects it to one specific instance 
+    of :model:`main.Column`, which in turn is connected
+    to one specific instance of :model:`main.Board`
     '''
     title = models.CharField(max_length=255, blank=False, unique=False)
     description = models.TextField(blank=True)
@@ -43,9 +43,9 @@ class Task(models.Model):
 
 class Subtask(models.Model):
     '''
-    Stores a subtask and connects it to one specific
-    Task instance at :model:`task.Task`, which in turn is connected
-    to one specific Column instance at :model:`main.Column`
+    Stores a Subtask and connects it to one specific instance 
+    of :model:`task.Task`, which in turn is connected to one specific 
+    instance of :model:`main.Column`
     '''
     task = models.ForeignKey(Task, on_delete=models.CASCADE,
                              related_name="subtask_to_task")
