@@ -1,12 +1,14 @@
 from django.test import TestCase
-from .models import Task, Subtask
-from main.models import Column, Board
 from django.contrib.auth.models import User
 from datetime import datetime
+from .models import Task, Subtask
+from main.models import Column, Board
 
 
-# Create your tests here.
 class TestTaskModel(TestCase):
+    '''
+    Test task modal functionality.
+    '''
     def setUp(self):
 
         self.user = User.objects.create_superuser(
@@ -54,6 +56,9 @@ class TestTaskModel(TestCase):
 
 
 class TestSubaskModel(TestCase):
+    '''
+    Test subtask modal functionality.
+    '''
     def setUp(self):
 
         self.user = User.objects.create_superuser(

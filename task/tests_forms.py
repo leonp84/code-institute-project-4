@@ -3,7 +3,9 @@ from .forms import CreateNewTaskForm
 
 
 class TestCreateNewTaskForm(TestCase):
-
+    '''
+    Test task creation form functionality.
+    '''
     def test_create_new_task_form_is_valid(self):
         new_task = CreateNewTaskForm({
             'title': 'test task',

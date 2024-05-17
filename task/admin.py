@@ -1,13 +1,16 @@
 from django.contrib import admin
 from .models import Task, Subtask
 
-
-# Register your models here.
 admin.site.register(Subtask)
 
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
+    '''
+    Register custom Task Model to display detailed Task information for site
+    admin users. This model displays tasks with their status, priority and
+    whether or not they are in the board archive.
+    '''
     list_display = ('board_name', 'title', 'description', 'priority',
                     'column', 'completed', 'archived',
                     'show_labels', 'completed_on')

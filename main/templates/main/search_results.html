@@ -4,16 +4,22 @@
 {% load mathfilters %}
 
 {% block content %}
+
+<!-- Page Specific Javascript, with index.html -->
 <script src="{% static 'assets/js/index.js' %}" defer="defer"></script>
 
 <div class="board">
-
+    
+    <!-- Search results feedback | User Query + number of items found -->
     <form class="form-floating" id="search-box" style="display: none;" method="POST" action="{% url 'search' board.id %}">
         <input type="text" class="form-control" name="user_search" id="search" placeholder="">
         <label for="search" class="ps-4">Search Task Title & Description</label>
         {% csrf_token %}
     </form>
     <h5 class="p-3">Found {{ count }} results for '{{ user_search }}'</h5>
+
+
+    <!-- Populate board with exising columns -->
 
     {% for column in board.column_to_board.all %}
     <!-- Insert Columns -->
@@ -25,7 +31,7 @@
         </div>
         <hr class="line">
 
-        <!-- Insert Tasks -->
+        <!-- Populate columns with task if task in search results -->
         {% for task in column.task_to_column.all %}
         {% if task in search_results and task.column == column %}
         <div class="task">
@@ -62,6 +68,8 @@
             {% endif %}
         </div>
         {% endif %}
+
+        <!-- The modals below allow normal CRUD operations of found tasks, like on the home page -->
 
         <!-- Hidden Modal to later edit task | START -->
         <div class="modal fade" id="edit-task-{{ task.id }}" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -165,6 +173,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Delete Confirmation Modal -->
         <div class="modal fade" id="delete-modal-{{ task.id }}" aria-hidden="true" aria-labelledby="delete-modal-label"
             tabindex="-1">
@@ -195,7 +204,7 @@
 
 </div>
 
-<!-- Add New Task Modal -->
+<!-- Users can add new tasks also from within the search page | Modal below -->
 
 <div class="modal fade" id="add-new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -269,7 +278,7 @@
     </div>
 </div>
 
-<!-- Archived Tasks Modal -->
+<!-- Archived Tasks Modal | Users can view archived tasks like on the home page -->
 <div class="modal fade" id="archived-tasks" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -317,4 +326,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

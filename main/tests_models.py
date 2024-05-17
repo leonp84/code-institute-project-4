@@ -1,11 +1,13 @@
 from django.test import TestCase
-from .models import Column, Board, Label
 from django.contrib.auth.models import User
 from datetime import datetime
+from .models import Column, Board, Label
 
 
-# Create your tests here.
 class TestBoardModel(TestCase):
+    '''
+    Test board modal functionality.
+    '''
     def setUp(self):
 
         self.user = User.objects.create_superuser(
@@ -31,6 +33,9 @@ class TestBoardModel(TestCase):
 
 
 class TestColumnModel(TestCase):
+    '''
+    Test column modal functionality.
+    '''
     def setUp(self):
 
         self.user = User.objects.create_superuser(
@@ -60,6 +65,9 @@ class TestColumnModel(TestCase):
 
 
 class TestLabelModel(TestCase):
+    '''
+    Test label modal functionality.
+    '''
     def setUp(self):
 
         self.user = User.objects.create_superuser(

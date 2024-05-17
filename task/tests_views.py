@@ -1,11 +1,15 @@
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.test import TestCase
-from main.models import Board, Column, Label
 from django.test import Client
+from main.models import Board, Column, Label
 
 
 class TestNewTaskCreation(TestCase):
+    '''
+    Test task creation process functionality, populating a reloaded version
+    of the main landing page with a new instance Task.
+    '''
     def setUp(self):
 
         self.user = User.objects.create_superuser(

@@ -4,10 +4,14 @@
 {% load mathfilters %}
 
 {% block content %}
+
+<!-- Page Specific Javascript -->
 <script src="{% static 'assets/js/index.js' %}" defer="defer"></script>
 
+<!-- Main Kanban Board -->
 <div class="board">
 
+    <!-- Search Bar ( > 768px | initially hidden) -->
     <form class="form-floating" id="search-box" style="display: none;" method="POST" action="{% url 'search' board.id %}">
         <input type="text" class="form-control" name="user_search" id="search" placeholder="">
         <label for="search" class="ps-4">Search Task Title & Description</label>
@@ -25,33 +29,34 @@
         </div>
         <hr class="line">
 
-        <!-- Insert Tasks -->
+        <!-- Insert Tasks Card (when task not archived) -->
         {% for task in column.task_to_column.all|dictsort:'column_position' %}
         {% if task.archived == False %}
 
         <div class="task" draggable="true">
-            <div class="task-id hidden">{{task.id}}</div>
-            <div class="task-card-priority {{ task.priority }}">
-            </div>
-            <div class="mb-2">
+            <div class="task-id hidden">{{task.id}}</div> <!-- Hidden Task Info for Javascript -->
+            <div class="task-card-priority {{ task.priority }}"></div>
+            <div class="mb-2" title="{{ task.description }}">
                 <a class="task-title" data-bs-toggle="modal" data-bs-target="#edit-task-{{ task.id }}" href="#">{{ task.title }}</a>
             </div>
 
             <!-- Subtasks -->
             {% if task.total_subtasks != 0 %}
-            <p class="mb-1 small">{{ task.subtasks_completed }} of {{ task.total_subtasks}} subtasks</p>
-            <div class="progress mb-1">
-                <div class="progress-bar bg-secondary" role="progressbar"
-                    aria-valuenow="{{ task.subtasks_completed|div:task.total_subtasks|mul:100 }}" aria-valuemin="0"
-                    aria-valuemax="100"></div>
-            </div>
+                <p class="mb-1 small">{{ task.subtasks_completed }} of {{ task.total_subtasks}} subtasks</p>
+                <div class="progress mb-1">
+                    <!-- Subtask progress bar, adjusted via Javascript -->
+                    <div class="progress-bar bg-secondary" role="progressbar"
+                        aria-valuenow="{{ task.subtasks_completed|div:task.total_subtasks|mul:100 }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
             {% endif %}
             {% for label in task.label.all %}
-            <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} 
-                text-{{ label.colour }} m-1">{{ label.title }}</span>
+                <span class="border border-{{ label.colour }} badge rounded-pill btn-outline-{{ label.colour }} text-{{ label.colour }} m-1">
+                    {{ label.title }}
+                </span>
             {% endfor %}
 
-            
+            <!-- Task Completion Check, hidden except for tasks in final column -->
             <div class="task-completed-check" {% if column.id != board.column_to_board.last.id %}style="display: none"{% endif %}>
                 &#10003;
             </div>
@@ -71,8 +76,10 @@
                     <form method="post" action="{% url 'edit_task' task.id %}">
 
                         <div class="modal-body theme-switch bg-gradient">
+
                             <p>{{ task.description }}</p>
                             <hr>
+                            <!-- Update Task Priority -->
                             <label class="mb-2">Task Priority</label>
                             <select name="priority" class="form-select theme-switch" 
                             {% if task.archived == True %}disabled{% endif%} aria-label="Default select example ">
@@ -84,24 +91,28 @@
                                 <option {% if task.priority == 'red' %}selected{% endif %} value="red"
                                     style="background: red;">High</option>
                             </select>
+
                             <hr>
+
                             {% if task.subtask_to_task.all.count != 0 %}
-                            <label class="mb-2">Subtasks</label>
+                                <label class="mb-2">Subtasks</label>
                             {% for subtask in task.subtask_to_task.all %}
-                            <div class="form-check" id="subtasks-{{forloop.counter}}-{{task.id}}">
-                                <input {% if subtask.status == True %}checked{% endif %} 
-                                {% if task.archived == True %}disabled{% endif%} name="subtasks" class="form-check-input" type="checkbox"
-                                    value="{{ subtask.id }}" id="{{forloop.counter}}-{{ subtask.id }}">
-                                <label
-                                    class="form-check-label bg-transparent {% if subtask.status == True %}strikethrough{% endif %}"
-                                    for="{{forloop.counter}}-{{ subtask.id }}">
-                                    {{ subtask.title }}
-                                </label>
-                            </div>
+                                <!-- Check Completed Subtasks -->
+                                <div class="form-check" id="subtasks-{{forloop.counter}}-{{task.id}}">
+                                    <input {% if subtask.status == True %}checked{% endif %} 
+                                    {% if task.archived == True %}disabled{% endif%} name="subtasks" class="form-check-input" type="checkbox"
+                                        value="{{ subtask.id }}" id="{{forloop.counter}}-{{ subtask.id }}">
+                                    <label
+                                        class="form-check-label bg-transparent {% if subtask.status == True %}strikethrough{% endif %}"
+                                        for="{{forloop.counter}}-{{ subtask.id }}">
+                                        {{ subtask.title }}
+                                    </label>
+                                </div>
                             {% endfor %}
 
                             {% endif %}
 
+                            <!-- Display Task Labels -->
                             <div class="d-flex justify-content-center flex-wrap mt-2">
                                 {% for label in board.label_to_board.all %}
                                 <input name="new-label" type="checkbox" class="btn-check" value="{{ label.id }}"
@@ -111,7 +122,10 @@
                                     for="{{ task.id }}-new-label-{{forloop.counter}}">{{ label.title }}</label>
                                 {% endfor %}
                             </div>
+
                             <hr>
+
+                            <!-- Update Task Status ( = move task to new column) -->
                             <label for="select-status-{{ task.id }}" class="mb-2">Update Task Status</label>
                             <select name="status" id="select-status-{{ task.id }}" class="form-select theme-switch">
                                 {% for column in board.column_to_board.all %}
@@ -128,6 +142,7 @@
                             </select>
                         </div>
 
+                        <!-- Modal footer with action buttons (update, delete, archive) -->
                         <div class="modal-footer theme-switch d-flex justify-content-center">
                             {% csrf_token %}
 
@@ -153,7 +168,8 @@
                 </div>
             </div>
         </div>
-        <!-- Delete Confirmation Modal -->
+
+        <!-- Delete Confirmation Modal for each task -->
         <div class="modal fade" id="delete-modal-{{ task.id }}" aria-hidden="true" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content theme-switch bg-gradient">
@@ -182,7 +198,7 @@
 
 </div>
 
-<!-- Add New Task Modal -->
+<!-- Add New Task Modal (initially hidden) -->
 
 <div class="modal fade" id="add-new-task" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -194,16 +210,21 @@
             <form method="post" action="{% url 'add_new_task' board.id %}">
 
                 <div class="modal-body theme-switch bg-gradient">
+                    <!-- New Task Title (100 char max) -->
                     <div class="form-floating mb-3">
                         <input name="title" type="text" class="form-control bg-transparent" id="new-task-title"
                             placeholder="What needs to be done?" required>
                         <label for="new-task-title">Title</label>
                         <span id="char-count-span"><span id="char-count">100</span>&nbsp;Characters Left</span>
                     </div>
+                    <!-- New Task Descrition (TextField) -->
                     <label for="task-description">Description</label>
                     <textarea name="description" class="form-control bg-transparent mt-1"
                         placeholder="Provide some task detail..." id="task-description" rows="2"></textarea>
+                    
                     <hr>
+
+                    <!-- New Task Priority -->
                     <label for="select-status-{{task.id}}" class="mb-2">Task Priority</label>
                     <select name="priority" id="select-status-{{task.id}}" class="form-select theme-switch">
                         <option value="None" selected>None</option>
@@ -211,8 +232,10 @@
                         <option value="yellow" style="background: yellow;" class="text-dark">Medium</option>
                         <option value="red" style="background: red;">High</option>
                     </select>
+
                     <hr>
 
+                    <!-- Add Optional Subtasks -->
                     <label class="mb-2">Subtasks</label>
                     <div id="subtask-container">
                         <div class="input-group flex-nowrap">
@@ -222,11 +245,14 @@
                         </div>
                     </div>
                     <div class="d-grid gap-2 mt-2">
-                        <button id="add-new-subtask" type="button" class="btn btn-secondary btn-sm">Add New
-                            Subtask</button>
+                        <button id="add-new-subtask" type="button" class="btn btn-secondary btn-sm">
+                            Add New Subtask
+                        </button>
                     </div>
+
                     <hr>
-                    <!-- Labels -->
+
+                    <!-- Add Optional Labels (label are board dependant) -->
                     <label class="mb-2 d-flex justify-content-center">Available Labels</label>
                     <div class="d-flex justify-content-center flex-wrap">
                         {% for label in board.label_to_board.all %}
@@ -235,7 +261,10 @@
                         <label class="btn label-button btn-outline-{{ label.colour }}" for="{{ label.id }}">{{ label.title }}</label>
                         {% endfor %}
                     </div>
+
                     <hr>
+
+                    <!-- Add Task Status ( = which column will this task appear initially) -->
                     <label for="select-status" class="mb-2">Task Status</label>
                     <select name="status" id="select-status" class="form-select theme-switch">
                         {% for column in board.column_to_board.all %}
@@ -243,6 +272,8 @@
                         {% endfor %}
                     </select>
                 </div>
+
+                <!-- Modal Footer | Action buttons for confirmation/cancellation -->
                 <div class="modal-footer theme-switch d-flex justify-content-center">
                     {% csrf_token %}
                     <button type="submit" id="submit-new-task" class="btn btn-success">Add Task</button>
@@ -253,7 +284,7 @@
     </div>
 </div>
 
-<!-- Archived Tasks Modal -->
+<!-- Archived Tasks Modal | Accessible when board has archived tasks | Editing of task disabled -->
 <div class="modal fade" id="archived-tasks" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content" style="overflow-x: hidden;">
@@ -299,7 +330,10 @@
         </div>
     </div>
 </div>
+
+<!-- On Page (hidden) CSFR Token var Jquery Ajax -> Django Backend communication -->
 <script>
     var CSRF_TOKEN = '{{ csrf_token }}';
 </script>
+
 {% endblock %}

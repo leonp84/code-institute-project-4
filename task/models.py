@@ -2,12 +2,16 @@ from django.db import models
 from main.models import Label, Column
 
 
-# Create your models here.
 class Task(models.Model):
-    title = models.CharField(max_length=105, blank=False, unique=False)
+    '''
+    Stores a task and connects it to one specific
+    Column instance at :model:`main.Column`, which in turn is connected
+    to one specific Board instance at :model:`main.Board`
+    '''
+    title = models.CharField(max_length=255, blank=False, unique=False)
     description = models.TextField(blank=True)
-    priority = models.CharField(max_length=300)
-    status = models.CharField(max_length=300)
+    priority = models.CharField(max_length=255)
+    status = models.CharField(max_length=255)
     completed = models.BooleanField(default=False)
     archived = models.BooleanField(default=False)
     column = models.ForeignKey(Column, on_delete=models.CASCADE,
@@ -38,9 +42,14 @@ class Task(models.Model):
 
 
 class Subtask(models.Model):
+    '''
+    Stores a subtask and connects it to one specific
+    Task instance at :model:`task.Task`, which in turn is connected
+    to one specific Column instance at :model:`main.Column`
+    '''
     task = models.ForeignKey(Task, on_delete=models.CASCADE,
                              related_name="subtask_to_task")
-    title = models.CharField(blank=False, unique=False, max_length=300)
+    title = models.CharField(blank=False, unique=False, max_length=255)
     status = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     completed_on = models.DateTimeField(null=True)

@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<!-- Django All auth template with custom styling to match site branding -->
+
 <div class="container col-md-3 mt-3">
     <form class="d-flex flex-column justify-content-center text-center mt-5 p-4 border border-primary rounded" method="post" action="{% url 'account_logout' %}">
             <p>Logout?</p>

@@ -6,11 +6,6 @@
     --project-white: #EEF0F4;
 }
 
-
-.dragging {
-    opacity: .5;
-}
-
 * {
     padding: 0;
     margin: 0;
@@ -25,38 +20,16 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-.dark {
-    background-color: black;
-    color:rgb(205, 205, 205);
+main {
+    display: flex;
+    flex-direction: row-reverse;
+    min-height: 70vh;
 }
 
-.dark .board {
-    background-color: black;
-    border: 2px solid rgb(99, 99, 99);
+/* Navbar */
 
-}
-
-.dark .task-title {
-    color: rgb(225, 225, 225);
-}
-
-.dark .side-board a,
-.dark footer {
-    color: white !important;
-}
-
-.dark .side-board {
-    border-right: 3px solid rgb(99, 99, 99);
-}
-
-.dark .task {
-    background-color: rgb(38, 38, 38);
-    border: 2px solid rgb(99, 99, 99);
-}
-
-
-.dark .nav-link {
-    color: rgb(71, 110, 183);
+nav {
+    border-bottom: 1px solid lightgray;
 }
 
 .nav-item {
@@ -68,14 +41,6 @@ body {
     height: 30px;
 }
 
-nav {
-    border-bottom: 1px solid lightgray;
-}
-
-.dark nav {
-    border-bottom: 1px solid rgb(99, 99, 99);
-}
-
 .nav-link {
     color: var(--project-blue);
     font-weight: 400;
@@ -83,6 +48,38 @@ nav {
 
 .nav-link:hover {
     text-decoration: underline;
+}
+
+#board-info-text {
+    max-width: 625px;
+    max-height: 75px;
+    margin-right: 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Side Board ( > 768px ) */
+
+.side-board {
+    width: 220px;
+    min-height: 90vh;
+    height: auto;
+    border-right: 3px solid lightgrey;
+    background-color: var(--project-white);
+}
+
+#search {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding-left: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 1px dashed lightgray;
 }
 
 #search-icon {
@@ -102,42 +99,36 @@ nav {
     cursor: pointer;
 }
 
-.dark #search-icon {
-    background-color: rgb(185, 177, 177);
+#toggle-theme {
+    height: 23px;
+    width: 51px;
+    cursor: pointer;
+    border: 2px solid var(--project-blue);
+}
+#toggle-theme:hover { 
+    background-color: rgba(0, 0, 0, 0.416);
 }
 
-.dark #search-icon:hover {
-    background-color: rgb(229, 224, 224);
+.big-nav-bottom {
+    position: absolute;
+    bottom: 84px;
+    left: 25px;
+    text-align: center;
 }
 
-#board-info-text {
-    max-width: 625px;
-    max-height: 75px;
-    margin-right: 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+/* Main Kanban Board */
 
-
-main {
-    display: flex;
-    flex-direction: row-reverse;
-    min-height: 70vh;
-}
-
-.colour-selector {
-    padding: 5px;
-    margin: 5px 1px;
-}
-
-.side-board {
-    width: 220px;
-    min-height: 90vh;
-    height: auto;
-    border-right: 3px solid lightgrey;
+.board {
+    height: 78vh;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border: 3px solid rgb(163, 182, 192);
     background-color: var(--project-white);
+    border-radius: 20px;
+    white-space: nowrap;
+    overflow: auto;
 }
 
 .board-name {
@@ -173,10 +164,6 @@ main {
     text-decoration: none;
 }
 
-.dark .board-buttons {
-    color: black;
-}
-
 .board-button-top {
     text-align: center;
     border-radius: 20px;
@@ -185,29 +172,7 @@ main {
     background-color: var(--project-blue);
 }
 
-.big-nav-bottom {
-    position: absolute;
-    bottom: 84px;
-    left: 25px;
-    text-align: center;
-}
-
-.board {
-    height: 78vh;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 95%;
-    border: 3px solid rgb(163, 182, 192);
-    background-color: var(--project-white);
-    border-radius: 20px;
-    white-space: nowrap;
-    overflow: auto;
-    /* -ms-overflow-style: none;
-    scrollbar-width: none;
-    overflow-x: scroll;
-    overflow-y: hidden; */
-}
+/* Board Columns */
 
 .column {
     display: inline-block;
@@ -226,24 +191,7 @@ main {
     margin: 15px 0 0 0;
 }
 
-.archived {
-    position:absolute;
-    bottom: 0;
-    right: 0;
-}
-
-.line {
-    border: 1px solid grey;
-    width: 70%;
-    margin: 10px auto 15px auto;
-}
-
-.circle {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
+/* Tasks */
 
 .task {
     border: 2px solid rgb(163, 163, 163);
@@ -304,23 +252,35 @@ main {
     right: -4px;
 }
 
-#char-count-span {
-    font-size: 12px;
-    color: rgb(172, 170, 170);
-    margin-left: 10px;
+.archived {
+    position:absolute;
+    bottom: 0;
+    right: 0;
 }
 
-#archived-tasks .modal-dialog {
-    width: 310px;
+.line {
+    border: 1px solid grey;
+    width: 70%;
+    margin: 10px auto 15px auto;
 }
 
-.modal-footer {
-    position: relative
+.circle {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Task Modals - Edit, Archive, Delete */
+
+.colour-selector {
+    padding: 5px;
+    margin: 5px 1px;
 }
 
 .board .modal-content {
     white-space: wrap;
-    overflow: show;
+    overflow: visible;
 }
 
 .task-completed-check-modal { 
@@ -331,8 +291,14 @@ main {
     right: -11px;
 }
 
-.hidden {
-    display: none;
+#char-count-span {
+    font-size: 12px;
+    color: rgb(172, 170, 170);
+    margin-left: 10px;
+}
+
+#archived-tasks .modal-dialog {
+    width: 310px;
 }
 
 .label-button {
@@ -342,30 +308,9 @@ main {
     height: 27px;
 }
 
-#search {
-    background-color: transparent;
-    border: none;
-    outline: none;
-    padding-left: 20px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    border-bottom: 1px dashed lightgray;
+.modal-footer {
+    position: relative
 }
-
-
-
-#toggle-theme {
-    height: 23px;
-    width: 51px;
-    cursor: pointer;
-    border: 2px solid var(--project-blue);
-}
-#toggle-theme:hover { 
-    background-color: rgba(0, 0, 0, 0.416);
-}
-
 
 .form-check-input:checked {
     background-color: var(--project-blue);
@@ -374,7 +319,7 @@ main {
 
 .label-button:hover {
     box-shadow: 1px 1px 10px var(--project-blue);
- }
+}
 
 /* Modal - Add New Task */
 
@@ -400,6 +345,8 @@ main {
 .delete-subtask {
     cursor: pointer;
 }
+
+/* Footer */
 
 footer {
     position: absolute;
@@ -482,7 +429,6 @@ footer a:hover {
 
 .signup input {
     height: 35px;
-    /* background-color: transparent; */
     caret-color: red;
 }
 
@@ -513,6 +459,68 @@ label[for="id_login"] {
 .remove-button-label {
     position: absolute;
     right: 11px;
+}
+
+/* Drag and Drop Opacity */
+
+.dragging {
+    opacity: .5;
+}
+
+/* Hidden Elements */
+
+.hidden {
+    display: none;
+}
+
+/* Styling for Dark Theme */
+
+.dark {
+    background-color: black;
+    color:rgb(205, 205, 205);
+}
+
+.dark nav {
+    border-bottom: 1px solid rgb(99, 99, 99);
+}
+
+.dark .nav-link {
+    color: rgb(71, 110, 183);
+}
+
+.dark .board {
+    background-color: black;
+    border: 2px solid rgb(99, 99, 99);
+}
+
+.dark .board-buttons {
+    color: black;
+}
+
+.dark .task {
+    background-color: rgb(38, 38, 38);
+    border: 2px solid rgb(99, 99, 99);
+}
+
+.dark .task-title {
+    color: rgb(225, 225, 225);
+}
+
+.dark #search-icon {
+    background-color: rgb(185, 177, 177);
+}
+
+.dark #search-icon:hover {
+    background-color: rgb(229, 224, 224);
+}
+
+.dark .side-board {
+    border-right: 3px solid rgb(99, 99, 99);
+}
+
+.dark .side-board a,
+.dark footer {
+    color: white !important;
 }
 
 @media screen and (min-width: 768px) {
@@ -550,9 +558,4 @@ label[for="id_login"] {
     .form-container {
         width: 550px;
     }
-}
-
-@media screen and (min-width: 1200px) {
-
-
 }

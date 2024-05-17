@@ -1,13 +1,17 @@
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.test import TestCase
+from django.test import Client
+from datetime import datetime
 from .models import Board, Column
 from task.models import Task, Subtask, Label
-from datetime import datetime
-from django.test import Client
 
 
 class TestLandingPage(TestCase):
+    '''
+    Test main landing page functionality, populating with an instance
+    of the Board, Column, Label, Task and Subtask Modal.
+    '''
     def setUp(self):
 
         self.user = User.objects.create_superuser(

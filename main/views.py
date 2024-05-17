@@ -1,16 +1,29 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+import json
 from .forms import CreateBoardForm
 from .models import Board, Column, Label
 from task.models import Task
-from django.http import JsonResponse
-import json
 
 
-# Create your views here.
 @login_required
 def index(request, display_board=None):
-
+    '''
+    Populated the main landing page with the currently selected instance
+    of :model:`main.Board` and its accompanying information.
+    **Context**
+    ```all_boards```
+        Queryset containing all current instances of :model:`main.Board`
+        connected to the current user account.
+    ```board```
+        The primary key of the current instance of :model:`main.Board`.
+    ```home```
+        A boolean variable confirming to the template to display navbar
+        links relevant to the home page.
+    **Template**
+        GET :template:`main/index.html`
+    '''
     if request.user.board_to_user.all().count() == 0:
         create_initial_board(request)
 
@@ -30,6 +43,24 @@ def index(request, display_board=None):
 
 
 def create_new_board(request):
+    '''
+    Allows creation of one new instance of `main.Board`. Each instance
+    is connected to its respective Columns - :model:`main.Column` and
+    Labels - :model:`main.Label`This newly created instance is then
+    returned to the main landing page to be displayed.
+    **Context**
+    ```new_board.id```
+        The primary key of the newly created :model:`main.Board`
+        to be displayed on the landing page.
+    ```all_boards```
+        Queryset containing all current instances of :model:`main.Board`
+        connected to the current user account.
+    ```board```
+        The primary key of the current instance of :model:`main.Board`
+    **Template**
+        GET :template:`create_new_board.html`
+        POST :template:`main/index.html`
+    '''
     all_boards = Board.objects.filter(author=request.user)
     current_board = Board.objects.filter(author=request.user).first()
 
@@ -72,7 +103,24 @@ def create_new_board(request):
 
 
 def edit_board(request, board_id=None):
-
+    '''
+    Allows editing of one new instance of `main.Board`. Each instance
+    is connected to its respective Columns - :model:`main.Column` and
+    Labels - :model:`main.Label`. This newly edited instance is then
+    returned to the main landing page to be displayed.
+    **Context**
+    ```board_id```
+        The primary key of the newly edited :model:`main.Board`
+        to be displayed on the landing page.
+    ```all_boards```
+        Queryset containing all current instances of :model:`main.Board`
+        connected to the current user account.
+    ```board```
+        The primary key of the current instance of :model:`main.Board`
+    **Template**
+        GET :template:`main/edit_board.html`
+        POST :template:`main/index.html`
+    '''
     all_boards = Board.objects.filter(author=request.user)
     current_board = Board.objects.filter(id=board_id).first()
 
@@ -139,7 +187,29 @@ def edit_board(request, board_id=None):
 
 
 def search(request, board_id):
-
+    '''
+    Allows user to search through all instances of :model:`task.Task`
+    on the current instance of :modal:`main.Board`. The view returns
+    a queryset of search results to be displayed on a search results page.
+    **Context**
+    ```all_boards```
+        Queryset containing all current instances of :model:`main.Board`
+        connected to the current user account.
+    ```board```
+        The primary key of the current instance of :model:`main.Board`.
+    ```search_results```
+        A queryset of found instances of :model:`task.Task`.
+    ```user_search```
+        A string variable containing the phrase searched by the user.
+    ```count```
+        An integer of the number of items found.
+    ```home```
+        A boolean variable confirming to the template to display navbar
+        links relevant to the home page.
+    **Template**
+        GET :template:`main/edit_board.html`
+        POST :template:`main/index.html`
+    '''
     all_boards = Board.objects.filter(author=request.user)
     current_board = Board.objects.filter(id=board_id).first()
 
@@ -153,7 +223,6 @@ def search(request, board_id):
             description__icontains=user_search)
 
         count = len(search_results)
-        print(search_results)
 
     return render(
         request,
@@ -168,7 +237,23 @@ def search(request, board_id):
 
 
 def create_initial_board(request):
-
+    '''
+    Relevant for newly created instances of :model:`auth.User`
+    Newly registered users do not start not empty Boards, but this
+    view generated initial models for them. It creates the following
+    instances:
+    :model:`main.Board` x 1
+    :model:`main.Column` x 3
+    :model:`main.Label` x 1
+    :model:`task.Task` x 1
+    These instances are then returned to the main landing page to be
+    displayed there.
+    **Context**
+    ```first_board.id```
+        The primary key of the newly created instance of :model:`main.Board`
+    **Template**
+        :template:`main/index.html`
+    '''
     first_board = Board(
         title='Kanban',
         description='Kanban (Japanese: 看板, meaning signboard or billboard) is '
@@ -224,6 +309,14 @@ def create_initial_board(request):
 
 
 def update_status(request):
+    '''
+    Updates instances of :model:`task.Task` through asyncronous Javascript
+    whenever tasks are moved around through drag-and-drop. The view
+    return a Jsonresponse and does not cause any page reload.
+    **Context**
+    ```message```
+        Internal Reply to Jquery
+    '''
     if request.method == 'POST':
         data = json.load(request)
         new_column = data['newColumnName']

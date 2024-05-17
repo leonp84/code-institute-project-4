@@ -2,6 +2,9 @@
 {% load socialaccount %}
 
 {% block content %}
+
+<!-- Django All auth template with custom styling to match site branding -->
+
 <div class="container col-md-7 d-flex justify-content-center">
     <form class="signup account-form-container" id="signup_form" method="post"
         action="{% url 'account_signup' %}">
@@ -15,7 +18,7 @@
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
             {% endif %}
             <button class="btn btn-signup btn-outline-primary mt-2" type="submit">&nbsp;&nbsp;&nbsp;Create Account&nbsp;&nbsp;&nbsp;</button><br>
-            <a href="{% provider_login_url 'google' %}" type="button" class="btn btn-light mt-2"><img class="" width="22" height="22" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"> Or Sign up with Google</a>
+            <a href="{% provider_login_url 'google' %}" role="button" class="btn btn-light mt-2"><img class="" width="22" height="22" src="https://www.svgrepo.com/show/475656/google-color.svg" loading="lazy" alt="google logo"> Or Sign up with Google</a>
         </div>
     </form>
 </div>

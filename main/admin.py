@@ -1,6 +1,6 @@
-from django.utils.html import format_html, urlencode
 from django.urls import reverse
 from django.contrib import admin
+from django.utils.html import format_html, urlencode
 from .models import Board, Column, Label
 from task.models import Task
 
@@ -14,6 +14,11 @@ admin.site.index_title = 'TaskFlow Dashboard'
 
 @admin.register(Board)
 class BoardAdmin(admin.ModelAdmin):
+    '''
+    Register custom board model to display detailed board information for site
+    admin users. This model displays open and closed tasks per board with a
+    link that takes admin users to all open tasks in the current board.
+    '''
     list_display = ('title', 'description', 'author',
                     'show_columns', 'show_labels',
                     'open_tasks', 'archived_tasks')

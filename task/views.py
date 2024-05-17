@@ -1,12 +1,24 @@
 from django.shortcuts import HttpResponseRedirect, reverse
-from .models import Task, Subtask
-from .forms import CreateNewTaskForm
-from main.models import Board, Column, Label
 from datetime import datetime
+from .models import Task, Subtask
+from main.models import Board, Column, Label
+from .forms import CreateNewTaskForm
 
 
 def add_new_task(request, display_board=None):
-
+    '''
+    Creates new instance of :model:`task.Task` and connects it
+    to a specific instance of :model:`main.Column`. Each instance
+    contains one or more entries of :model:`task.Subtask` and
+    :model:`main.Label`. This instance is then returned to the main
+    landing page to be displayed with other tasks.
+    **Context**
+    ```display_board```
+        The primary key of the current :model:`main.Board`
+        to be displayed on the landing page.
+    **Template**
+        :template:`main/index.html`
+    '''
     if request.method == 'POST':
         queryset = CreateNewTaskForm(data=request.POST)
         if queryset.is_valid():
@@ -16,10 +28,7 @@ def add_new_task(request, display_board=None):
 
         # Add Task Column
         task_to_column = request.POST.get('status')
-        print('### DEBUG ###')
-        print(task_to_column)
-        print('### DEBUG ###')
-        
+
         new_task.column = Column.objects.filter(id=task_to_column).first()
         new_task.completed = False
         new_task.save()
@@ -44,7 +53,20 @@ def add_new_task(request, display_board=None):
 
 
 def edit_task(request, task_id=None):
-
+    '''
+    Allows editing of one instance of :model:`task.Task` and
+    saves this instance to the database with newly updated information
+    including any new connections to :model:`main.Column`,
+    :model:`task.Subtask` and :model:`main.Label`.
+    This edited instance is then returned to the main
+    landing page to be displayed with other tasks.
+    **Context**
+    ```current_board.id```
+        The primary key of the current :model:`main.Board`
+        to be displayed on the landing page.
+    **Template**
+        :template:`main/index.html`
+    '''
     task_to_edit = Task.objects.filter(id=task_id).first()
     current_board = Board.objects.filter(
         id=task_to_edit.column.board.id).first()
@@ -86,9 +108,18 @@ def edit_task(request, task_id=None):
 
 
 def archive_task(request, task_id=None):
-
-    print('Task to archive logic')
-
+    '''
+    Allows update the task.arhived field of one instance
+    of :model:`task.Task` and saves the instance to the
+    database. This edited instance is then returned to the main
+    landing page to be displayed with other tasks.
+    **Context**
+    ```current_board.id```
+        The primary key of the current :model:`main.Board`
+        to be displayed on the landing page.
+    **Template**
+        :template:`main/index.html`
+    '''
     task_to_archive = Task.objects.filter(id=task_id).first()
     task_to_archive.archived = True
     task_to_archive.save()
@@ -102,6 +133,17 @@ def archive_task(request, task_id=None):
 
 
 def delete_task(request, task_id=None):
+    '''
+    Allows deletion of one instance of :model:`task.Task`
+    After deletion, the view redirects to the main
+    landing page to be displayed without the deleted task.
+    **Context**
+    ```current_board.id```
+        The primary key of the current :model:`main.Board`
+        to be displayed on the landing page.
+    **Template**
+        :template:`main/index.html`
+    '''
     task_to_delete = Task.objects.filter(id=task_id).first()
     current_board = Board.objects.filter(
         id=task_to_delete.column.board.id).first()

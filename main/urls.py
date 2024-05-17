@@ -1,4 +1,4 @@
-from django.urls import path, re_path, include  # noqa
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
@@ -14,6 +14,7 @@ urlpatterns = [
 
     re_path(r'^search/(?P<board_id>.*)$', views.search,
             name='search'),
-    
+
     path('update_status/', views.update_status, name='update_status'),
+
 ]

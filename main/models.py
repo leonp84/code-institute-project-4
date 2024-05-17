@@ -3,9 +3,13 @@ from django.contrib.auth.models import User
 
 
 class Board(models.Model):
+    '''
+    Stores a kanban board and connects it to a single user account
+    at :model:`auth.User`.
+    '''
     author = models.ForeignKey(User, on_delete=models.CASCADE,
                                related_name="board_to_user")
-    title = models.CharField(max_length=200, blank=False, unique=False)
+    title = models.CharField(max_length=255, blank=False, unique=False)
     description = models.TextField(blank=True)
     has_archived_tasks = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -18,8 +22,12 @@ class Board(models.Model):
 
 
 class Column(models.Model):
-    title = models.CharField(blank=False, unique=False, max_length=300)
-    colour = models.CharField(default='white', max_length=300)
+    '''
+    Stores a single column within a board and connects it to one specific
+    Board instance at :model:`main.Board`.
+    '''
+    title = models.CharField(blank=False, unique=False, max_length=255)
+    colour = models.CharField(default='white', max_length=255)
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
                               related_name="column_to_board")
 
@@ -31,8 +39,12 @@ class Column(models.Model):
 
 
 class Label(models.Model):
-    title = models.CharField(blank=False, unique=False, max_length=300)
-    colour = models.CharField(default='light', max_length=300)
+    '''
+    Stores a label within a board and connects it to one specific
+    Board instance at :model:`main.Board`.
+    '''
+    title = models.CharField(blank=False, unique=False, max_length=255)
+    colour = models.CharField(default='light', max_length=255)
     board = models.ForeignKey(Board, on_delete=models.CASCADE,
                               related_name="label_to_board")
 
