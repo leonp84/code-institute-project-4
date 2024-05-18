@@ -63,7 +63,11 @@ The app is fully responsive across all screen sizes, with the main design breakp
 ## User Stories
 
 ### User
-Here is the reordered list from low to high based on the hashtags:
+
+User Story cards can be viewed on the [Github Project Board](https://github.com/users/leonp84/projects/3)
+
+<details>
+<summary> User Stories </summary>
 
 > #2 As a site user I can create a new account so that I can use the Kanban app.
 
@@ -96,6 +100,8 @@ Here is the reordered list from low to high based on the hashtags:
 > #20 As a site user I can toggle a light/dark theme so that the site works best in both day and night conditions.
 
 > #21 As a site user I can search task content so that know where to find information when my boards get full.
+
+</details>
 
 ### Site Administrator
 
@@ -283,6 +289,9 @@ Xx
 
 Nine automated tests were written and periodically ran during production. Tests can be found in these files:
 
+<details>
+<summary> Automated Testing </summary>
+
 - main/test_views.py  
 > Tests the apps primary view by creating new instances of the of the Board, Column, Label, Task and Subtask Model and then populating the landing page with these created instances. The test then checks the response to see if all created instances are present.
 
@@ -300,6 +309,8 @@ Nine automated tests were written and periodically ran during production. Tests 
 
 -  task/test_forms.py
 > Tests the functionality of the Task creation form.
+
+</details>
 
 
 ## Validator Testing
@@ -323,6 +334,9 @@ The site was tested with Google Lighthouse using Chrome Developer Tools and the 
 
 # Bugs
 
+<details>
+<summary> Bugs Details </summary>
+
  -	**Social Login:** The Django AllAuth library is supposed to simplify the implementation of social login within a Django project. Due to a bug in the latest version of the library, for some obscure reason, the Google login option was not recognised once the site was deployed to Heroku. After a few hours of debugging, I discovered [someone else]( https://forum.djangoproject.com/t/django-allauth-refuse-to-recognize-google-socialaccount/31106) who had the same problem and solved it by downgrading AllAuth to a previous version. Following this advice solved the problem and the Google social login feature now works on the deployed website.
 
 -	**Drag and Drop Task Status Update:** After a user dragged a task to a new column, it would often revert to its old column upon page reload. To prevent this from happening I had to use JavaScript to manually update a task’s `column`field. This solved the problem.
@@ -343,10 +357,16 @@ The site was tested with Google Lighthouse using Chrome Developer Tools and the 
 
 -	**Testing: Client login:** When writing unit tests, I kept running into HTML redirect problems which meant that the tests that required user login did not work. I was able to solve this using the Django test client login feature.
 
+</details>
+
 
 # Deployment
 
 These are the steps I followed to deploy the project to Heroku:
+
+<details>
+<summary> Deployment Steps </summary>
+
 
 1.  I logged in to my existing Heroku account.
 
@@ -361,6 +381,11 @@ These are the steps I followed to deploy the project to Heroku:
 6.	I added Config Vars (with their associated values, that I got from env.py in my IDE) for the following key: 
 - `SECRET_KEY`
 - `DATABASE_URL`
+
+`DATABASE_URL` is provided by [neon.tech](https://neon.tech/) when signing up for a free database with them. On their console dashboard the necessary instructions for connecting their database to your django project should be followed exactly. As part of this process the following commands are needed to install additional libraries:
+
+`pip3 install dj_databse_url`
+`pip3 install psycopg2-binary`
 
 7.	Back in the Integrated Development Environment, I created a list of requirements by typing pip3 freeze > requirements.txt into the terminal.
 
@@ -377,6 +402,10 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.herokuapp.io',
 ]
 
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
+
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -384,17 +413,24 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 9. I made sure to have static files (stylesheets, scripts, images etc.) available for Heroku by using the following command in the Command Line: `python manage.py collectstatic`
 
-8.	I now ensured that a working version of my code was committed and pushed to GitHub.
+10. I create a Procfile for Heroku in my apps root directory. This file is simply called `Procfile` and contains the following line:
 
-11.	Now on Heroku again, I navigated to the Deploy tab.
+`web: gunicorn taskflow.wsgi`
 
-12.	I selected GitHub as the deployment method and connected to GitHub.
+11.	I now ensured that a working version of my code was committed and pushed to GitHub.
 
-13.	I searched for the repository name of the project (in my case: `code-institute-project-4`) and clicked connect.
+12.	Now on Heroku again, I navigated to the Deploy tab.
 
-14.	I enabled automatic deploys to deploy each time new code was pushed to the repository (optional).
+13.	I selected GitHub as the deployment method and connected to GitHub.
 
-15.	I then finally clicked Deploy Branch to deploy the project.
+14.	I searched for the repository name of the project (in my case: `code-institute-project-4`) and clicked connect.
+
+15.	I enabled automatic deploys to deploy each time new code was pushed to the repository (optional).
+
+16.	I then finally clicked Deploy Branch to deploy the project.
+
+</details>
+
 
 # Links
 
@@ -402,6 +438,9 @@ Deployed Website: https://task-flow-kanban-c8cc3decb975.herokuapp.com/<br>
 GitHub Repository: https://github.com/leonp84/code-institute-project-4/
 
 # Credits
+
+<details>
+<summary> Content and Media Credits </summary>
 
 ## Content
 
@@ -418,3 +457,5 @@ GitHub Repository: https://github.com/leonp84/code-institute-project-4/
 ## Media
 - UI design inspired by a FrontEndMentor project I build: [Entertainment Web App](https://github.com/leonp84/fm8-entertainment-web-app)
 - Site Logo designed with [Looka](https://www.looka.com)
+
+</details>
