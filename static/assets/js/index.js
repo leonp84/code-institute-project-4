@@ -1,6 +1,6 @@
 $(function () {
 
-    // Populate new Label input on add task Modal
+    // Populate new Subtask input on add task Modal
     let IdCounter = 2;
     $('#add-new-subtask').on('click', function () {
         $('#subtask-container').append(extraTask(IdCounter));

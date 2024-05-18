@@ -64,7 +64,7 @@ function checkBoardNameDuplicates() {
 
     let errorState = false;
     document.getElementById('id_title').addEventListener('keydown', function(e) {
-        // Take care of Backpsace character
+        // Take care of Backspace character
         let user_input = this.value + e.key;
         if (e.key == 'Backspace') { 
             user_input = this.value.slice(0, -1);
@@ -95,7 +95,7 @@ function checkColumnNameDuplicates() {
     let errorState = false;
 
     $('input[name="column_title"]').on('keydown', function(e) {
-        // Take care of Backpsace character
+        // Take care of Backspace character
         let currentInput = this.value + e.key;
         if (e.key == 'Backspace') { 
             currentInput = this.value.slice(0, -1);

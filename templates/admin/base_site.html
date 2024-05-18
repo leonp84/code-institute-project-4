@@ -19,9 +19,6 @@
 <div id="site-name mt-1">
     <a href="{% url 'admin:index' %}"><img id="branding-logo" src="{% static 'assets/images/logo-admin.webp' %}" height="40" alt="TaskFlow Logo"><br></a>
 </div>
-<script>
-    console.log(document.getElementById('site-name').innerHTML)
-</script>
 {% if user.is_anonymous %}
   {% include "admin/color_theme_toggle.html" %}
 {% endif %}

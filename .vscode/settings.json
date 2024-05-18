@@ -20,7 +20,7 @@
       "**/CVS": true
    },
    "files.autoSave": "off",
-   "workbench.colorTheme": "Visual Studio Light",
+   "workbench.colorTheme": "One Dark Pro Darker",
    "terminal.integrated.gpuAcceleration": "canvas",
 "editor.defaultFormatter": "HookyQR.beautify",
 "[html]": {

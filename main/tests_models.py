@@ -34,7 +34,7 @@ class TestBoardModel(TestCase):
 
 class TestColumnModel(TestCase):
     '''
-    Test Column modal functionality.
+    Test Column model functionality.
     '''
     def setUp(self):
 
@@ -66,7 +66,7 @@ class TestColumnModel(TestCase):
 
 class TestLabelModel(TestCase):
     '''
-    Test Label modal functionality.
+    Test Label model functionality.
     '''
     def setUp(self):
 

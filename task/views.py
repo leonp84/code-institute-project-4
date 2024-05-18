@@ -109,7 +109,7 @@ def edit_task(request, task_id=None):
 
 def archive_task(request, task_id=None):
     '''
-    Allows update of the task.arhived field of one instance
+    Allows update of the task.archived field of one instance
     of :model:`task.Task` and saves the instance to the
     database. This edited instance is then returned to the main
     landing page to be displayed with other tasks.

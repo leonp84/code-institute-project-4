@@ -6,7 +6,17 @@ Welcome to the Readme file for TaskFlow, a free customizable Kanban webapp built
 
 ++ **[Link to Live Site](https://task-flow-kanban-c8cc3decb975.herokuapp.com/accounts/login/?next=/)** ++
 <br>
-<br>
+
+**[Link to Github Project Board](https://github.com/users/leonp84/projects/3)**
+
+<hr>
+
+*For testing the application, please use the following login details:*
+
+Username: 	**admin**
+
+Password: 	**taskflow12345**
+<hr>
 
 # Table of Contents
 
@@ -108,6 +118,9 @@ User Story cards can be viewed on the [Github Project Board](https://github.com/
 
 > #6 As a site admin I can keep track of registered accounts to see how the app is being utilised.
 
+> #22 As a site admin I can track of open and closed tasks on boards so that I have an overview of app usage and user project statistics.
+
+
 ## Site Concept
 
 TaskFlow provides users with a basic productivity tool to boost personal or professional efficiency without complication. The app was designed with the following UX related goals in mind:
@@ -127,11 +140,11 @@ The following colour palette’s were used for the respective light and dark the
 
 *Site Colour Palette Light Mode*
 
-![Site colour palette Light](static/assets/images/readme-images/light-theme.webp)
+![Site colour palette Light](static/assets/images/readme-images/colour-palette-light.webp)
 
 *Site Colour Palette Dark Mode*
 
-![Site colour palette Dark](static/assets/images/readme-images/dark-theme.webp)
+![Site colour palette Dark](static/assets/images/readme-images/colour-palette-dark.webp)
 
 ### Logo
 
@@ -176,9 +189,11 @@ In this ERD, NN (Not Null) indicates required fields that the user cannot leave 
 -	Toggle between a dark and light mode.
 -	See board and tasks statistics such as the number of open/closed tasks on any board (app admin users only).
 
+![TaskFlow Main Page](static/assets/images/readme-images/light-theme.webp)
+
 ## Accounts
 
-Upon opening the app, users are presented with a login screen and given the opportunity to create a new account if no current account is present. In both cases, a social login/signup option, via Google, is also available. 
+Upon opening the app, users are presented with a login screen and given the opportunity to create a new account if no current account is present. For both login and registration, a social login/signup option, via Google, is also available. 
 
 ![TaskFlow Signup Page](static/assets/images/readme-images/accounts.webp)
 
@@ -208,7 +223,7 @@ On the main page sideboard (or on smaller screens, in the navbar dropdown), user
 
 ## Create New Tasks
 
-The heart of any Kanban tool is the creating and tracking of tasks, and TaskFlow has provided users with a simple task creation tool where tasks can be named, described and prioritized (indicated with a colour coding system). During this process subtasks and task labels can also be added.
+The heart of any Kanban tool is the creating and tracking of tasks, and TaskFlow has provides users with a simple task creation tool where tasks can be named, described and prioritized (indicated with a colour coding system). During this process subtasks and task labels can also be added.
 
 ![Create New Tasks](static/assets/images/readme-images/add-new-task.webp)
 
@@ -233,7 +248,7 @@ This automatically updates its status on the board. Tasks can also be manually o
 
 ## Archive Tasks
 
-The software design simplified the completion of tasks by assuming that any task in the final board column (regardless of column name) is considered completed. Subtask completion is not required.
+The software design simplifies the completion of tasks by assuming that any task in the final board column (regardless of column name) is considered completed. Subtask completion is not required.
 
 This is also made clear to the user when creating or editing boards. Tasks in the final column then get a visual update to indicate its completed status, and upon opening completed tasks users are presented with the option to archive a task. 
 
@@ -268,9 +283,11 @@ On any user board, a search functionality is available to search through the nam
 
 A built in dark theme allows users to switch between a light and dark theme for the app. The light/dark toggle is located on the side board, next to the search button.
 
+![TaskFlow in Dark Mode](static/assets/images/readme-images/dark-theme.webp)
+
 ## Statistics
 
-The app’s administrator may uses the option to log into a customized admin page where statistics about the various users, boards, and tasks currently in the app database, is available. Admin users can, for example see the number of open, closed, and archived tasks currently on any given board. 
+The app’s administrator may log into a customized admin page where statistics about the various users, boards, and tasks currently in the app database, is available. Admin users can, for example see the number of open, closed, and archived tasks currently on any given board. 
 
 *The 'Board' section of the admin page shows open/closed tasks per board, with a link to all current open tasks*
 
@@ -430,13 +447,13 @@ The site was tested with Google Lighthouse using Chrome Developer Tools and the 
 
 -	**Drag and Drop Task vertical ordering:** To provide vertical ordering of tasks within a single column, I had to introduce an additional field to the Task model, which contained an integer of the current vertical location of a task within a column. This proved the simplest after trying different, much more complicated solutions.
 
--	**Dynamically generated HTML:** To allow users to add or remove labels and columns when creating or editing Kanban boards, I used JavaScript (jQuery) to dynamically generate the necessary HTML. Jquery also again removes if users end up not wanting additional columns or tasks. This took much trial, error and fine tuning to get just right so that the dynamically generated HTML looked visually correct and provided the correct functionality.
+-	**Dynamically generated HTML:** To allow users to add or remove labels and columns when creating or editing Kanban boards, I used JavaScript (jQuery) to dynamically generate the necessary HTML. Jquery also again removes this HTML is users end up not wanting additional columns or tasks. This took much trial, error and fine tuning to get just right so that the dynamically generated HTML looked visually correct and provided the correct functionality.
 
 -	**Jquery Ajax:** In a previous [test project I built](https://github.com/leonp84/fm8-entertainment-web-app), I first encountered having to use asynchronous JavaScript and jQuery to send information from the front end to the Python back end. With this project I wanted to further refine that process by using JSON as the form of communication. For this I needed to do quite a bit of debugging to get the syntax for sending data asynchronously between the front end and back end, just right.
 
 -	**Lighthouse (accessibility):** The initial lighthouse results for app accessibility were undesirable and I had to update the colouring of some labels to increase contrast and provide Aria labelling to some dynamically generated HTML elements. This improved the app score to its current high of above 90%.
 
--	**HTML Validation (duplicate IDs):** When I first ran the app through the HTML validation tool, I discovered that there were many duplicate ID's which was being created by the dynamically generated HTML. I had to manually go through each of these and update the ID’s of the elements using the Django forloop counter to create unique ID’s when generating similar HTML elements. This solved the problem.
+-	**HTML Validation (duplicate IDs):** When I first ran the app through the HTML validation tool, I discovered that there were many duplicate ID's which was being created by the dynamically generated HTML. I had to manually go through each of these and update the ID’s of the elements using the Django `forloop.counter` to create unique ID’s when generating similar HTML elements. This solved the problem.
 
 -	**JavaScript Validation:** The initial JavaScript validation showed many missing semicolons and some undeclared variables which I then fixed.
 
@@ -465,7 +482,7 @@ These are the steps I followed to deploy the project to Heroku:
 
 5.	At the Config Vars section, I clicked Reveal Config Vars.
 
-6.	I added Config Vars (with their associated values, that I got from env.py in my IDE) for the following key: 
+6.	I added Config Vars (with their associated values, that I got from env.py in my IDE) for the following keys: 
 - `SECRET_KEY`
 - `DATABASE_URL`
 
@@ -500,7 +517,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 9. I made sure to have static files (stylesheets, scripts, images etc.) available for Heroku by using the following command in the Command Line: `python manage.py collectstatic`
 
-10. I create a Procfile for Heroku in my apps root directory. This file is simply called `Procfile` and contains the following line:
+10. I created a Procfile for Heroku in my apps root directory. This file is simply called `Procfile` and contains the following line:
 
 `web: gunicorn taskflow.wsgi`
 
@@ -538,7 +555,7 @@ GitHub Repository: https://github.com/leonp84/code-institute-project-4/
 - For help with fine tuning the sending of data via Jquery Ajax: [testdriven.io](https://testdriven.io/blog/django-ajax-xhr/)
 - For help in removing whitespace from items retrieved via Jquery: [Stack Overflow Question](https://stackoverflow.com/questions/6623231/remove-all-white-spaces-from-text)
 - For help with advanced Django template filtering: [Stack Overflow](https://stackoverflow.com/questions/739776/how-do-i-do-an-or-filter-in-a-django-query)
-- The official Django documentation helped a lot with understanding the `re_path` and `Client()` functionality.
+- The official [Django documentation](https://docs.djangoproject.com/en/5.0/) helped a lot with understanding the `re_path` and `Client()` functionality.
 - Django docs for help with client login during testing
 
 ## Media

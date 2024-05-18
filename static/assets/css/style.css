@@ -505,6 +505,10 @@ label[for="id_login"] {
     color: rgb(225, 225, 225);
 }
 
+.dark .task-title:hover {
+    color: var(--project-blue);
+}
+
 .dark #search-icon {
     background-color: rgb(185, 177, 177);
 }

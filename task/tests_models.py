@@ -7,7 +7,7 @@ from main.models import Column, Board
 
 class TestTaskModel(TestCase):
     '''
-    Test Task modal functionality.
+    Test Task model functionality.
     '''
     def setUp(self):
 
@@ -55,9 +55,9 @@ class TestTaskModel(TestCase):
         self.assertIsNone(self.task.completed_on)
 
 
-class TestSubaskModel(TestCase):
+class TestSubtaskModel(TestCase):
     '''
-    Test Subtask modal functionality.
+    Test Subtask model functionality.
     '''
     def setUp(self):
 
