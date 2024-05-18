@@ -412,11 +412,6 @@ footer a:hover {
     justify-content: center;
 }
 
-.dark .account-form,
-.dark .account-form-image {
-    border: 2px solid rgb(205, 205, 205);
-}
-
 .account-form-container input[type="text"],
 .account-form-container input[type="password"],
 .account-form-container input[type="email"] {
@@ -522,9 +517,19 @@ label[for="id_login"] {
     border-right: 3px solid rgb(99, 99, 99);
 }
 
+.dark .btn-light {
+    --bs-btn-color: #fff;
+    --bs-btn-border-color: #fff;
+    --bs-btn-bg: #414141;
+}
+
 .dark .side-board a,
 .dark footer {
     color: white !important;
+}
+
+.dark .account-form-container {
+    border: 2px solid rgb(205, 205, 205);
 }
 
 @media screen and (min-width: 768px) {
