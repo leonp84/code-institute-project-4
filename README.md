@@ -68,6 +68,7 @@ User Story cards can be viewed on the [Github Project Board](https://github.com/
 
 <details>
 <summary> User Stories </summary>
+<br>
 
 > #2 As a site user I can create a new account so that I can use the Kanban app.
 
@@ -151,6 +152,7 @@ The design of this page (the basis for all other pages) was based off the wirefr
 #### Mobile
 
 *Wireframes for the App Mobile view & Task Creation Modal*
+
 ![Site Wireframe (Mobile) showing initial design concept of index.html](static/assets/images/readme-images/wireframe-mobile.webp)
 
 # Model Design And Relationships
@@ -264,12 +266,7 @@ On any user board, a search functionality is available to search through the nam
 
 ## Theme Toggle
 
-A build in dark theme allows users to switch between a light and dark theme for the app.
-
-*Screenshot of the App in Dark Mode - the light/dark toggle is located on the side board, next to the search button.*
-
-![Site Dark Theme Screenshot](static/assets/images/readme-images/dark-theme.webp)
-
+A built in dark theme allows users to switch between a light and dark theme for the app. The light/dark toggle is located on the side board, next to the search button.
 
 ## Statistics
 
@@ -283,7 +280,95 @@ The app’s administrator may uses the option to log into a customized admin pag
 
 ## Manual Testing
 
-Xx
+<details>
+<summary>Links & Modals</summary>
+<br>
+
+| Test | Result  |
+|--|--|
+| Clicking on the Logo opens the main landing page | Pass |
+| Clicking on the Theme Toggle Button switch dark/light mode | Pass |
+| Clicking on the Edit Board Link opens the Edit Board Link page | Pass |
+| Clicking on the Logout Link returns the user to the account screen | Pass |
+| Clicking on the Add Board Link opens the Add Board Link page | Pass |
+| Clicking on the Archive Task Button archives the current Task | Pass |
+| Clicking on the Delete Task Button opens the Delete Task modal | Pass |
+| Clicking on the Board Switch Button switches the user to the selected board | Pass |
+| Clicking on the Footer link open the authors GitHub Page | Pass |
+
+</details>
+<br>
+<details>
+<summary>App Core Functionality - Creating & Editing Boards</summary>
+<br>
+
+| Test | Result  |
+|--|--|
+| Users cannot enter invalid text for Board Names | Pass |
+| Users cannot enter invalid text for Column Names | Pass |
+| Users cannot enter invalid text for Label Names | Pass |
+| Users cannot have duplicate Board Names | Pass |
+| Users cannot enter invalid text for Column Names | Pass |
+| User cannot delete existing Columns | Pass |
+| Users cannot add new Columns with a duplicate name | Pass |
+| Users cannot delete existing Labels | Pass |
+
+</details>
+<br>
+<details>
+<summary>App Core Functionality - Creating and Editing Tasks</summary>
+<br>
+
+| Test | Result  |
+|--|--|
+| Users cannot create tasks with titles longer than 100 characters | Pass |
+| Users can create tasks without priority or subtasks, but not without status (column) | Pass |
+| Tasks moved by drag and drop update their status | Pass |
+| Tasks in the final column always receive a completed check | Pass |
+| Tasks stay in their respective column after drag and drop | Pass |
+| Tsks stay in their column vertical position after drag and drop | Pass |
+
+</details>
+<br>
+<details>
+<summary>App Core Functionality - Search</summary>
+<br>
+
+| Test | Result  |
+|--|--|
+| Search results are accurate | Pass |
+| Archived tasks are included in the search results | Pass |
+
+</details>
+
+<br>
+<details>
+<summary>Testing For Responsiveness</summary>
+<br>
+
+| Test | Result |
+|--|--|
+|App displays correctly on screens between 320px & 479px |Pass|
+|App displays correctly on screens between 480px & 767px |Pass|
+|App displays correctly on screens between 768px & 1199px |Pass|
+|App displays correctly on screens 1200px and larger |Pass|
+
+</details>
+
+<br>
+<details>
+<summary>Cross Browser Testing</summary>
+<br>
+
+| Browser | Resolution | Result | Issues |
+|--|--|--|--|
+|Chrome|1200px|Very Good|None|
+|Edge|1200px|Very Good|None|
+|Firefox|1200px|Very Good|None|
+|Safari|768px|Good|None|
+
+
+</details>
 
 ## Automated Testing
 
@@ -291,6 +376,7 @@ Nine automated tests were written and periodically ran during production. Tests 
 
 <details>
 <summary> Automated Testing </summary>
+<br>
 
 - main/test_views.py  
 > Tests the apps primary view by creating new instances of the of the Board, Column, Label, Task and Subtask Model and then populating the landing page with these created instances. The test then checks the response to see if all created instances are present.
@@ -336,6 +422,7 @@ The site was tested with Google Lighthouse using Chrome Developer Tools and the 
 
 <details>
 <summary> Bugs Details </summary>
+<br>
 
  -	**Social Login:** The Django AllAuth library is supposed to simplify the implementation of social login within a Django project. Due to a bug in the latest version of the library, for some obscure reason, the Google login option was not recognised once the site was deployed to Heroku. After a few hours of debugging, I discovered [someone else]( https://forum.djangoproject.com/t/django-allauth-refuse-to-recognize-google-socialaccount/31106) who had the same problem and solved it by downgrading AllAuth to a previous version. Following this advice solved the problem and the Google social login feature now works on the deployed website.
 
@@ -358,7 +445,7 @@ The site was tested with Google Lighthouse using Chrome Developer Tools and the 
 -	**Testing: Client login:** When writing unit tests, I kept running into HTML redirect problems which meant that the tests that required user login did not work. I was able to solve this using the Django test client login feature.
 
 </details>
-
+<br>
 
 # Deployment
 
@@ -366,7 +453,7 @@ These are the steps I followed to deploy the project to Heroku:
 
 <details>
 <summary> Deployment Steps </summary>
-
+<br>
 
 1.  I logged in to my existing Heroku account.
 
@@ -430,7 +517,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 16.	I then finally clicked Deploy Branch to deploy the project.
 
 </details>
-
+<br>
 
 # Links
 
