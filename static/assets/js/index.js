@@ -1,15 +1,26 @@
 $(function () {
 
-    // Update Add & Edit Task Button content when clicked
-    $('#submit-new-task').on('click', function() {
-        $(this).html(
+    // Update 'Add Task' Button content when form submitted
+    $('#add-new-task-form').on('submit', function() {
+        $('#submit-new-task').html(
         `<span>Adding...</span>
         <div class="spinner-border spinner-border-sm" role="status"></div>`)
-        $(this).attr('disabled', true)
-        $(this).css('background-color', 'grey')
-
+        $('#submit-new-task').attr('disabled', true)
+        $('#submit-new-task').css('background-color', 'grey')
     })
 
+    $('.edit-task-form').on('submit', function() {
+        $('.update-task-submit').html(
+        `<span>Updating...</span>
+        <div class="spinner-border spinner-border-sm" role="status"></div>`)
+        $('.update-task-submit').attr('disabled', true)
+        $('.update-task-submit').css('background-color', 'grey')
+    })
+
+
+
+
+    
     // Populate new Subtask input on add task Modal
     let IdCounter = 2;
     $('#add-new-subtask').on('click', function () {

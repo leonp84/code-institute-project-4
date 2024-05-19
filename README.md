@@ -65,7 +65,7 @@ Password: 	**taskflow12345**
 
 TaskFlow is a free, customizable and distraction free Kanban Web application that allows users to keep track of tasks related to a professional or personal project. The app has a minimalistic visual design with build in theme toggle, and allows users to customize their Kanban boards, columns and tasks as needed. 
 
-The app is fully responsive across all screen sizes, with the main design breakpoint at portrait tablet size (768px). By nature of its contents – a multi column board with tasks and drag and drop functionality – users will find the app works best on the larger screens of laptops or desktops, even though smaller screens have 100% the functionality of its larger counterparts.
+The app is fully responsive across all screen sizes, with the main design breakpoint at portrait tablet size (768px). By nature of its contents – a multi column board with tasks and drag and drop functionality – users will find the app works best on the larger screens of laptops or desktops, even though smaller screens have nearly all the functionality of its larger counterparts.
 
 
 # UX
@@ -127,7 +127,7 @@ TaskFlow provides users with a basic productivity tool to boost personal or prof
 
 1.	Make it easy for users to customize the display of their information and tasks, with custom board names, column names, task details and a colour coded labelling system.
 2.	Provide easy to use functionality for creating, editing, updating, and archiving of information.
-3.	Make use of drag and drop functionality for users to interact with their Kanban boards. This makes task interaction as frictionless as possible.
+3.	Make use of drag and drop functionality for users to interact with their Kanban boards. This makes task interaction as frictionless as possible, but works on non-mobile devices only.
 4.	Provide appealing, but modest visual design that makes the app easy to use and come back to.
 5.	Provide an easy-to-understand user interface with intuitive feedback on what the app can do. Essentially, a new user can open the app and (with some knowledge of the Kanban task system), be able to use the app straight away.
 

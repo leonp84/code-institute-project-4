@@ -7,4 +7,5 @@ urlpatterns = [
     path('accounts/', include('allauth.socialaccount.urls')),
     path('', include('main.urls')),
     re_path('task/', include('task.urls')),
+    path("__debug__/", include("debug_toolbar.urls")),
 ]
