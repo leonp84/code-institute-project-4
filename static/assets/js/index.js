@@ -1,5 +1,15 @@
 $(function () {
 
+    // Update Add & Edit Task Button content when clicked
+    $('#submit-new-task').on('click', function() {
+        $(this).html(
+        `<span>Adding...</span>
+        <div class="spinner-border spinner-border-sm" role="status"></div>`)
+        $(this).attr('disabled', true)
+        $(this).css('background-color', 'grey')
+
+    })
+
     // Populate new Subtask input on add task Modal
     let IdCounter = 2;
     $('#add-new-subtask').on('click', function () {

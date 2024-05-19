@@ -42,6 +42,7 @@ def index(request, display_board=None):
         )
 
 
+@login_required
 def create_new_board(request):
     '''
     Allows creation of one new instance of `main.Board`. Each instance
@@ -102,6 +103,7 @@ def create_new_board(request):
         )
 
 
+@login_required
 def edit_board(request, board_id=None):
     '''
     Allows editing of one existing instance of `main.Board`. Each instance
@@ -186,6 +188,7 @@ def edit_board(request, board_id=None):
         )
 
 
+@login_required
 def search(request, board_id):
     '''
     Allows a user to search through all instances of :model:`task.Task`
@@ -237,6 +240,7 @@ def search(request, board_id):
         )
 
 
+@login_required
 def create_initial_board(request):
     '''
     Relevant for newly created instances of :model:`auth.User`.
@@ -309,6 +313,7 @@ def create_initial_board(request):
     return HttpResponseRedirect(reverse('show_board', args=[first_board.id]))
 
 
+@login_required
 def update_status(request):
     '''
     Updates instances of :model:`task.Task` through asyncronous Javascript

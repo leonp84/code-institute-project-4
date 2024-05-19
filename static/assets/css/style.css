@@ -380,11 +380,35 @@ footer a:hover {
 .yellow { background-color: rgba(255, 255, 0, 0.5); border: 2px solid yellow; }
 .none { background-color: transparent }
 
-/* Customize appearance of Django Allauth account forms */
+/* Dealing with white buttons on white vs black backgrounds */
 
-.btn-light {
-    border: 1px solid black;
+.btn-light,
+.btn-outline-light {
+    --bs-btn-border-color: #000000;
+    --bs-btn-color: #000000;
+    --bs-btn-bg: ##fff;
 }
+
+.border-light,
+.text-light {
+    border-color: rgb(150, 150, 150) !important;
+    color: rgb(150, 150, 150) !important;
+}
+
+.dark .border-light,
+.dark .text-light {
+    border-color: white !important;
+    color: white !important;;
+}
+
+.dark .btn-light,
+.dark .btn-outline-light {
+    --bs-btn-border-color: #fff;
+    --bs-btn-color: #fff;
+    --bs-btn-bg: transparent;
+}
+
+/* Customize appearance of Django Allauth account forms */
 
 #intro-image {
     border-top-left-radius: 20px;
@@ -519,12 +543,6 @@ label[for="id_login"] {
 
 .dark .side-board {
     border-right: 3px solid rgb(99, 99, 99);
-}
-
-.dark .btn-light {
-    --bs-btn-color: #fff;
-    --bs-btn-border-color: #fff;
-    --bs-btn-bg: #414141;
 }
 
 .dark .side-board a,

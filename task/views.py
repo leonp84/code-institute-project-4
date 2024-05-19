@@ -1,10 +1,12 @@
 from django.shortcuts import HttpResponseRedirect, reverse
+from django.contrib.auth.decorators import login_required
 from datetime import datetime
 from .models import Task, Subtask
 from main.models import Board, Column, Label
 from .forms import CreateNewTaskForm
 
 
+@login_required
 def add_new_task(request, display_board=None):
     '''
     Creates a new instance of :model:`task.Task` and links it
@@ -52,6 +54,7 @@ def add_new_task(request, display_board=None):
     return HttpResponseRedirect(reverse('show_board', args=[display_board]))
 
 
+@login_required
 def edit_task(request, task_id=None):
     '''
     Allows editing of one instance of :model:`task.Task` and
@@ -107,6 +110,7 @@ def edit_task(request, task_id=None):
     return HttpResponseRedirect(reverse('show_board', args=[current_board.id]))
 
 
+@login_required
 def archive_task(request, task_id=None):
     '''
     Allows update of the task.archived field of one instance
@@ -132,6 +136,7 @@ def archive_task(request, task_id=None):
     return HttpResponseRedirect(reverse('show_board', args=[current_board.id]))
 
 
+@login_required
 def delete_task(request, task_id=None):
     '''
     Allows deletion of one instance of :model:`task.Task`.
