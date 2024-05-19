@@ -557,6 +557,7 @@ GitHub Repository: https://github.com/leonp84/code-institute-project-4/
 - For help with advanced Django template filtering: [Stack Overflow](https://stackoverflow.com/questions/739776/how-do-i-do-an-or-filter-in-a-django-query)
 - The official [Django documentation](https://docs.djangoproject.com/en/5.0/) helped a lot with understanding the `re_path` and `Client()` functionality.
 - Django docs for help with client login during testing
+- For help with optimising Django database queries to reduce loading times: [Sebastian Karasiewicz from SoftKraft](https://www.softkraft.co/django-speed-up-queries/)
 
 ## Media
 - UI design inspired by a FrontEndMentor project I build: [Entertainment Web App](https://github.com/leonp84/fm8-entertainment-web-app)

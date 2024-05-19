@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404  # noqa
 import json
 from .forms import CreateBoardForm
 from .models import Board, Column, Label
@@ -27,9 +28,17 @@ def index(request, display_board=None):
     if request.user.board_to_user.all().count() == 0:
         create_initial_board(request)
 
-    all_boards = Board.objects.filter(author=request.user)
+    # Using Django `.only()` to minimize database queries.
+    all_boards = Board.objects.only('title', 'id').filter(author=request.user)
     if display_board is not None:
-        current_board = Board.objects.all().filter(pk=display_board).first()
+        # Using Django `prefetch_related` to minimize database queries.
+        current_board = Board.objects.prefetch_related(
+            'column_to_board',
+            'column_to_board__task_to_column',
+            'column_to_board__task_to_column__label',
+            'column_to_board__task_to_column__subtask_to_task',
+            'label_to_board'
+        ).filter(id=display_board).first()
     else:
         current_board = Board.objects.filter(author=request.user).first()
 
