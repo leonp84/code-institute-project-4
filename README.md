@@ -4,7 +4,7 @@ Welcome to the Readme file for TaskFlow, a free customizable Kanban webapp built
 
 ![Site Screenshot](static/assets/images/readme-images/all-devices-white.webp)
 
-++ **[Link to Live Site](https://task-flow-kanban-c8cc3decb975.herokuapp.com/accounts/login/?next=/)** ++
+++ **[Link to Live Site](https://task-flow-kanban-00e35d8a382c.herokuapp.com/accounts/login/?next=/)** ++
 <br>
 
 **[Link to Github Project Board](https://github.com/users/leonp84/projects/3)**
@@ -419,10 +419,10 @@ Nine automated tests were written and periodically ran during production. Tests 
 ## Validator Testing
 
 - HTML | No errors were returned when passing through the official W3C validator. The results for the login page are below. The results for the main (index.html) page are also error free and can be checked manually.
-  - [index.html HTML Validator Results](https://validator.w3.org/nu/?doc=https%3A%2F%2Ftask-flow-kanban-c8cc3decb975.herokuapp.com%2Faccounts%2Flogin%2F%3Fnext%3D%2F)
+  - [index.html HTML Validator Results](https://validator.w3.org/nu/?doc=https%3A%2F%2Ftask-flow-kanban-00e35d8a382c.herokuapp.com%2Faccounts%2Flogin%2F%3Fnext%3D%2F)
 
 - CSS | No errors were returned when passing through the official W3C (Jigsaw) validator.
-  - [style.css Jigsaw Validator Results](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Ftask-flow-kanban-c8cc3decb975.herokuapp.com%2Fstatic%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
+  - [style.css Jigsaw Validator Results](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Ftask-flow-kanban-00e35d8a382c.herokuapp.com%2Fstatic%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
 - Javacscript | No errors were returned when passing the Javascript through the [JSHint](https://jshint.com/) validation tool.
 
@@ -538,7 +538,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Links
 
-Deployed Website: https://task-flow-kanban-c8cc3decb975.herokuapp.com/<br>
+Deployed Website: https://task-flow-kanban-00e35d8a382c.herokuapp.com/<br>
 GitHub Repository: https://github.com/leonp84/code-institute-project-4/
 
 # Credits

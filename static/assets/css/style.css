@@ -386,7 +386,7 @@ footer a:hover {
 .btn-outline-light {
     --bs-btn-border-color: #000000;
     --bs-btn-color: #000000;
-    --bs-btn-bg: ##fff;
+    --bs-btn-bg: #fff;
 }
 
 .border-light,
@@ -398,7 +398,7 @@ footer a:hover {
 .dark .border-light,
 .dark .text-light {
     border-color: white !important;
-    color: white !important;;
+    color: white !important;
 }
 
 .dark .btn-light,
