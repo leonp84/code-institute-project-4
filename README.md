@@ -227,6 +227,10 @@ The heart of any Kanban tool is the creating and tracking of tasks, and TaskFlow
 
 ![Create New Tasks](static/assets/images/readme-images/add-new-task.webp)
 
+*Built In Javascript Data Handling ensures users do not create tasks with duplicate titles*
+
+![Create No Duplicate Tasks](static/assets/images/readme-images/no-duplicate-tasks.png)
+
 ## Create Subtasks
 
 Each new task that is created can include any number of subtasks and users can choose the number and titles of these subtasks.
