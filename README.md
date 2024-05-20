@@ -74,51 +74,77 @@ The app is fully responsive across all screen sizes, with the main design breakp
 
 ### User
 
-User Story cards can be viewed on the [Github Project Board](https://github.com/users/leonp84/projects/3)
+All User Story cards can be viewed on the [Github Project Board](https://github.com/users/leonp84/projects/3)
 
+<hr>
+
+1. **[EPIC 1: User Management](https://github.com/leonp84/code-institute-project-4/issues/1)** - Features that allow users to securely log in to the app, have their personlized data displayed and securely stored, and log out again.
+<br>
 <details>
-<summary> User Stories </summary>
+<summary> User Stories for Epic: User Management</summary>
 <br>
 
-> #2 As a site user I can create a new account so that I can use the Kanban app.
+> [#2](https://github.com/leonp84/code-institute-project-4/issues/2) As a site user I can create a new account so that I can use the Kanban app.
 
-> #5 As a site user I can log in, and log out to have my personalised data displayed.
+> [#5](https://github.com/leonp84/code-institute-project-4/issues/5) As a site user I can log in, and log out to have my personalised data displayed.
 
-> #7 As a site user I can create a new empty Kanban board to set up my productivity system.
+> [#17](https://github.com/leonp84/code-institute-project-4/issues/17) As a site user I can use a social media site or other web service to log into the Kanban app.
 
-> #8 As a site user I can add new empty columns to my board to customize my project.
-
-> #9 As a site user I can create custom labels to use with my board to suit my project needs.
-
-> #10 As a site user, I can edit existing boards to remain flexible with project changes.
-
-> #11 As a site user, I can create new tasks within a board to keep track of my todos.
-
-> #12 As a site user, I can add subtasks to individual tasks to further break down what needs to be done.
-
-> #13 As a site user, I can add labels to individual tasks to customize my tasks.
-
-> #14 As a site user, I can update existing tasks to remain flexible when things change.
-
-> #15 As a site user I can archive completed tasks to prevent overcrowding on my boards.
-
-> #16 As a site user I can use drag and drop to move tasks between columns in a more intuitive way.
-
-> #17 As a site user I can use a social media site or other web service to log into the Kanban app.
-
-> #18 As a site user I can easily navigate the landing page so that it is easy to recognise and reorganise my boards.
-
-> #20 As a site user I can toggle a light/dark theme so that the site works best in both day and night conditions.
-
-> #21 As a site user I can search task content so that know where to find information when my boards get full.
 
 </details>
+<hr>
+
+2. **[EPIC 2: Board Management](https://github.com/leonp84/code-institute-project-4/issues/3)** - A set of features that allow users to create custom boards within the kanban app. Custom boards include custom columns and labels.
+<br>
+<details>
+<summary> User Stories for Epic: Board Management </summary>
+<br>
+
+
+> [#7](https://github.com/leonp84/code-institute-project-4/issues/7) As a site user I can create a new empty Kanban board to set up my productivity system.
+
+> [#8](https://github.com/leonp84/code-institute-project-4/issues/8) As a site user I can add new empty columns to my board to customize my project.
+
+> [#9](https://github.com/leonp84/code-institute-project-4/issues/9) As a site user I can create custom labels to use with my board to suit my project needs.
+
+> [#10](https://github.com/leonp84/code-institute-project-4/issues/10) As a site user, I can edit existing boards to remain flexible with project changes.
+
+> [#18](https://github.com/leonp84/code-institute-project-4/issues/18) As a site user I can easily navigate the landing page so that it is easy to recognise and reorganise my boards.
+
+> [#21](https://github.com/leonp84/code-institute-project-4/issues/21) As a site user I can search task content so that know where to find information when my boards get full.
+
+> [#20](https://github.com/leonp84/code-institute-project-4/issues/20) As a site user I can toggle a light/dark theme so that the site works best in both day and night conditions.
+
+</details>
+<hr>
+
+3. **[EPIC 3: Task Management](https://github.com/leonp84/code-institute-project-4/issues/4)** - A set of features that allow users to create tasks for their kanban boards, add labels, subtasks and other customization.
+<br>
+<details>
+<summary> User Stories for Epic: Task Management </summary>
+<br>
+
+
+> [#11](https://github.com/leonp84/code-institute-project-4/issues/11) As a site user, I can create new tasks within a board to keep track of my todos.
+
+> [#12](https://github.com/leonp84/code-institute-project-4/issues/12) As a site user, I can add subtasks to individual tasks to further break down what needs to be done.
+
+> [#13](https://github.com/leonp84/code-institute-project-4/issues/13) As a site user, I can add labels to individual tasks to customize my tasks.
+
+> [#14](https://github.com/leonp84/code-institute-project-4/issues/14) As a site user, I can update existing tasks to remain flexible when things change.
+
+> [#15](https://github.com/leonp84/code-institute-project-4/issues/15) As a site user I can archive completed tasks to prevent overcrowding on my boards.
+
+> [#16](https://github.com/leonp84/code-institute-project-4/issues/16) As a site user I can use drag and drop to move tasks between columns in a more intuitive way.
+
+</details>
+<hr>
 
 ### Site Administrator
 
-> #6 As a site admin I can keep track of registered accounts to see how the app is being utilised.
+> [#6](https://github.com/leonp84/code-institute-project-4/issues/6) As a site admin I can keep track of registered accounts to see how the app is being utilised.
 
-> #22 As a site admin I can track of open and closed tasks on boards so that I have an overview of app usage and user project statistics.
+> [#22](https://github.com/leonp84/code-institute-project-4/issues/22) As a site admin I can track of open and closed tasks on boards so that I have an overview of app usage and user project statistics.
 
 
 ## Site Concept

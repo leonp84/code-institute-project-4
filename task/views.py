@@ -51,7 +51,8 @@ def add_new_task(request, display_board=None):
             new_label = Label.objects.filter(id=id).first()
             new_task.label.add(new_label)
 
-    return HttpResponseRedirect(reverse('show_board', args=[display_board]))
+    return HttpResponseRedirect(reverse(
+        'show_board', args=[display_board, 'new_task']))
 
 
 @login_required
@@ -107,7 +108,8 @@ def edit_task(request, task_id=None):
         new_label = Label.objects.filter(id=id).first()
         task_to_edit.label.add(new_label)
 
-    return HttpResponseRedirect(reverse('show_board', args=[current_board.id]))
+    return HttpResponseRedirect(reverse(
+        'show_board', args=[current_board.id, 'update_task']))
 
 
 @login_required
@@ -133,7 +135,8 @@ def archive_task(request, task_id=None):
     current_board.has_archived_tasks = True
     current_board.save()
 
-    return HttpResponseRedirect(reverse('show_board', args=[current_board.id]))
+    return HttpResponseRedirect(reverse(
+        'show_board', args=[current_board.id, 'archive_task']))
 
 
 @login_required
@@ -154,4 +157,5 @@ def delete_task(request, task_id=None):
         id=task_to_delete.column.board.id).first()
     task_to_delete.delete()
 
-    return HttpResponseRedirect(reverse('show_board', args=[current_board.id]))
+    return HttpResponseRedirect(reverse(
+        'show_board', args=[current_board.id, 'delete_task']))

@@ -9,7 +9,7 @@ from task.models import Task
 
 
 @login_required
-def index(request, display_board=None):
+def index(request, display_board=None, message=None):
     '''
     Populates the main landing page with the currently selected instance
     of :model:`main.Board` and its accompanying information.
@@ -22,6 +22,9 @@ def index(request, display_board=None):
     ```home```
         A boolean variable instructing the template to display navbar
         links relevant to the home page.
+    ```home```
+        A string variable that instructs the landing page template to
+        display messages whenever tasks have been added or updated.
     **Template**
         template:`main/index.html`
     '''
@@ -47,7 +50,8 @@ def index(request, display_board=None):
         'main/index.html',
         {'all_boards': all_boards,
          'board': current_board,
-         'home': True}
+         'home': True,
+         'message': message}
         )
 
 
@@ -187,7 +191,8 @@ def edit_board(request, board_id=None):
                 )
                 new_label.save()
 
-        return HttpResponseRedirect(reverse('show_board', args=[board_id]))
+        return HttpResponseRedirect(reverse(
+            'show_board', args=[board_id, 'board_updated']))
 
     return render(
         request,
