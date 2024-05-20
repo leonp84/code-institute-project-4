@@ -454,7 +454,7 @@ Nine automated tests were written and periodically ran during production. Tests 
 - CSS | No errors were returned when passing through the official W3C (Jigsaw) validator.
   - [style.css Jigsaw Validator Results](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Ftask-flow-kanban-00e35d8a382c.herokuapp.com%2Fstatic%2Fassets%2Fcss%2Fstyle.css&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en)
 
-- Javacscript | No errors were returned when passing the Javascript through the [JSHint](https://jshint.com/) validation tool.
+- Javacscript | Almost no errors were returned when passing the Javascript through the [JSHint](https://jshint.com/) validation tool. On `index.js`two warnings were given regarding functions declared within loops referencing an outer scoped variable. Since this dealt with the Django CSFR token declared elsewhere in the HTML page, I deemed it acceptable.
 
 - Python | No errors were found when passing the edited Django Python files through the [CI Python Linter](https://pep8ci.herokuapp.com/)
 

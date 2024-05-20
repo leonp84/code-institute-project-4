@@ -4,33 +4,34 @@ $(function () {
     $('#add-new-task-form').on('submit', function() {
         $('#submit-new-task').html(
         `<span>Adding...</span>
-        <div class="spinner-border spinner-border-sm" role="status"></div>`)
-        $('#submit-new-task').attr('disabled', true)
-        $('#submit-new-task').css('background-color', 'grey')
-    })
+        <div class="spinner-border spinner-border-sm" role="status"></div>`);
+        $('#submit-new-task').attr('disabled', true);
+        $('#submit-new-task').css('background-color', 'grey');
+    });
 
     $('.edit-task-form').on('submit', function() {
         $('.update-task-submit').html(
         `<span>Updating...</span>
-        <div class="spinner-border spinner-border-sm" role="status"></div>`)
-        $('.update-task-submit').attr('disabled', true)
-        $('.update-task-submit').css('background-color', 'grey')
-    })
+        <div class="spinner-border spinner-border-sm" role="status"></div>`);
+        $('.update-task-submit').attr('disabled', true);
+        $('.update-task-submit').css('background-color', 'grey');
+    });
 
     // Auto close Alerts after Task & Board Model CRUD
-    if('.alert') {
-        let sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
-        async function updateAlertDismissal() {
+    async function updateAlertDismissal() {
+        if('.alert') {
+            let sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
             for (let i = 180; i >= 0; i--) {
-                $('.alert').find('.progress-bar').css('width', i)
-                $('.alert').find('.progress-bar').attr('aria-valuenow', i)
-                await sleepNow(30)
+                $('.alert').find('.progress-bar').css('width', i);
+                $('.alert').find('.progress-bar').attr('aria-valuenow', i);
+                await sleepNow(30);
                 }
-            $('.alert').hide()
+            $('.alert').hide();
             }
-        updateAlertDismissal()
+        
         }
-
+        
+    updateAlertDismissal();
     // Populate new Subtask input on add task Modal
     let IdCounter = 2;
     $('#add-new-subtask').on('click', function () {
