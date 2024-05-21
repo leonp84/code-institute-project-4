@@ -30,9 +30,9 @@ def add_new_task(request, display_board=None):
 
         # Add Task Column
         task_to_column = request.POST.get('status')
-
         new_task.column = Column.objects.filter(id=task_to_column).first()
         new_task.completed = False
+        new_task.column_position = 99
         new_task.save()
 
         # Add Task Subtasks

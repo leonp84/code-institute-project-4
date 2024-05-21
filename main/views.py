@@ -259,7 +259,7 @@ def create_initial_board(request):
     '''
     Relevant for newly created instances of :model:`auth.User`.
     Newly registered users do not start with empty Boards, instead, this
-    view generates initial models for the landing page. It creates the 
+    view generates initial models for the landing page. It creates the
     following instances:
     :model:`main.Board` x 1
     :model:`main.Column` x 3
@@ -339,12 +339,12 @@ def update_status(request):
     '''
     if request.method == 'POST':
         data = json.load(request)
-        new_column = data['newColumnName']
+        new_column_id = data['newColumnId']
         tasks_in_column = data['tasksInColumn']
 
     for i in range(len(tasks_in_column)):
-        task_to_update = Task.objects.filter(title=tasks_in_column[i]).first()
-        task_to_update.column = Column.objects.filter(title=new_column).first()
+        task_to_update = Task.objects.filter(id=tasks_in_column[i]).first()
+        task_to_update.column = Column.objects.filter(id=new_column_id).first()
         task_to_update.column_position = i
         task_to_update.save()
 

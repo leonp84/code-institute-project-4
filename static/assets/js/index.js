@@ -98,7 +98,7 @@ $(function () {
 
             // Send Ajax request to Python backend with task names and new column title
             let tasksInColumn = [];
-            $(this).parent().find('.task-title').each(function () {
+            $(this).parent().find('.task-id').each(function () {
                 tasksInColumn.push($(this).text());
             });
 
@@ -107,7 +107,7 @@ $(function () {
                 url: "/update_status/",
                 type: "POST",
                 data: JSON.stringify({
-                    'newColumnName': newColumnName,
+                    'newColumnId': newColumnId,
                     'tasksInColumn': tasksInColumn
                 }),
                 dataType: "json",

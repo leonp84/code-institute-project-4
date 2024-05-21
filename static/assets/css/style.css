@@ -182,7 +182,20 @@ nav {
     height: 96%;
     margin: 0 5px;
     white-space: nowrap;
-    overflow: auto;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-color: rgba(75, 101, 140, 0.618) transparent;
+    scrollbar-width: thin;
+}
+
+.column::-webkit-scrollbar {
+    background-color: transparent;
+    width: 2px;
+}
+
+.column::-webkit-scrollbar-thumb {
+    background-color: rgba(75, 101, 140, 0.618);
+    width: 2px;
 }
 
 .column-heading {
