@@ -441,6 +441,11 @@ Nine automated tests were written and periodically ran during production. Tests 
 -  task/test_forms.py
 > Tests the functionality of the Task creation form.
 
+
+The Python *[Coverage](https://coverage.readthedocs.io/en/7.5.1/)* library is showing a total automated test covering of 78% for the app. That takes into account all files for the entire application, though the view and models files by themselves have lower coverage.
+
+![Automated Tests Coverage for TaskFlow](static/assets/images/readme-images/test-coverage.webp)
+
 </details>
 
 
