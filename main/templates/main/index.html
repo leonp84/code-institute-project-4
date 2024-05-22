@@ -196,46 +196,32 @@
 
     {% endfor %}
 
+
 <!-- Alert Messages when tasks created, updated, archived or deleted -->
 {% if message == 'new_task' %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>New Task Added</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <div class="progress mt-1">
-        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="180" aria-valuemin="0" aria-valuemax="180"></div>
-    </div>
 </div>
 {% elif message == 'update_task' %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
+<div class="alert alert-success alert-dismissible fade show" role="alert" data-bs-autohide="true" data-bs-delay="3000">
     <strong>Task Updated</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <div class="progress mt-1">
-        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="180" aria-valuemin="0" aria-valuemax="180"></div>
-    </div>
 </div>
 {% elif message == 'archive_task' %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Task Archived</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <div class="progress mt-1">
-        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="180" aria-valuemin="0" aria-valuemax="180"></div>
-    </div>
 </div>
 {% elif message == 'delete_task' %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Task Deleted</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <div class="progress mt-1">
-        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="180" aria-valuemin="0" aria-valuemax="180"></div>
-    </div>
 </div>
 {% elif message == 'board_updated' %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Board Updated</strong>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    <div class="progress mt-1">
-        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="180" aria-valuemin="0" aria-valuemax="180"></div>
-    </div>
 </div>
 {% endif %}
 

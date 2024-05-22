@@ -16,22 +16,7 @@ $(function () {
         $('.update-task-submit').attr('disabled', true);
         $('.update-task-submit').css('background-color', 'grey');
     });
-
-    // Auto close Alerts after Task & Board Model CRUD
-    async function updateAlertDismissal() {
-        if('.alert') {
-            let sleepNow = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
-            for (let i = 180; i >= 0; i--) {
-                $('.alert').find('.progress-bar').css('width', i);
-                $('.alert').find('.progress-bar').attr('aria-valuenow', i);
-                await sleepNow(30);
-                }
-            $('.alert').hide();
-            }
-        
-        }
-        
-    updateAlertDismissal();
+       
     // Populate new Subtask input on add task Modal
     let IdCounter = 2;
     $('#add-new-subtask').on('click', function () {
