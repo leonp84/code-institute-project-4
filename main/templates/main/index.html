@@ -148,18 +148,18 @@
 
                             {% if task.archived == False %}
                             <div id="completed-check-{{task.id}}" {% if column.id != board.column_to_board.last.id%}style ="display: none"{% endif %}>
-                            <div class="task-completed-check" {% if column.id != board.column_to_board.last.id %}style="display: none"{% endif %}></div>
-                                <div class="task-completed-check task-completed-check-modal">
+                            <div class="task-completed-check" {% if column.id != board.column_to_board.last.id %}style="display: none"{% endif %} draggable="false"></div>
+                                <div class="task-completed-check task-completed-check-modal" draggable="false">
                                     &#10003;
                                 </div>
-                            <a class="btn btn-success" href="{% url 'archive_task' task.id %}" role="button">Archive
+                            <a class="btn btn-success" href="{% url 'archive_task' task.id %}" role="button"  draggable="false">Archive
                                 Task</a>
                             </div>
                             <button type="submit" class="btn btn-primary update-task-submit">Update Task</button>
                             <button type="button" class="btn btn-danger" data-bs-target="#delete-modal-{{ task.id }}"
                                 data-bs-toggle="modal" data-bs-dismiss="modal">Delete Task</button>
                             {% else %}
-                            <div class="task-completed-check task-completed-check-modal">
+                            <div class="task-completed-check task-completed-check-modal"  draggable="false">
                                 &#10003;
                             </div>
                             {% endif %}

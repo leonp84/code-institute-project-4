@@ -43,8 +43,8 @@ class Task(models.Model):
 
 class Subtask(models.Model):
     '''
-    Stores a Subtask and connects it to one specific instance 
-    of :model:`task.Task`, which in turn is connected to one specific 
+    Stores a Subtask and connects it to one specific instance
+    of :model:`task.Task`, which in turn is connected to one specific
     instance of :model:`main.Column`
     '''
     task = models.ForeignKey(Task, on_delete=models.CASCADE,

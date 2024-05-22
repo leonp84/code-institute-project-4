@@ -558,10 +558,12 @@ label[for="id_login"] {
     border: 2px solid rgb(99, 99, 99);
 }
 
+.dark .task-title-archived,
 .dark .task-title {
     color: rgb(225, 225, 225);
 }
 
+.dark .task-title-archived:hover,
 .dark .task-title:hover {
     color: var(--project-blue);
 }

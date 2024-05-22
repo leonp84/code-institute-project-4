@@ -4,18 +4,14 @@ Welcome to the Readme file for TaskFlow, a free customizable Kanban webapp built
 
 ![Site Screenshot](static/assets/images/readme-images/all-devices-white.webp)
 
+<br>
+
 ++ **[Link to Live Site](https://task-flow-kanban-00e35d8a382c.herokuapp.com/accounts/login/?next=/)** ++
+
 <br>
 
 **[Link to Github Project Board](https://github.com/users/leonp84/projects/3)**
 
-<hr>
-
-*For testing the application, please use the following login details:*
-
-Username: 	**admin**
-
-Password: 	**taskflow12345**
 <hr>
 
 # Table of Contents
@@ -306,6 +302,8 @@ Since this permanently removes the task, and associated subtasks, from the datab
 
 On any user board, a search functionality is available to search through the names and descriptions of all tasks currently on the board, including all archived tasks that are not visible on the board itself (but visible in a separate section). The search results are presented with tasks still in the columns they are currently sitting. As mentioned, archived tasks are included in the results, but clearly labelled.
 
+To keep task organization simple, drag and drop is *not* enabled on search pages. Users can return to their main board display if they want to rearrange the position of found tasks.
+
 ![Search Tasks](static/assets/images/readme-images/search-tasks.webp)
 
 
@@ -331,17 +329,18 @@ The app’s administrator may log into a customized admin page where statistics 
 <summary>Links & Modals</summary>
 <br>
 
-| Test | Result  |
-|--|--|
-| Clicking on the Logo opens the main landing page | Pass |
-| Clicking on the Theme Toggle Button switch dark/light mode | Pass |
-| Clicking on the Edit Board Link opens the Edit Board Link page | Pass |
-| Clicking on the Logout Link returns the user to the account screen | Pass |
-| Clicking on the Add Board Link opens the Add Board Link page | Pass |
-| Clicking on the Archive Task Button archives the current Task | Pass |
-| Clicking on the Delete Task Button opens the Delete Task modal | Pass |
-| Clicking on the Board Switch Button switches the user to the selected board | Pass |
-| Clicking on the Footer link open the authors GitHub Page | Pass |
+| What will be Tested? | Expected Outcome | Test Procedure | Result |
+|--|--|--|--|
+|App Logo| Clicking on the Logo opens the main landing page |Click on the Logo on every page | Pass |
+|Theme Toggle Button| Clicking on the Theme Toggle Button switches between dark/light mode |Click on the Theme Toggle Button| Pass |
+|Edit Board Link| Clicking on the Edit Board Link opens the Edit Board page |Click on the Edit Board Link| Pass |
+|Logout Link| Clicking on the Logout Link returns the user to the account screen |Click on the Logout Link| Pass |
+|Add Board Link| Clicking on the Add Board Link opens the Board Creation page |Click on the Add Board Link| Pass |
+|Archive Task Button| Clicking on the Archive Task Button archives the current Task |Click on the Archive Task Button| Pass |
+|Delete Task Button| Clicking on the Delete Task Button opens the Delete Task modal |Click on the Delete Task Button| Pass |
+|Delete Task Modal| Clicking on the Delete Task Button on the Delete Modal, deletes the task |Click on the (Modal's) Delete Task Button| Pass |
+|Board Switch Button| Clicking on the Board Switch Button switches the user to the selected board |Click on the Board Switch Button of a different board| Pass |
+|Footer link| Clicking on the Footer link open the authors GitHub Page |Click on the Footer link on every page| Pass |
 
 </details>
 <br>
@@ -349,16 +348,15 @@ The app’s administrator may log into a customized admin page where statistics 
 <summary>App Core Functionality - Creating & Editing Boards</summary>
 <br>
 
-| Test | Result  |
-|--|--|
-| Users cannot enter invalid text for Board Names | Pass |
-| Users cannot enter invalid text for Column Names | Pass |
-| Users cannot enter invalid text for Label Names | Pass |
-| Users cannot have duplicate Board Names | Pass |
-| Users cannot enter invalid text for Column Names | Pass |
-| User cannot delete existing Columns | Pass |
-| Users cannot add new Columns with a duplicate name | Pass |
-| Users cannot delete existing Labels | Pass |
+| What will be Tested? | Expected Outcome | Test Procedure | Result |
+|--|--|--|--|
+|Board Creation Process| Users cannot enter invalid text for Board Names |Try to create a board with a name of " "| Pass |
+|Board Creation Process| Users cannot have duplicate Board Names |Try to create a board with the name of another, existing board| Pass |
+|Column Creation Process| Users cannot enter invalid text for Column Names |Try to create a column with a name of " "| Pass |
+|Column Creation Process| User cannot delete existing Columns |Try to delete an existing column with the 'Remove Column' button| Pass |
+|Column Creation Process| Users cannot add new Columns with a duplicate name |Try to create a column with the name of another, existing column (in this board)| Pass |
+|Label Creation Process| Users cannot enter invalid text for Label Names |Try to create a label with a name of " "| Pass |
+|Label Creation Process| Users cannot delete existing Labels |Try to delete an existing label with the 'Remove Label' button| Pass |
 
 </details>
 <br>
@@ -366,14 +364,14 @@ The app’s administrator may log into a customized admin page where statistics 
 <summary>App Core Functionality - Creating and Editing Tasks</summary>
 <br>
 
-| Test | Result  |
-|--|--|
-| Users cannot create tasks with titles longer than 100 characters | Pass |
-| Users can create tasks without priority or subtasks, but not without status (column) | Pass |
-| Tasks moved by drag and drop update their status | Pass |
-| Tasks in the final column always receive a completed check | Pass |
-| Tasks stay in their respective column after drag and drop | Pass |
-| Tsks stay in their column vertical position after drag and drop | Pass |
+| What will be Tested? | Expected Outcome | Test Procedure | Result |
+|--|--|--|--|
+|Task Creation Modal| Users cannot create tasks with titles longer than 100 characters |Try to create a task with 101 characters in the title| Pass |
+|Task Creation Modal| Users can create tasks without priority or subtasks, but not without status (column) |Try to create a task without priority and subtask| Pass |
+|Task Completion Visual Update| Tasks in the final column always receive a completed check |Manually move 3 tasks in and out of the final column| Pass |
+|Drag & Drop| Tasks moved by drag and drop update their status |Move tasks with the mouse and reload the page| Pass |
+|Drag & Drop| Tasks stay in their respective column after drag and drop |Move tasks with the mouse and reload the page| Pass |
+|Drag & Drop| Tasks stay in their column vertical position after drag and drop |Move tasks with the mouse and reload the page| Pass |
 
 </details>
 <br>
@@ -381,10 +379,10 @@ The app’s administrator may log into a customized admin page where statistics 
 <summary>App Core Functionality - Search</summary>
 <br>
 
-| Test | Result  |
-|--|--|
-| Search results are accurate | Pass |
-| Archived tasks are included in the search results | Pass |
+| What will be Tested? | Expected Outcome | Test Procedure | Result |
+|--|--|--|--|
+|Search Results Contents| Search results are accurate |Manually check search query against results| Pass |
+|Archived Tasks & Search| Archived tasks are included in the search results |Search for a task that has been archived| Pass |
 
 </details>
 
