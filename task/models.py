@@ -4,7 +4,7 @@ from main.models import Label, Column
 
 class Task(models.Model):
     '''
-    Stores a Task and connects it to one specific instance 
+    Stores a Task and connects it to one specific instance
     of :model:`main.Column`, which in turn is connected
     to one specific instance of :model:`main.Board`
     '''
